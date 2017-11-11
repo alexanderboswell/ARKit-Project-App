@@ -9,10 +9,30 @@
 import UIKit
 
 class MainScreenViewController: UIViewController {
-
-    @IBAction func showSolarSystem(_ sender: Any) {
-        performSegue(withIdentifier: "showSolarSystemSegue", sender: sender)
-    }
+    
+    let solarSystemItems = ["Solar System", "Sun", "Moon", "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
     
 
+}
+
+extension MainScreenViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //
+    }
+    
+}
+
+extension MainScreenViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return solarSystemItems.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "planetCell", for: indexPath)
+        cell.textLabel?.text = solarSystemItems[indexPath.row]
+        return cell
+    }
+    
 }

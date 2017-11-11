@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U3d-T1-LoV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U3d-T1-LoV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Main Screen View Controller-->
+        <!--Main Menu-->
         <scene sceneID="fph-fN-PGj">
             <objects>
                 <viewController id="h9A-TU-EKS" customClass="MainScreenViewController" customModule="ARKit_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,33 +18,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tzd-3R-dU8">
-                                <rect key="frame" x="40" y="283" width="295" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="CEL-Ig-0Tg"/>
-                                </constraints>
-                                <inset key="contentEdgeInsets" minX="20" minY="20" maxX="20" maxY="20"/>
-                                <state key="normal" title="Launch!"/>
-                                <connections>
-                                    <action selector="showSolarSystem:" destination="h9A-TU-EKS" eventType="touchUpInside" id="v5E-6m-9nm"/>
-                                </connections>
-                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bld-eQ-Lo9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="planetCell" id="l8W-ja-N3T">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l8W-ja-N3T" id="GbY-k8-m5y">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="GKs-FX-vqj" firstAttribute="trailing" secondItem="tzd-3R-dU8" secondAttribute="trailing" constant="40" id="35u-4Z-70O"/>
-                            <constraint firstItem="tzd-3R-dU8" firstAttribute="leading" secondItem="GKs-FX-vqj" secondAttribute="leading" constant="40" id="D39-1Z-uGF"/>
-                            <constraint firstItem="tzd-3R-dU8" firstAttribute="centerY" secondItem="a8f-sm-rp0" secondAttribute="centerY" id="PgR-mK-aL3"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="GKs-FX-vqj"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Main Menu" id="nbR-6w-KNr"/>
                     <connections>
+                        <outlet property="solarSystemTableView" destination="Bld-eQ-Lo9" id="IGZ-bz-AYL"/>
                         <segue destination="BV1-FR-VrT" kind="show" identifier="showSolarSystemSegue" id="XXv-D8-Pz4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5TF-Bh-gg6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-593" y="112"/>
+            <point key="canvasLocation" x="-144.80000000000001" y="111.99400299850076"/>
         </scene>
         <!--Launch View Controller-->
         <scene sceneID="XkZ-TV-lzI">
@@ -60,10 +61,10 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XyZ-ou-XJn">
                                 <rect key="frame" x="159.5" y="318.5" width="55" height="30"/>
                                 <state key="normal" title="Launch!">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="h9A-TU-EKS" kind="show" id="mW7-Xa-orO"/>
+                                    <segue destination="SL5-fB-QYq" kind="show" id="mW7-Xa-orO"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -84,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="POl-jk-6Tf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1390" y="112"/>
+            <point key="canvasLocation" x="-1946" y="112"/>
         </scene>
         <!--Solar System View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -100,7 +101,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="446" y="112"/>
+            <point key="canvasLocation" x="898" y="-897"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7Wt-Hj-syN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SL5-fB-QYq" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jOW-eH-4yo">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="h9A-TU-EKS" kind="relationship" relationship="rootViewController" id="eCi-B2-8f4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XX3-tk-Eno" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1010" y="112"/>
         </scene>
     </scenes>
 </document>
