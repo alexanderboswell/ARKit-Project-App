@@ -37,6 +37,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E32F16C1FB7A2CB000CCDFA /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F3A2AFA11FB76D0300986795 /* Info.plist */,
+				F3A2AF9E1FB76D0300986795 /* LaunchScreen.storyboard */,
+				F3A2AF931FB76D0300986795 /* AppDelegate.swift */,
+				F3A2AF9C1FB76D0300986795 /* Assets.xcassets */,
+				F3A2AF951FB76D0300986795 /* art.scnassets */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		5E32F16D1FB7A2D7000CCDFA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F3A2AF971FB76D0300986795 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		5E32F16E1FB7A2E0000CCDFA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F3A2AF991FB76D0300986795 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5E32F16F1FB7A2E6000CCDFA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		F3A2AF871FB76D0300986795 = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +91,10 @@
 		F3A2AF921FB76D0300986795 /* ARKit Project */ = {
 			isa = PBXGroup;
 			children = (
-				F3A2AF931FB76D0300986795 /* AppDelegate.swift */,
-				F3A2AF951FB76D0300986795 /* art.scnassets */,
-				F3A2AF971FB76D0300986795 /* ViewController.swift */,
-				F3A2AF991FB76D0300986795 /* Main.storyboard */,
-				F3A2AF9C1FB76D0300986795 /* Assets.xcassets */,
-				F3A2AF9E1FB76D0300986795 /* LaunchScreen.storyboard */,
-				F3A2AFA11FB76D0300986795 /* Info.plist */,
+				5E32F16C1FB7A2CB000CCDFA /* Shared */,
+				5E32F16F1FB7A2E6000CCDFA /* Model */,
+				5E32F16E1FB7A2E0000CCDFA /* View */,
+				5E32F16D1FB7A2D7000CCDFA /* Controller */,
 			);
 			path = "ARKit Project";
 			sourceTree = "<group>";
