@@ -22,14 +22,17 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
-        
+	
         // Create a new scene
         let scene = SCNScene(named: "art.scnassets/solar_system.scn")!
         
         // Set the scene to the view
         sceneView.scene = scene
+		
     }
-    
+	@IBAction func tap(_ sender: UITapGestureRecognizer) {
+	}
+	
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -51,7 +54,6 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
     }
-
     // MARK: - ARSCNViewDelegate
     
 /*
