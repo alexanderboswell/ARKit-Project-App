@@ -7,19 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E6512761FB7B47500C5B585 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */; };
 		F3A2AF941FB76D0300986795 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A2AF931FB76D0300986795 /* AppDelegate.swift */; };
 		F3A2AF961FB76D0300986795 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF951FB76D0300986795 /* art.scnassets */; };
-		F3A2AF981FB76D0300986795 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A2AF971FB76D0300986795 /* ViewController.swift */; };
+		F3A2AF981FB76D0300986795 /* SolarSystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A2AF971FB76D0300986795 /* SolarSystemViewController.swift */; };
 		F3A2AF9B1FB76D0300986795 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF991FB76D0300986795 /* Main.storyboard */; };
 		F3A2AF9D1FB76D0300986795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF9C1FB76D0300986795 /* Assets.xcassets */; };
 		F3A2AFA01FB76D0300986795 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF9E1FB76D0300986795 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		F3A2AF901FB76D0300986795 /* ARKit Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ARKit Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3A2AF931FB76D0300986795 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3A2AF951FB76D0300986795 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		F3A2AF971FB76D0300986795 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F3A2AF971FB76D0300986795 /* SolarSystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSystemViewController.swift; sourceTree = "<group>"; };
 		F3A2AF9A1FB76D0300986795 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F3A2AF9C1FB76D0300986795 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3A2AF9F1FB76D0300986795 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -52,7 +54,8 @@
 		5E32F16D1FB7A2D7000CCDFA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				F3A2AF971FB76D0300986795 /* ViewController.swift */,
+				F3A2AF971FB76D0300986795 /* SolarSystemViewController.swift */,
+				5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -65,7 +68,7 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		5E32F16F1FB7A2E6000CCDFA /* Model */ = {
+		5E6512741FB7B40200C5B585 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -92,7 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				5E32F16C1FB7A2CB000CCDFA /* Shared */,
-				5E32F16F1FB7A2E6000CCDFA /* Model */,
+				5E6512741FB7B40200C5B585 /* Model */,
 				5E32F16E1FB7A2E0000CCDFA /* View */,
 				5E32F16D1FB7A2D7000CCDFA /* Controller */,
 			);
@@ -172,8 +175,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3A2AF981FB76D0300986795 /* ViewController.swift in Sources */,
+				F3A2AF981FB76D0300986795 /* SolarSystemViewController.swift in Sources */,
 				F3A2AF941FB76D0300986795 /* AppDelegate.swift in Sources */,
+				5E6512761FB7B47500C5B585 /* MainScreenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,7 +315,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A6N8P4N2HZ;
+				DEVELOPMENT_TEAM = G5P88J4SPW;
 				INFOPLIST_FILE = "ARKit Project/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bozzy.ARKit-Project";
@@ -326,7 +330,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = A6N8P4N2HZ;
+				DEVELOPMENT_TEAM = G5P88J4SPW;
 				INFOPLIST_FILE = "ARKit Project/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bozzy.ARKit-Project";
