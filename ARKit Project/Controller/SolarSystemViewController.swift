@@ -44,16 +44,19 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 			if let tappedNode = hits.first?.node {
 				print(tappedNode.name ?? "")
 				if tappedNode.name != "torus" {
-					guard let pointOfView = sceneView.pointOfView else { return }
+					let text = SCNText(string: "\(tappedNode.name ?? "")>", extrusionDepth: 1)
 					
-					let text = SCNText(string: tappedNode.name ?? "", extrusionDepth: 1)
-					
-					let textNode = SCNNode(geometry: text)
-					textNode.geometry = text
-					textNode.position = SCNVector3Make(textNode.position.x + tappedNode.position.x , textNode.position.y + tappedNode.position.y, textNode.position.z + tappedNode.position.z)
-					//					textNode.boundingBox
-					sceneView.scene.rootNode.addChildNode(textNode)
+					let material = SCNMaterial()
+					material.diffuse.contents = UIColor.lightGray
+					text.materials = [material]
+					let node = SCNNode()
+					node.name = "Label"
+					node.position = SCNVector3(x:tappedNode.position.x - Float(text.containerFrame.width / 2), y:tappedNode.position.y, z:tappedNode.position.z)
+					node.scale = SCNVector3(x: 0.02,y: 0.02,z: 0.02)
+					node.geometry = text
+					sceneView.scene.rootNode.addChildNode(node)
 				}
+				
 			}
 		}
 	}
