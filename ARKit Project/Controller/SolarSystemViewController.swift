@@ -15,12 +15,23 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 	@IBOutlet var sceneView: ARSCNView!
 	var fileName: String!
 	
+	var dict = ["Earth": ["""
+		Equatorial Diameter:      12,756 km
+		Polar Diameter: 12,714 km
+		Mass:    5.97 x 10^24 kg
+		Moons: 1 (The Moon)
+		Orbit Distance:  149,598,262 km (1 AU)
+		Orbit Period:      365.24 days
+		Surface Temperature:    -88 to 58°C
+	""",""]]
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		// Set the view's delegate
 		sceneView.delegate = self
 		
+		title = fileName
+
 		// Show statistics such as fps and timing information
 		sceneView.showsStatistics = true
 		
@@ -33,10 +44,24 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 		// Set the scene to the view
 		sceneView.scene = scene
 		
+		if fileName != "SolarSystem" {
+			if let planetNode = sceneView.scene.rootNode.childNode(withName: "sphere", recursively: true) {
+			let text = SCNText(string: dict[fileName]?[0], extrusionDepth: 1)
+			
+			let material = SCNMaterial()
+			material.diffuse.contents = UIColor.white
+			text.materials = [material]
+			let node = SCNNode()
+			node.name = "Label"
+				node.position = SCNVector3(x:(planetNode.geometry?.boundingBox.max.x)! - 0.3, y:(planetNode.position.y) - 0.3, z:(planetNode.position.z))
+				node.scale = SCNVector3(x: 0.02,y: 0.02,z: 0.02)
+			node.geometry = text
+			sceneView.scene.rootNode.addChildNode(node)
+			}
+		}
 	}
     
 	@IBAction func tap(_ sender: UITapGestureRecognizer) {
-		print("here")
 		if sender.state == UIGestureRecognizerState.recognized
 		{
 			let location: CGPoint = sender.location(in:sender.view) // for example from a tap gesture recognizer
@@ -47,7 +72,7 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 					let text = SCNText(string: "\(tappedNode.name ?? "")>", extrusionDepth: 1)
 					
 					let material = SCNMaterial()
-					material.diffuse.contents = UIColor.lightGray
+					material.diffuse.contents = UIColor.white
 					text.materials = [material]
 					let node = SCNNode()
 					node.name = "Label"
@@ -69,7 +94,6 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 		
 		// Create a session configuration
 		let configuration = ARWorldTrackingConfiguration()
-		
 		// Run the view's session
 		sceneView.session.run(configuration)
 	}

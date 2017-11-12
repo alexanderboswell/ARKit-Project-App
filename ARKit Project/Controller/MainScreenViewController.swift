@@ -11,7 +11,11 @@ import UIKit
 class MainScreenViewController: UIViewController {
     
     let solarSystemItems = ["Solar System", "Sun", "Moon", "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
-    
+	
+	override func viewWillAppear(_ animated: Bool) {
+		self.navigationController?.navigationBar.prefersLargeTitles = true
+	}
+	
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let solarSystemVC = segue.destination as? SolarSystemViewController, let fileName = sender as? String {
             solarSystemVC.fileName = fileName

@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U3d-T1-LoV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U3d-T1-LoV">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="GillSans.ttc">
+            <string>GillSans</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--Main Menu-->
+        <!--Models-->
         <scene sceneID="fph-fN-PGj">
             <objects>
                 <viewController id="h9A-TU-EKS" customClass="MainScreenViewController" customModule="ARKit_Project" customModuleProvider="target" sceneMemberID="viewController">
@@ -22,12 +27,21 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="planetCell" id="l8W-ja-N3T">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="planetCell" editingAccessoryType="disclosureIndicator" textLabel="eNe-qB-so8" style="IBUITableViewCellStyleDefault" id="l8W-ja-N3T">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l8W-ja-N3T" id="GbY-k8-m5y">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eNe-qB-so8">
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="28"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -46,7 +60,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GKs-FX-vqj"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Main Menu" id="nbR-6w-KNr"/>
+                    <navigationItem key="navigationItem" title="Models" id="nbR-6w-KNr"/>
                     <connections>
                         <segue destination="BV1-FR-VrT" kind="show" identifier="showPlanetSegue" id="XXv-D8-Pz4"/>
                     </connections>
@@ -67,9 +81,10 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XyZ-ou-XJn">
-                                <rect key="frame" x="159.5" y="318.5" width="55" height="30"/>
+                                <rect key="frame" x="142.5" y="297" width="110" height="53"/>
+                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="35"/>
                                 <state key="normal" title="Launch!">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showMainScreen:" destination="U3d-T1-LoV" eventType="touchUpInside" id="7Dm-Qs-3yi"/>
@@ -81,8 +96,8 @@
                             <constraint firstItem="LVG-tX-HbC" firstAttribute="trailing" secondItem="K54-hq-vIu" secondAttribute="trailing" id="9dD-XK-Lt3"/>
                             <constraint firstItem="K54-hq-vIu" firstAttribute="top" secondItem="LVG-tX-HbC" secondAttribute="top" id="Alz-uP-8hL"/>
                             <constraint firstItem="K54-hq-vIu" firstAttribute="leading" secondItem="LVG-tX-HbC" secondAttribute="leading" id="BmV-eq-8lK"/>
-                            <constraint firstItem="XyZ-ou-XJn" firstAttribute="centerX" secondItem="xV2-0k-aHc" secondAttribute="centerX" id="KhA-5z-l7m"/>
-                            <constraint firstItem="XyZ-ou-XJn" firstAttribute="centerY" secondItem="xV2-0k-aHc" secondAttribute="centerY" id="ZfB-Pp-F0g"/>
+                            <constraint firstItem="XyZ-ou-XJn" firstAttribute="centerX" secondItem="xV2-0k-aHc" secondAttribute="centerX" constant="10" id="KhA-5z-l7m"/>
+                            <constraint firstItem="XyZ-ou-XJn" firstAttribute="centerY" secondItem="xV2-0k-aHc" secondAttribute="centerY" constant="-10" id="ZfB-Pp-F0g"/>
                             <constraint firstItem="LVG-tX-HbC" firstAttribute="bottom" secondItem="K54-hq-vIu" secondAttribute="bottom" id="e7i-Du-XHf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LVG-tX-HbC"/>
@@ -129,6 +144,15 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jOW-eH-4yo">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.14698737708242779" green="0.30867350257702447" blue="0.62737568486765549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.14698737710000001" green="0.30867350259999998" blue="0.62737568489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
