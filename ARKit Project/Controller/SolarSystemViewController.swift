@@ -51,12 +51,15 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 					text.materials = [material]
 					let node = SCNNode()
 					node.name = "Label"
-					node.position = SCNVector3(x:tappedNode.position.x - Float(text.containerFrame.width / 2), y:tappedNode.position.y, z:tappedNode.position.z)
-					node.scale = SCNVector3(x: 0.02,y: 0.02,z: 0.02)
+					node.position = SCNVector3(x:tappedNode.position.x - Float(text.containerFrame.width / 2), y:tappedNode.position.y + (tappedNode.geometry?.boundingBox.max.y)!, z:tappedNode.position.z)
+					if tappedNode.name == "Sun" {
+						node.scale = SCNVector3(x: 0.8,y: 0.2,z: 0.8)
+					} else {
+						node.scale = SCNVector3(x: 0.02,y: 0.02,z: 0.02)
+					}
 					node.geometry = text
 					sceneView.scene.rootNode.addChildNode(node)
 				}
-				
 			}
 		}
 	}
