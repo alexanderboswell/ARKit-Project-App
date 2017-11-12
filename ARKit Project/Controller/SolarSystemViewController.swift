@@ -34,6 +34,7 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 		sceneView.scene = scene
 		
 	}
+    
 	@IBAction func tap(_ sender: UITapGestureRecognizer) {
 		print("here")
 		if sender.state == UIGestureRecognizerState.recognized
