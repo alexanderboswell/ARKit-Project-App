@@ -13,6 +13,7 @@ import ARKit
 class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 	
 	@IBOutlet var sceneView: ARSCNView!
+	var fileName: String!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -23,9 +24,12 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 		// Show statistics such as fps and timing information
 		sceneView.showsStatistics = true
 		
-		// Create a new scene
-		let scene = SCNScene(named: "art.scnassets/solar_system.scn")!
+		guard let fileName = fileName else {
+			return
+		}
 		
+		// Create a new scene
+		let scene = SCNScene(named: "art.scnassets/\(fileName).scn")!
 		// Set the scene to the view
 		sceneView.scene = scene
 		
@@ -46,7 +50,7 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 					let textNode = SCNNode(geometry: text)
 					textNode.geometry = text
 					textNode.position = SCNVector3Make(textNode.position.x + tappedNode.position.x , textNode.position.y + tappedNode.position.y, textNode.position.z + tappedNode.position.z)
-					textNode.boundingBox
+					//					textNode.boundingBox
 					sceneView.scene.rootNode.addChildNode(textNode)
 				}
 			}

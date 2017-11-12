@@ -1,134 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13528" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U3d-T1-LoV">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
-    <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13526"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-    </dependencies>
-    <scenes>
-        <!--Main Menu-->
-        <scene sceneID="fph-fN-PGj">
-            <objects>
-                <viewController id="h9A-TU-EKS" customClass="MainScreenViewController" customModule="ARKit_Project" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="a8f-sm-rp0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bld-eQ-Lo9">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="planetCell" id="l8W-ja-N3T">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l8W-ja-N3T" id="GbY-k8-m5y">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="GKs-FX-vqj"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Main Menu" id="nbR-6w-KNr"/>
-                    <connections>
-                        <outlet property="solarSystemTableView" destination="Bld-eQ-Lo9" id="IGZ-bz-AYL"/>
-                        <segue destination="BV1-FR-VrT" kind="show" identifier="showSolarSystemSegue" id="XXv-D8-Pz4"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5TF-Bh-gg6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-144.80000000000001" y="111.99400299850076"/>
-        </scene>
-        <!--Launch View Controller-->
-        <scene sceneID="XkZ-TV-lzI">
-            <objects>
-                <viewController id="U3d-T1-LoV" customClass="LaunchViewController" customModule="ARKit_Project" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="xV2-0k-aHc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K54-hq-vIu">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XyZ-ou-XJn">
-                                <rect key="frame" x="159.5" y="318.5" width="55" height="30"/>
-                                <state key="normal" title="Launch!">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="SL5-fB-QYq" kind="show" id="mW7-Xa-orO"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="LVG-tX-HbC" firstAttribute="trailing" secondItem="K54-hq-vIu" secondAttribute="trailing" id="9dD-XK-Lt3"/>
-                            <constraint firstItem="K54-hq-vIu" firstAttribute="top" secondItem="LVG-tX-HbC" secondAttribute="top" id="Alz-uP-8hL"/>
-                            <constraint firstItem="K54-hq-vIu" firstAttribute="leading" secondItem="LVG-tX-HbC" secondAttribute="leading" id="BmV-eq-8lK"/>
-                            <constraint firstItem="XyZ-ou-XJn" firstAttribute="centerX" secondItem="xV2-0k-aHc" secondAttribute="centerX" id="KhA-5z-l7m"/>
-                            <constraint firstItem="XyZ-ou-XJn" firstAttribute="centerY" secondItem="xV2-0k-aHc" secondAttribute="centerY" id="ZfB-Pp-F0g"/>
-                            <constraint firstItem="LVG-tX-HbC" firstAttribute="bottom" secondItem="K54-hq-vIu" secondAttribute="bottom" id="e7i-Du-XHf"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="LVG-tX-HbC"/>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="K54-hq-vIu" id="fhl-fW-EFf"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="POl-jk-6Tf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1946" y="112"/>
-        </scene>
-        <!--Solar System View Controller-->
-        <scene sceneID="tXr-a1-R10">
-            <objects>
-                <viewController id="BV1-FR-VrT" customClass="SolarSystemViewController" customModule="ARKit_Project" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="vA3-CZ-js2" appends="YES" id="gHp-G4-yb3"/>
-                        </connections>
-                    </arscnView>
-                    <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="vA3-CZ-js2">
-                    <connections>
-                        <action selector="tap:" destination="BV1-FR-VrT" id="vzK-RS-33M"/>
-                    </connections>
-                </tapGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="898" y="-897"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="7Wt-Hj-syN">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SL5-fB-QYq" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jOW-eH-4yo">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="h9A-TU-EKS" kind="relationship" relationship="rootViewController" id="eCi-B2-8f4"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XX3-tk-Eno" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1010" y="112"/>
-        </scene>
-    </scenes>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U3d-T1-LoV">
+<device id="retina4_7" orientation="portrait">
+<adaptation id="fullscreen"/>
+</device>
+<dependencies>
+<deployment identifier="iOS"/>
+<plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+<capability name="Safe area layout guides" minToolsVersion="9.0"/>
+<capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+</dependencies>
+<scenes>
+<!--Main Menu-->
+<scene sceneID="fph-fN-PGj">
+<objects>
+<viewController id="h9A-TU-EKS" customClass="MainScreenViewController" customModule="ARKit_Project" customModuleProvider="target" sceneMemberID="viewController">
+<view key="view" contentMode="scaleToFill" id="a8f-sm-rp0">
+<rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+<subviews>
+<tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bld-eQ-Lo9">
+<rect key="frame" x="0.0" y="64" width="375" height="603"/>
+<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+<prototypes>
+<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="planetCell" id="l8W-ja-N3T">
+<rect key="frame" x="0.0" y="28" width="375" height="44"/>
+<autoresizingMask key="autoresizingMask"/>
+<tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="l8W-ja-N3T" id="GbY-k8-m5y">
+<rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+<autoresizingMask key="autoresizingMask"/>
+</tableViewCellContentView>
+</tableViewCell>
+</prototypes>
+<connections>
+<outlet property="dataSource" destination="h9A-TU-EKS" id="4J6-J4-4Vk"/>
+<outlet property="delegate" destination="h9A-TU-EKS" id="hab-ro-cz8"/>
+</connections>
+</tableView>
+</subviews>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+<viewLayoutGuide key="safeArea" id="GKs-FX-vqj"/>
+</view>
+<navigationItem key="navigationItem" title="Main Menu" id="nbR-6w-KNr"/>
+<connections>
+<segue destination="BV1-FR-VrT" kind="show" identifier="showPlanetSegue" id="XXv-D8-Pz4"/>
+</connections>
+</viewController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="5TF-Bh-gg6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+</objects>
+<point key="canvasLocation" x="-144.80000000000001" y="111.99400299850076"/>
+</scene>
+<!--Launch View Controller-->
+<scene sceneID="XkZ-TV-lzI">
+<objects>
+<viewController id="U3d-T1-LoV" customClass="LaunchViewController" customModule="ARKit_Project" customModuleProvider="target" sceneMemberID="viewController">
+<view key="view" contentMode="scaleToFill" id="xV2-0k-aHc">
+<rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+<autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+<subviews>
+<imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K54-hq-vIu">
+<rect key="frame" x="0.0" y="20" width="375" height="647"/>
+</imageView>
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XyZ-ou-XJn">
+<rect key="frame" x="159.5" y="318.5" width="55" height="30"/>
+<state key="normal" title="Launch!">
+<color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+</state>
+<connections>
+<action selector="showMainScreen:" destination="U3d-T1-LoV" eventType="touchUpInside" id="7Dm-Qs-3yi"/>
+</connections>
+</button>
+</subviews>
+<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+<constraints>
+<constraint firstItem="LVG-tX-HbC" firstAttribute="trailing" secondItem="K54-hq-vIu" secondAttribute="trailing" id="9dD-XK-Lt3"/>
+<constraint firstItem="K54-hq-vIu" firstAttribute="top" secondItem="LVG-tX-HbC" secondAttribute="top" id="Alz-uP-8hL"/>
+<constraint firstItem="K54-hq-vIu" firstAttribute="leading" secondItem="LVG-tX-HbC" secondAttribute="leading" id="BmV-eq-8lK"/>
+<constraint firstItem="XyZ-ou-XJn" firstAttribute="centerX" secondItem="xV2-0k-aHc" secondAttribute="centerX" id="KhA-5z-l7m"/>
+<constraint firstItem="XyZ-ou-XJn" firstAttribute="centerY" secondItem="xV2-0k-aHc" secondAttribute="centerY" id="ZfB-Pp-F0g"/>
+<constraint firstItem="LVG-tX-HbC" firstAttribute="bottom" secondItem="K54-hq-vIu" secondAttribute="bottom" id="e7i-Du-XHf"/>
+</constraints>
+<viewLayoutGuide key="safeArea" id="LVG-tX-HbC"/>
+</view>
+<connections>
+<outlet property="imageView" destination="K54-hq-vIu" id="fhl-fW-EFf"/>
+<segue destination="SL5-fB-QYq" kind="show" identifier="showMainScreenSegue" id="mVh-ha-541"/>
+</connections>
+</viewController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="POl-jk-6Tf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+</objects>
+<point key="canvasLocation" x="-1946" y="112"/>
+</scene>
+<!--Solar System View Controller-->
+<scene sceneID="tXr-a1-R10">
+<objects>
+<viewController id="BV1-FR-VrT" customClass="SolarSystemViewController" customModule="ARKit_Project" customModuleProvider="target" sceneMemberID="viewController">
+<arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
+<rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+<gestureRecognizers/>
+<connections>
+<outletCollection property="gestureRecognizers" destination="vA3-CZ-js2" appends="YES" id="gHp-G4-yb3"/>
+</connections>
+</arscnView>
+<connections>
+<outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+</connections>
+</viewController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+<tapGestureRecognizer id="vA3-CZ-js2">
+<connections>
+<action selector="tap:" destination="BV1-FR-VrT" id="vzK-RS-33M"/>
+</connections>
+</tapGestureRecognizer>
+</objects>
+<point key="canvasLocation" x="898" y="-897"/>
+</scene>
+<!--Navigation Controller-->
+<scene sceneID="7Wt-Hj-syN">
+<objects>
+<navigationController automaticallyAdjustsScrollViewInsets="NO" id="SL5-fB-QYq" sceneMemberID="viewController">
+<toolbarItems/>
+<navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jOW-eH-4yo">
+<rect key="frame" x="0.0" y="20" width="375" height="44"/>
+<autoresizingMask key="autoresizingMask"/>
+</navigationBar>
+<nil name="viewControllers"/>
+<connections>
+<segue destination="h9A-TU-EKS" kind="relationship" relationship="rootViewController" id="eCi-B2-8f4"/>
+</connections>
+</navigationController>
+<placeholder placeholderIdentifier="IBFirstResponder" id="XX3-tk-Eno" userLabel="First Responder" sceneMemberID="firstResponder"/>
+</objects>
+<point key="canvasLocation" x="-1010" y="112"/>
+</scene>
+</scenes>
 </document>
+

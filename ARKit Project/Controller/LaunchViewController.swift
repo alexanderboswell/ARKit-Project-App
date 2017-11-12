@@ -9,13 +9,16 @@
 import UIKit
 
 class LaunchViewController: UIViewController {
-
-	@IBOutlet weak var imageView: UIImageView!
-	override func viewDidLoad() {
+    
+    @IBOutlet weak var imageView: UIImageView!
+    override func viewDidLoad() {
         super.viewDidLoad()
-		imageView.loadGif(name: "Rocket")
-	}
-
-
-
+        imageView.loadGif(name: "Rocket")
+    }
+    
+    @IBAction func showMainScreen(_ sender: Any) {
+        performSegue(withIdentifier: "showMainScreenSegue", sender: sender)
+    }
+    
 }
+
