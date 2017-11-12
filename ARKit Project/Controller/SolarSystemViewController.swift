@@ -36,29 +36,39 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 	}
     
 	@IBAction func tap(_ sender: UITapGestureRecognizer) {
-		print("here")
 		if sender.state == UIGestureRecognizerState.recognized
 		{
 			let location: CGPoint = sender.location(in:sender.view) // for example from a tap gesture recognizer
 			let hits = self.sceneView.hitTest(location, options: nil)
 			if let tappedNode = hits.first?.node {
-				print(tappedNode.name ?? "")
+				print("\n\n\n\n")
+                print(tappedNode.name ?? "")
 				if tappedNode.name != "torus" {
-					let text = SCNText(string: "\(tappedNode.name ?? "")>", extrusionDepth: 1)
-					
-					let material = SCNMaterial()
-					material.diffuse.contents = UIColor.lightGray
-					text.materials = [material]
-					let node = SCNNode()
-					node.name = "Label"
-					node.position = SCNVector3(x:tappedNode.position.x - Float(text.containerFrame.width / 2), y:tappedNode.position.y + (tappedNode.geometry?.boundingBox.max.y)!, z:tappedNode.position.z)
-					if tappedNode.name == "Sun" {
-						node.scale = SCNVector3(x: 0.8,y: 0.2,z: 0.8)
-					} else {
-						node.scale = SCNVector3(x: 0.02,y: 0.02,z: 0.02)
-					}
-					node.geometry = text
-					sceneView.scene.rootNode.addChildNode(node)
+                    if let name = tappedNode.name, !name.contains("Label") {
+                        if let planetLabelNode = sceneView.scene.rootNode.childNode(withName: "\(name)Label", recursively: true) {
+                            planetLabelNode.removeFromParentNode()
+                        } else {
+                            let text = SCNText(string: "\(tappedNode.name ?? "")>", extrusionDepth: 1)
+                            
+                            let material = SCNMaterial()
+                            material.diffuse.contents = UIColor.lightGray
+                            text.materials = [material]
+                            let node = SCNNode()
+                            node.name = "\(name)Label"
+                            node.position = SCNVector3(x:tappedNode.position.x - Float(text.containerFrame.width / 2), y:tappedNode.position.y + (tappedNode.geometry?.boundingBox.max.y)!, z:tappedNode.position.z)
+                            if tappedNode.name == "Sun" {
+                                node.scale = SCNVector3(x: 0.8,y: 0.2,z: 0.8)
+                            } else {
+                                node.scale = SCNVector3(x: 0.02,y: 0.02,z: 0.02)
+                            }
+                            node.geometry = text
+                            sceneView.scene.rootNode.addChildNode(node)
+                        }
+                    } else if let name = tappedNode.name {
+                        let planetVC = SolarSystemViewController.makeFromStoryboard()
+                        planetVC.fileName = name.minus("Label")
+                        navigationController?.pushViewController(planetVC, animated: true)
+                    }
 				}
 			}
 		}
@@ -110,4 +120,8 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 		// Reset tracking and/or remove existing anchors if consistent tracking is required
 		
 	}
+    
+    static func makeFromStoryboard() -> SolarSystemViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SolarSystemViewController") as! SolarSystemViewController
+    }
 }
