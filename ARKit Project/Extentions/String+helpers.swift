@@ -17,5 +17,13 @@ extension String {
     func withoutWhitespaces() -> String {
         return components(separatedBy: .whitespaces).joined()
     }
+    
+    func contains(_ string: String) -> Bool {
+        return self.lowercased().range(of:string.lowercased()) != nil ? true : false
+    }
+    
+    func minus(_ string: String) -> String {
+        return self.replacingOccurrences(of: string, with: "")
+    }
 }
 
