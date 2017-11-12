@@ -12,13 +12,18 @@ class MainScreenViewController: UIViewController {
     
     let solarSystemItems = ["Solar System", "Sun", "Moon", "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let solarSystemVC = segue.destination as? SolarSystemViewController, let fileName = sender as? String {
+            solarSystemVC.fileName = fileName
+        }
+    }
+    
 }
 
 extension MainScreenViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
+        performSegue(withIdentifier: "showPlanetSegue", sender: solarSystemItems[indexPath.row].withoutWhitespaces())
     }
     
 }
@@ -36,3 +41,4 @@ extension MainScreenViewController: UITableViewDataSource {
     }
     
 }
+
