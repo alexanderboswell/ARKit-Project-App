@@ -74,10 +74,11 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
                         if let planetLabelNode = sceneView.scene.rootNode.childNode(withName: "\(name)Label", recursively: true) {
                             planetLabelNode.removeFromParentNode()
                         } else {
-                            let text = SCNText(string: "\(tappedNode.name ?? "")>", extrusionDepth: 1)
+                            let text = SCNText(string: "\(tappedNode.name ?? "")", extrusionDepth: 1)
                             
                             let material = SCNMaterial()
-                            material.diffuse.contents = UIColor.lightGray
+                            material.diffuse.contents = UIColor.white
+                            material.lightingModel = .constant
                             text.materials = [material]
                             let node = SCNNode()
                             node.name = "\(name)Label"
