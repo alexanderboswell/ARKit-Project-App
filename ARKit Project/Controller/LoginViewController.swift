@@ -10,23 +10,19 @@ import UIKit
 
 class LoginViewController: UIViewController {
 	
+	//MARK: Outlets
+	
 	@IBOutlet weak var googleButton: UIButton!
 	@IBOutlet weak var facebookButton: UIButton!
 	@IBOutlet weak var emailButton: UIButton!
 	
+	//MARK: Viewcontroller lifecycle
+	
 	override func viewDidLoad() {
         super.viewDidLoad()
-		setupUI()
     }
 	
-	private func setupUI() {
-		googleButton.layer.cornerRadius = 10
-		googleButton.clipsToBounds = true
-		facebookButton.layer.cornerRadius = 10
-		facebookButton.clipsToBounds = true
-		emailButton.layer.cornerRadius = 10
-		emailButton.clipsToBounds = true
-	}
+	//MARK: Actions
 	
 	@IBAction func googleSignUp(_ sender: UIButton) {
 	}

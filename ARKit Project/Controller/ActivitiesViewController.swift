@@ -7,33 +7,40 @@
 //
 
 import UIKit
-private let sectionInsets = UIEdgeInsets(top: 6.0, left: 4.0, bottom: 6.0, right: 4.0)
-private let itemsPerRow: CGFloat = 1
-private let reuseIdentifier = "ActivityCell"
 
 class ActivitiesViewController: UICollectionViewController {
     
-    private let activities = [Activity(title: "Earth", imageName: "EarthActivity"),
-                              Activity(title: "Earth", imageName: "EarthActivity"),
-                              Activity(title: "Earth", imageName: "EarthActivity"),
-                              Activity(title: "Earth", imageName: "EarthActivity"),
-                              Activity(title: "Earth", imageName: "EarthActivity"),
-                              Activity(title: "Earth", imageName: "EarthActivity"),
-                              Activity(title: "Earth", imageName: "EarthActivity"),
-                              Activity(title: "Earth", imageName: "EarthActivity")]
-
-
+	private var activities: [Activity] = []
+	private struct Storyboard {
+		static let sectionInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
+		static let activityCellIdentifier = "ActivityCell"
+		static let arscnSegueIdentifier = "OpenARSCNScene"
+	}
 	
 	//MARK: View Controller lifecycle
 	
+	override func viewDidLoad() {
+		loadActivities()
+	}
+	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		if segue.identifier == "OpenARSCNScene" {
+		if segue.identifier == Storyboard.arscnSegueIdentifier {
 			if let vc = segue.destination as? SolarSystemViewController {
 				vc.fileName = "Earth"
 			}
 		}
 	}
 	
+	//MARK: Custom methods
+	
+	private func loadActivities() {
+		Client.getActivities { (activities, error) in
+			if let activities = activities {
+				self.activities = activities
+				self.collectionView?.reloadData()
+			}
+		}
+	}
 	
     // MARK: UICollectionViewDataSource
 
@@ -46,7 +53,7 @@ class ActivitiesViewController: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? ActivityCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.activityCellIdentifier, for: indexPath) as? ActivityCell else {
             return UICollectionViewCell()
         }
         let activity = activities[indexPath.row]
@@ -57,25 +64,34 @@ class ActivitiesViewController: UICollectionViewController {
         return cell
     }
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		performSegue(withIdentifier: "OpenARSCNScene", sender: nil)
+		performSegue(withIdentifier: Storyboard.arscnSegueIdentifier, sender: nil)
 	}
 }
+
 extension ActivitiesViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * ( itemsPerRow + 1)
-        //        if UIDevice.current.orientation ==  UIDeviceOrientation.landscapeLeft || UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
+		let width = view.frame.width
+		let height = view.frame.height
         if UIDevice.current.orientation.isLandscape {
-            return CGSize(width: view.frame.width - paddingSpace, height: view.frame.height / 4)
+			if width > 600 && height > 600 {
+            	return CGSize(width: height / 4 - 10, height: width / 15)
+			} else {
+				return CGSize(width: width - 10, height: height / 4)
+			}
         } else {
-            return CGSize(width: view.frame.width - paddingSpace, height: view.frame.height / 8)
+			if width > 600 && height > 600 {
+				return CGSize(width: width / 4 - 10, height: height / 15)
+			} else {
+				return CGSize(width: width - 10, height: height / 8)
+			}
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return sectionInsets
+        return Storyboard.sectionInsets
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return sectionInsets.left
+        return Storyboard.sectionInsets.left
     }
 }

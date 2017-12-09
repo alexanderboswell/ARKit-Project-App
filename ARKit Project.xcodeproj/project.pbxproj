@@ -9,9 +9,12 @@
 /* Begin PBXBuildFile section */
 		5E070EC71FB7D070003993CB /* String+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E070EC61FB7D070003993CB /* String+helpers.swift */; };
 		5E6512761FB7B47500C5B585 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */; };
+		F31868A71FDC7C6F00DAFDAB /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31868A61FDC7C6F00DAFDAB /* Client.swift */; };
 		F36AED691FB7B6B00047123E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36AED681FB7B6B00047123E /* LaunchViewController.swift */; };
 		F37201A21FDBA97900A61537 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37201A11FDBA97900A61537 /* ProfileViewController.swift */; };
 		F37201A41FDBB3CA00A61537 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37201A31FDBB3CA00A61537 /* LoginViewController.swift */; };
+		F37201A61FDC68F900A61537 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37201A51FDC68F900A61537 /* SignUpViewController.swift */; };
+		F37201A81FDC691700A61537 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37201A71FDC691700A61537 /* SignInViewController.swift */; };
 		F3A2AF941FB76D0300986795 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A2AF931FB76D0300986795 /* AppDelegate.swift */; };
 		F3A2AF961FB76D0300986795 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF951FB76D0300986795 /* art.scnassets */; };
 		F3A2AF981FB76D0300986795 /* SolarSystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A2AF971FB76D0300986795 /* SolarSystemViewController.swift */; };
@@ -31,9 +34,12 @@
 /* Begin PBXFileReference section */
 		5E070EC61FB7D070003993CB /* String+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+helpers.swift"; sourceTree = "<group>"; };
 		5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		F31868A61FDC7C6F00DAFDAB /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		F36AED681FB7B6B00047123E /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		F37201A11FDBA97900A61537 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F37201A31FDBB3CA00A61537 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F37201A51FDC68F900A61537 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		F37201A71FDC691700A61537 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		F3A2AF901FB76D0300986795 /* ARKit Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ARKit Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3A2AF931FB76D0300986795 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F3A2AF951FB76D0300986795 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -94,6 +100,8 @@
 				F3F1E7881FDB0F1400FE3226 /* ActivitiesViewController.swift */,
 				F37201A11FDBA97900A61537 /* ProfileViewController.swift */,
 				F37201A31FDBB3CA00A61537 /* LoginViewController.swift */,
+				F37201A51FDC68F900A61537 /* SignUpViewController.swift */,
+				F37201A71FDC691700A61537 /* SignInViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -142,6 +150,7 @@
 			children = (
 				F3DBE2151FDA55F0008B6AD0 /* Module.swift */,
 				F3F1E78A1FDB0F4C00FE3226 /* Activity.swift */,
+				F31868A61FDC7C6F00DAFDAB /* Client.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -229,8 +238,11 @@
 				F3DBE2131FDA34AB008B6AD0 /* ModulesViewController.swift in Sources */,
 				F3F1E78B1FDB0F4C00FE3226 /* Activity.swift in Sources */,
 				F3A2AF941FB76D0300986795 /* AppDelegate.swift in Sources */,
+				F37201A61FDC68F900A61537 /* SignUpViewController.swift in Sources */,
 				5E6512761FB7B47500C5B585 /* MainScreenViewController.swift in Sources */,
+				F31868A71FDC7C6F00DAFDAB /* Client.swift in Sources */,
 				F3DBE2161FDA55F0008B6AD0 /* Module.swift in Sources */,
+				F37201A81FDC691700A61537 /* SignInViewController.swift in Sources */,
 				F37201A21FDBA97900A61537 /* ProfileViewController.swift in Sources */,
 				F36AED691FB7B6B00047123E /* LaunchViewController.swift in Sources */,
 				F3E73FE91FB7B920001FD199 /* Gif.swift in Sources */,
