@@ -12,7 +12,7 @@ class ModulesViewController: UICollectionViewController {
 	
 	private var modules: [Module] = []
 	private struct Storyboard {
-		static let moduleCellIdentifier = "ModeuleCell"
+		static let moduleCellIdentifier = "ModuleCell"
 		static let sectionInsets = UIEdgeInsets(top: 6.0, left: 4.0, bottom: 6.0, right: 4.0)
 		static let itemsPerRow: CGFloat = 2.0
 		static let activitiesSegueIdentifier = "ShowActivities"

@@ -20,6 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.90183775909999997" green="0.90183775909999997" blue="0.90183775909999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="ZjK-e5-6lu"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="a3A-X0-AkD">
                             <size key="itemSize" width="375" height="141"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -264,6 +265,7 @@
                                     <constraint firstAttribute="height" constant="35" id="QJj-c5-c0r"/>
                                     <constraint firstAttribute="width" constant="35" id="fp6-2l-AzK"/>
                                 </constraints>
+                                <color key="tintColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" image="CloseIcon"/>
                                 <connections>
                                     <action selector="close:" destination="iha-sA-ydb" eventType="touchUpInside" id="C6g-Cq-dMp"/>
@@ -312,7 +314,7 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4XY-a8-lnu">
                                         <rect key="frame" x="0.0" y="157.5" width="250" height="42.5"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.90183775909999997" green="0.90183775909999997" blue="0.90183775909999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Sign up using Email">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -373,7 +375,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="Wkm-Vh-OAP">
                                 <rect key="frame" x="88.5" y="157.5" width="199" height="50"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="pao-LT-4nE">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RocketIcon" translatesAutoresizingMaskIntoConstraints="NO" id="pao-LT-4nE">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="6hS-zV-az3"/>
@@ -392,7 +394,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.90183775909999997" green="0.90183775909999997" blue="0.90183775909999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="a7p-EE-NHR" firstAttribute="trailing" secondItem="pgm-vD-Psd" secondAttribute="trailing" id="90M-IG-5Wl"/>
                             <constraint firstItem="LiO-lx-6SD" firstAttribute="centerY" secondItem="8DC-Tv-x9Z" secondAttribute="centerY" id="Jjo-vo-NqN"/>
@@ -433,6 +435,7 @@
                                     <constraint firstAttribute="height" constant="35" id="4z6-V8-xiv"/>
                                     <constraint firstAttribute="width" constant="35" id="bSd-rX-OD7"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="CloseIcon"/>
                                 <connections>
                                     <action selector="close:" destination="iha-sA-ydb" eventType="touchUpInside" id="RbR-wV-Woz"/>
@@ -493,13 +496,22 @@
                                     <constraint firstAttribute="width" secondItem="CiH-Cs-SnJ" secondAttribute="width" id="x9x-TN-TZY"/>
                                 </constraints>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RocketIcon" translatesAutoresizingMaskIntoConstraints="NO" id="QDy-qw-jIl">
+                                <rect key="frame" x="162.5" y="148.5" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="J2G-R3-ZBO"/>
+                                    <constraint firstAttribute="width" constant="50" id="jh4-gw-hb0"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.26274509800000001" green="0.59215686270000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="2xi-FO-EOz" firstAttribute="leading" secondItem="dld-UQ-GdL" secondAttribute="leading" constant="16" id="7Zd-Vy-Jg4"/>
                             <constraint firstItem="2xi-FO-EOz" firstAttribute="top" secondItem="dld-UQ-GdL" secondAttribute="top" constant="16" id="8z3-pF-qRq"/>
                             <constraint firstItem="G0A-ux-lqA" firstAttribute="centerX" secondItem="rRp-lc-qaK" secondAttribute="centerX" id="BYm-6A-LJX"/>
+                            <constraint firstItem="G0A-ux-lqA" firstAttribute="top" secondItem="QDy-qw-jIl" secondAttribute="bottom" constant="10" id="FY2-km-vnC"/>
                             <constraint firstItem="G0A-ux-lqA" firstAttribute="centerY" secondItem="rRp-lc-qaK" secondAttribute="centerY" id="TY5-xQ-fFW"/>
+                            <constraint firstItem="QDy-qw-jIl" firstAttribute="centerX" secondItem="rRp-lc-qaK" secondAttribute="centerX" id="uCa-4F-LnB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="dld-UQ-GdL"/>
                     </view>
@@ -528,6 +540,7 @@
                                     <constraint firstAttribute="width" constant="35" id="6fd-rb-5kM"/>
                                     <constraint firstAttribute="height" constant="35" id="dbd-BD-rCn"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="CloseIcon"/>
                                 <connections>
                                     <action selector="close:" destination="eUt-ud-DeW" eventType="touchUpInside" id="mUX-Ft-YQ6"/>
@@ -808,13 +821,13 @@
         <image name="EarthActivity" width="512" height="512"/>
         <image name="ForwardArrowBlack" width="96" height="96"/>
         <image name="ForwardArrowWhite" width="50" height="50"/>
-        <image name="ProfileIcon" width="24" height="24"/>
+        <image name="RocketIcon" width="114" height="81"/>
         <image name="SettingsIcon" width="24" height="24"/>
         <image name="SolarSystem" width="512" height="512"/>
         <image name="TestProfileImage" width="675" height="675"/>
-        <image name="logo" width="60" height="60"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="e2R-h6-t8a"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.26274509800000001" green="0.59215686270000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
 </document>
