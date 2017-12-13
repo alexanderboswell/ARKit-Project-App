@@ -821,6 +821,7 @@
         <image name="EarthActivity" width="512" height="512"/>
         <image name="ForwardArrowBlack" width="96" height="96"/>
         <image name="ForwardArrowWhite" width="50" height="50"/>
+        <image name="ProfileIcon" width="24" height="24"/>
         <image name="RocketIcon" width="114" height="81"/>
         <image name="SettingsIcon" width="24" height="24"/>
         <image name="SolarSystem" width="512" height="512"/>

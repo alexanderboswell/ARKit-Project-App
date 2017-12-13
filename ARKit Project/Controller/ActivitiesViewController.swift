@@ -72,17 +72,18 @@ extension ActivitiesViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let width = view.frame.width
 		let height = view.frame.height
+		let buffer = view.frame.width - view.safeAreaLayoutGuide.layoutFrame.size.width
         if UIDevice.current.orientation.isLandscape {
-			if width > 600 && height > 600 {
-            	return CGSize(width: height / 4 - 10, height: width / 15)
+			if width > 700 && height > 700 {
+            	return CGSize(width: height / 4 - 10 , height: width / 15)
 			} else {
-				return CGSize(width: width - 10, height: height / 4)
+				return CGSize(width: width - 10 - (buffer / 2), height: height / 4)
 			}
         } else {
-			if width > 600 && height > 600 {
+			if width > 700 && height > 700 {
 				return CGSize(width: width / 4 - 10, height: height / 15)
 			} else {
-				return CGSize(width: width - 10, height: height / 8)
+				return CGSize(width: width - 10  - (buffer / 2), height: height / 8)
 			}
         }
     }
