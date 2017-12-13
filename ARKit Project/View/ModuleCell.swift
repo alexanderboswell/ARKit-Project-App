@@ -10,9 +10,9 @@ import UIKit
 
 class ModuleCell: UICollectionViewCell {
     
+    //MARK: Outlets
+    
 	@IBOutlet weak var titleLabel: UILabel!
-	
 	@IBOutlet weak var descriptionLabel: UILabel!
-	
 	@IBOutlet weak var image: UIImageView!
 }

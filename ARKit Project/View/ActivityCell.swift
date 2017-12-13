@@ -10,6 +10,8 @@ import UIKit
 
 class ActivityCell: UICollectionViewCell {
     
+    //MARK: Outlets
+    
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var title: UILabel!
 }

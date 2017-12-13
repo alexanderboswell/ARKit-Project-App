@@ -19,6 +19,8 @@ class Module {
 		self.title = title
 		self.description = description
 		self.backgroundColor = backgroundColor
+        
+        //TODO: Load images with a background task
 		if let image = UIImage(named: imageName) {
 			self.image = image
 		}

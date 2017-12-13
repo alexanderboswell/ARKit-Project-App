@@ -10,6 +10,12 @@ import UIKit
 
 class ActivitiesViewController: UICollectionViewController {
     
+    //MARK: Outlets
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    //MARK: Private variables
+    
 	private var activities: [Activity] = []
 	private struct Storyboard {
 		static let sectionInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
@@ -24,6 +30,7 @@ class ActivitiesViewController: UICollectionViewController {
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //TODO: change filename based on which SCN scence to load
 		if segue.identifier == Storyboard.arscnSegueIdentifier {
 			if let vc = segue.destination as? SolarSystemViewController {
 				vc.fileName = "Earth"
@@ -37,6 +44,7 @@ class ActivitiesViewController: UICollectionViewController {
 		Client.getActivities { (activities, error) in
 			if let activities = activities {
 				self.activities = activities
+                self.activityIndicator.stopAnimating()
 				self.collectionView?.reloadData()
 			}
 		}
@@ -68,6 +76,7 @@ class ActivitiesViewController: UICollectionViewController {
 	}
 }
 
+//Calculate cell size based on device and orientation
 extension ActivitiesViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let width = view.frame.width
@@ -83,7 +92,7 @@ extension ActivitiesViewController : UICollectionViewDelegateFlowLayout {
 			if width > 700 && height > 700 {
 				return CGSize(width: width / 4 - 10, height: height / 15)
 			} else {
-				return CGSize(width: width - 10  - (buffer / 2), height: height / 8)
+				return CGSize(width: width - 10, height: height / 8)
 			}
         }
     }

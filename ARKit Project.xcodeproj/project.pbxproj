@@ -21,6 +21,8 @@
 		F3A2AF9B1FB76D0300986795 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF991FB76D0300986795 /* Main.storyboard */; };
 		F3A2AF9D1FB76D0300986795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF9C1FB76D0300986795 /* Assets.xcassets */; };
 		F3A2AFA01FB76D0300986795 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF9E1FB76D0300986795 /* LaunchScreen.storyboard */; };
+		F3BB4F0A1FE18D4C0079E4CC /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BB4F091FE18D4C0079E4CC /* EditProfileViewController.swift */; };
+		F3BB4F0C1FE193D70079E4CC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BB4F0B1FE193D70079E4CC /* SettingsViewController.swift */; };
 		F3DBE2131FDA34AB008B6AD0 /* ModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBE2121FDA34AB008B6AD0 /* ModulesViewController.swift */; };
 		F3DBE2161FDA55F0008B6AD0 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBE2151FDA55F0008B6AD0 /* Module.swift */; };
 		F3DBE2181FDA5799008B6AD0 /* ModuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBE2171FDA5799008B6AD0 /* ModuleCell.swift */; };
@@ -48,6 +50,8 @@
 		F3A2AF9C1FB76D0300986795 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3A2AF9F1FB76D0300986795 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3A2AFA11FB76D0300986795 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3BB4F091FE18D4C0079E4CC /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		F3BB4F0B1FE193D70079E4CC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F3DBE2121FDA34AB008B6AD0 /* ModulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesViewController.swift; sourceTree = "<group>"; };
 		F3DBE2151FDA55F0008B6AD0 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		F3DBE2171FDA5799008B6AD0 /* ModuleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleCell.swift; sourceTree = "<group>"; };
@@ -72,6 +76,7 @@
 		5E070EC51FB7D052003993CB /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				F3E73FE81FB7B920001FD199 /* Gif.swift */,
 				5E070EC61FB7D070003993CB /* String+helpers.swift */,
 			);
 			path = Extentions;
@@ -102,6 +107,8 @@
 				F37201A31FDBB3CA00A61537 /* LoginViewController.swift */,
 				F37201A51FDC68F900A61537 /* SignUpViewController.swift */,
 				F37201A71FDC691700A61537 /* SignInViewController.swift */,
+				F3BB4F091FE18D4C0079E4CC /* EditProfileViewController.swift */,
+				F3BB4F0B1FE193D70079E4CC /* SettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -135,7 +142,6 @@
 		F3A2AF921FB76D0300986795 /* ARKit Project */ = {
 			isa = PBXGroup;
 			children = (
-				F3E73FE81FB7B920001FD199 /* Gif.swift */,
 				F3E73FEA1FB7B942001FD199 /* Rocket.gif */,
 				5E32F16C1FB7A2CB000CCDFA /* Shared */,
 				F3DBE2141FDA350A008B6AD0 /* Model */,
@@ -234,9 +240,11 @@
 				F3DBE2181FDA5799008B6AD0 /* ModuleCell.swift in Sources */,
 				F3F1E7871FDB0E6A00FE3226 /* ActivityCell.swift in Sources */,
 				F3F1E7891FDB0F1400FE3226 /* ActivitiesViewController.swift in Sources */,
+				F3BB4F0C1FE193D70079E4CC /* SettingsViewController.swift in Sources */,
 				F3A2AF981FB76D0300986795 /* SolarSystemViewController.swift in Sources */,
 				F3DBE2131FDA34AB008B6AD0 /* ModulesViewController.swift in Sources */,
 				F3F1E78B1FDB0F4C00FE3226 /* Activity.swift in Sources */,
+				F3BB4F0A1FE18D4C0079E4CC /* EditProfileViewController.swift in Sources */,
 				F3A2AF941FB76D0300986795 /* AppDelegate.swift in Sources */,
 				F37201A61FDC68F900A61537 /* SignUpViewController.swift in Sources */,
 				5E6512761FB7B47500C5B585 /* MainScreenViewController.swift in Sources */,

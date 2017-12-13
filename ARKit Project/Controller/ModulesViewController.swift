@@ -10,6 +10,12 @@ import UIKit
 
 class ModulesViewController: UICollectionViewController {
 	
+    //MARK: Outlets
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    //MARK: Private variables
+    
 	private var modules: [Module] = []
 	private struct Storyboard {
 		static let moduleCellIdentifier = "ModuleCell"
@@ -30,6 +36,7 @@ class ModulesViewController: UICollectionViewController {
 		Client.getModules { (modules, error) in
 			if let modules = modules {
 				self.modules = modules
+                self.activityIndicator.stopAnimating()
 				self.collectionView?.reloadData()
 			}
 		}
@@ -60,6 +67,8 @@ class ModulesViewController: UICollectionViewController {
         performSegue(withIdentifier: Storyboard.activitiesSegueIdentifier, sender: nil)
     }
 }
+
+//Calculate cell size based on device and orientation
 extension ModulesViewController : UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		let paddingSpace = Storyboard.sectionInsets.left * ( Storyboard.itemsPerRow + 1)
