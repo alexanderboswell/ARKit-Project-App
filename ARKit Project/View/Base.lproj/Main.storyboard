@@ -133,7 +133,7 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
-                        <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" id="2yU-Jt-x2V">
+                        <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="2yU-Jt-x2V">
                             <rect key="frame" x="0.0" y="-116" width="375" height="667"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="color" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -210,7 +210,7 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d7F-Ec-8qX">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <connections>
-                                    <outlet property="delegate" destination="KHZ-sw-sP1" id="Pfv-BJ-Kth"/>
+                                    <outlet property="delegate" destination="KHZ-sw-sP1" id="oOg-ID-Xbq"/>
                                 </connections>
                             </arscnView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhS-3x-mwa">
@@ -239,6 +239,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lnv-3b-ZUa"/>
                     </view>
+                    <connections>
+                        <outlet property="sceneView" destination="d7F-Ec-8qX" id="2Ym-NE-UuF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r59-Hd-5AU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
