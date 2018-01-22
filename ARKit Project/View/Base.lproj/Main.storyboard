@@ -226,11 +226,39 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdZ-Nl-yJn">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="Zoom In" id="Rgd-lN-nx8">
+                                        <connections>
+                                            <action selector="zoomIn:" destination="KHZ-sw-sP1" id="Ena-3f-BGu"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Zoom Out" id="36X-Jj-f2c">
+                                        <connections>
+                                            <action selector="zoomOut:" destination="KHZ-sw-sP1" id="RPU-sZ-QJa"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Item" id="CT1-U5-RM5">
+                                        <connections>
+                                            <action selector="button1:" destination="KHZ-sw-sP1" id="Q4Y-a4-zby"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Item" id="keS-Ao-6Qa">
+                                        <connections>
+                                            <action selector="button2:" destination="KHZ-sw-sP1" id="Oli-jD-Aaq"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ZdZ-Nl-yJn" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="6yj-ed-qjf"/>
                             <constraint firstItem="FhS-3x-mwa" firstAttribute="top" secondItem="uLB-mH-jCz" secondAttribute="top" constant="20" id="Bfp-Ae-CO0"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="top" secondItem="uLB-mH-jCz" secondAttribute="top" id="JtW-um-ppm"/>
+                            <constraint firstItem="ZdZ-Nl-yJn" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="KLf-Oh-5hy"/>
+                            <constraint firstItem="ZdZ-Nl-yJn" firstAttribute="bottom" secondItem="lnv-3b-ZUa" secondAttribute="bottom" id="KNK-QM-Qg8"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="TT8-Qj-rnd"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="Weu-pQ-rf1"/>
                             <constraint firstItem="FhS-3x-mwa" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="bJt-dI-zX7"/>
@@ -241,6 +269,7 @@
                     </view>
                     <connections>
                         <outlet property="sceneView" destination="d7F-Ec-8qX" id="2Ym-NE-UuF"/>
+                        <outlet property="zoomIn" destination="Rgd-lN-nx8" id="2Xk-Y1-3kH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r59-Hd-5AU" userLabel="First Responder" sceneMemberID="firstResponder"/>

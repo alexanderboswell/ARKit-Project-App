@@ -150,4 +150,14 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
     static func makeFromStoryboard() -> SolarSystemViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SolarSystemViewController") as! SolarSystemViewController
     }
+	@IBAction func zoomIn(_ sender: UIBarButtonItem) {
+	}
+	@IBAction func zoomOut(_ sender: UIBarButtonItem) {
+	}
+	@IBAction func button1(_ sender: UIBarButtonItem) {
+	}
+	@IBAction func button2(_ sender: UIBarButtonItem) {
+	}
+	
+	
 }
