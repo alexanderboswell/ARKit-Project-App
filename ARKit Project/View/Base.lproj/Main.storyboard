@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vnl-e3-YOc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vnl-e3-YOc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -209,8 +209,10 @@
                         <subviews>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d7F-Ec-8qX">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="KHZ-sw-sP1" id="oOg-ID-Xbq"/>
+                                    <outletCollection property="gestureRecognizers" destination="mde-qQ-YVb" appends="YES" id="u2y-gm-23b"/>
                                 </connections>
                             </arscnView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhS-3x-mwa">
@@ -239,12 +241,12 @@
                                             <action selector="zoomOut:" destination="KHZ-sw-sP1" id="RPU-sZ-QJa"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Item" id="CT1-U5-RM5">
+                                    <barButtonItem title="Rotate" id="CT1-U5-RM5">
                                         <connections>
                                             <action selector="button1:" destination="KHZ-sw-sP1" id="Q4Y-a4-zby"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Item" id="keS-Ao-6Qa">
+                                    <barButtonItem title="Translate" id="keS-Ao-6Qa">
                                         <connections>
                                             <action selector="button2:" destination="KHZ-sw-sP1" id="Oli-jD-Aaq"/>
                                         </connections>
@@ -269,10 +271,14 @@
                     </view>
                     <connections>
                         <outlet property="sceneView" destination="d7F-Ec-8qX" id="2Ym-NE-UuF"/>
-                        <outlet property="zoomIn" destination="Rgd-lN-nx8" id="2Xk-Y1-3kH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r59-Hd-5AU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="mde-qQ-YVb">
+                    <connections>
+                        <action selector="tap:" destination="KHZ-sw-sP1" id="DOG-Fq-eUa"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1302" y="893"/>
         </scene>

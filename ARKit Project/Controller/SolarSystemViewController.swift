@@ -62,9 +62,11 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 	}
     
 	@IBAction func tap(_ sender: UITapGestureRecognizer) {
+        
 		if sender.state == UIGestureRecognizerState.recognized
 		{
 			let location: CGPoint = sender.location(in:sender.view) // for example from a tap gesture recognizer
+            print("location on Screen: \(location)")
 			let hits = self.sceneView.hitTest(location, options: nil)
 			if let tappedNode = hits.first?.node {
 				print("\n\n\n\n")
@@ -151,12 +153,42 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SolarSystemViewController") as! SolarSystemViewController
     }
 	@IBAction func zoomIn(_ sender: UIBarButtonItem) {
+        for node in sceneView.scene.rootNode.childNodes {
+            let zoomScale: Float = 1.1
+            let currentScale = node.scale
+            node.scale = SCNVector3(currentScale.x*zoomScale, currentScale.y*zoomScale, currentScale.z*zoomScale)
+        }
 	}
 	@IBAction func zoomOut(_ sender: UIBarButtonItem) {
+        for node in sceneView.scene.rootNode.childNodes {
+            let zoomScale: Float = 0.9
+            let currentScale = node.scale
+            node.scale = SCNVector3(currentScale.x*zoomScale, currentScale.y*zoomScale, currentScale.z*zoomScale)
+        }
 	}
 	@IBAction func button1(_ sender: UIBarButtonItem) {
+        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+            return
+        }
+        
+        let rotationAmt: Float = Float(Double.pi)/8.0
+        let rotation = startingNode.rotation
+        let oldPosition = startingNode.position
+        
+        startingNode.position = -startingNode.position
+        startingNode.rotation = SCNVector4Make(0, 1, 0, rotation.w+rotationAmt)
+        startingNode.position = oldPosition
+        
+//        for node in startingNode.childNodes {
+//
+//        }
 	}
 	@IBAction func button2(_ sender: UIBarButtonItem) {
+        
+        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+            return
+        }
+        
 	}
 	
 	
