@@ -13,6 +13,9 @@ import ARKit
 class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 	
 	@IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var toast: UIVisualEffectView!
+    @IBOutlet weak var label: UILabel!
+    
 	var fileName: String!
 	
 	var dict = ["Earth": ["""
@@ -43,6 +46,20 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 		let scene = SCNScene(named: "art.scnassets/\(fileName).scn")!
 		// Set the scene to the view
 		sceneView.scene = scene
+        
+        
+        
+        for node in sceneView.scene.rootNode.childNodes {
+            
+            node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: 30)))
+            for node in node.childNodes {
+                node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: 30)))
+                for node in node.childNodes {
+                    node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: 30)))
+                }
+            }
+
+        }
 		
 		if fileName != "SolarSystem" {
 			if let planetNode = sceneView.scene.rootNode.childNode(withName: "sphere", recursively: true) {
@@ -60,6 +77,14 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 			}
 		}
 	}
+    
+    func show() {
+        sceneView.scene.rootNode.isHidden = false
+    }
+    
+    func hide() {
+        sceneView.scene.rootNode.isHidden = true
+    }
     
 	@IBAction func tap(_ sender: UITapGestureRecognizer) {
         
@@ -102,15 +127,37 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 			}
 		}
 	}
+    
+    @IBAction func pan(_ sender: UIPanGestureRecognizer) {
+        
+        let location: CGPoint = sender.location(in: sceneView)
+        
+        let arHitTestResult = sceneView.hitTest(location, types: .existingPlane)
+        if !arHitTestResult.isEmpty {
+            let hit = arHitTestResult.first!
+            
+            sceneView.scene.rootNode.simdTransform = hit.worldTransform
+        }
+        
+    }
+    
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		// Create a session configuration
-		let configuration = ARWorldTrackingConfiguration()
-		// Run the view's session
-		sceneView.session.run(configuration)
+        startNewSession()
 	}
+    
+    func startNewSession() {
+        // Create a session configuration with horizontal plane detection
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        
+        sceneView.debugOptions = [.showCameras,.showWireframe, ARSCNDebugOptions.showFeaturePoints]
+        
+        // Run the view's session
+        sceneView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
+    }
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
@@ -154,6 +201,7 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
     }
 	@IBAction func zoomIn(_ sender: UIBarButtonItem) {
         for node in sceneView.scene.rootNode.childNodes {
+            SCNTransaction.animationDuration = 1.0
             let zoomScale: Float = 1.1
             let currentScale = node.scale
             node.scale = SCNVector3(currentScale.x*zoomScale, currentScale.y*zoomScale, currentScale.z*zoomScale)
@@ -161,6 +209,7 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 	}
 	@IBAction func zoomOut(_ sender: UIBarButtonItem) {
         for node in sceneView.scene.rootNode.childNodes {
+            SCNTransaction.animationDuration = 1.0
             let zoomScale: Float = 0.9
             let currentScale = node.scale
             node.scale = SCNVector3(currentScale.x*zoomScale, currentScale.y*zoomScale, currentScale.z*zoomScale)
@@ -170,7 +219,7 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
         guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
             return
         }
-        
+        SCNTransaction.animationDuration = 1.0
         let rotationAmt: Float = Float(Double.pi)/8.0
         let rotation = startingNode.rotation
         let oldPosition = startingNode.position
@@ -185,11 +234,47 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 	}
 	@IBAction func button2(_ sender: UIBarButtonItem) {
         
-        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
-            return
-        }
+//        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+//            return
+//        }
         
 	}
 	
 	
 }
+
+extension SolarSystemViewController: ARSessionObserver {
+    
+//    func sessionWasInterrupted(_ session: ARSession) {
+//        showToast("Session was interrupted")
+//    }
+//
+//    func sessionInterruptionEnded(_ session: ARSession) {
+//        startNewSession()
+//    }
+//
+//    func session(_ session: ARSession, didFailWithError error: Error) {
+//        showToast("Session failed: \(error.localizedDescription)")
+//        startNewSession()
+//    }
+//
+    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
+        var message: String? = nil
+        
+        switch camera.trackingState {
+        case .notAvailable:
+            message = "Tracking not available"
+        case .limited(.initializing):
+            message = "Initializing AR session"
+        case .limited(.excessiveMotion):
+            message = "Too much motion"
+        case .limited(.insufficientFeatures):
+            message = "Not enough surface details"
+        case .normal:
+            message = "Move to find a horizontal surface"
+        }
+        
+        message != nil ? showToast(message!) : hideToast()
+    }
+}
+

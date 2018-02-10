@@ -213,6 +213,7 @@
                                 <connections>
                                     <outlet property="delegate" destination="KHZ-sw-sP1" id="oOg-ID-Xbq"/>
                                     <outletCollection property="gestureRecognizers" destination="mde-qQ-YVb" appends="YES" id="u2y-gm-23b"/>
+                                    <outletCollection property="gestureRecognizers" destination="Gh1-7b-Daw" appends="YES" id="lzj-1O-ZYg"/>
                                 </connections>
                             </arscnView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhS-3x-mwa">
@@ -253,6 +254,34 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZk-Mu-HCe">
+                                <rect key="frame" x="37" y="573" width="300" height="30"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9ng-Vt-w3B">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJV-S3-VWH">
+                                            <rect key="frame" x="10" y="0.0" width="280" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zJV-S3-VWH" firstAttribute="centerX" secondItem="9ng-Vt-w3B" secondAttribute="centerX" id="0Qf-fO-Mpq"/>
+                                        <constraint firstAttribute="bottom" secondItem="zJV-S3-VWH" secondAttribute="bottom" id="1OX-A5-xqr"/>
+                                        <constraint firstItem="zJV-S3-VWH" firstAttribute="leading" secondItem="9ng-Vt-w3B" secondAttribute="leading" constant="10" id="Atk-sS-J8X"/>
+                                        <constraint firstItem="zJV-S3-VWH" firstAttribute="centerY" secondItem="9ng-Vt-w3B" secondAttribute="centerY" id="Dys-rd-BG7"/>
+                                        <constraint firstItem="zJV-S3-VWH" firstAttribute="top" secondItem="9ng-Vt-w3B" secondAttribute="top" id="b5b-Sq-XMA"/>
+                                        <constraint firstAttribute="trailing" secondItem="zJV-S3-VWH" secondAttribute="trailing" constant="10" id="bAZ-7n-HiY"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="cVJ-Ya-Dbv"/>
+                                    <constraint firstAttribute="height" constant="30" id="dj8-8L-1u7"/>
+                                </constraints>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -264,13 +293,17 @@
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="TT8-Qj-rnd"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="Weu-pQ-rf1"/>
                             <constraint firstItem="FhS-3x-mwa" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="bJt-dI-zX7"/>
+                            <constraint firstItem="ZdZ-Nl-yJn" firstAttribute="top" secondItem="LZk-Mu-HCe" secondAttribute="bottom" constant="20" id="gke-z7-Jq2"/>
+                            <constraint firstItem="LZk-Mu-HCe" firstAttribute="centerX" secondItem="uLB-mH-jCz" secondAttribute="centerX" id="hmc-SG-dhk"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="bottom" secondItem="lnv-3b-ZUa" secondAttribute="bottom" id="pfM-xr-Nw3"/>
                             <constraint firstItem="FhS-3x-mwa" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="vp3-RG-hQt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lnv-3b-ZUa"/>
                     </view>
                     <connections>
+                        <outlet property="label" destination="zJV-S3-VWH" id="dN0-Qc-N5a"/>
                         <outlet property="sceneView" destination="d7F-Ec-8qX" id="2Ym-NE-UuF"/>
+                        <outlet property="toast" destination="LZk-Mu-HCe" id="IVp-eQ-UUY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r59-Hd-5AU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -279,6 +312,11 @@
                         <action selector="tap:" destination="KHZ-sw-sP1" id="DOG-Fq-eUa"/>
                     </connections>
                 </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Gh1-7b-Daw">
+                    <connections>
+                        <action selector="pan:" destination="KHZ-sw-sP1" id="5KD-EP-1kM"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1302" y="893"/>
         </scene>

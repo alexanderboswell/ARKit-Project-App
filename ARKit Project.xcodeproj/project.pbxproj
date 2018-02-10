@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		5E070EC71FB7D070003993CB /* String+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E070EC61FB7D070003993CB /* String+helpers.swift */; };
+		5E1D552D202F825A0005F422 /* Int+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D552C202F825A0005F422 /* Int+helpers.swift */; };
+		5E1D552F202F86B20005F422 /* PropertyStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D552E202F86B20005F422 /* PropertyStoring.swift */; };
 		5E6512761FB7B47500C5B585 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */; };
+		5E82230F2029286500D7DC18 /* SolarSystemViewController+toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E82230E2029286500D7DC18 /* SolarSystemViewController+toast.swift */; };
 		5EFE86C1201FE61A006D21FA /* SCNVector+operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */; };
 		F31868A71FDC7C6F00DAFDAB /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31868A61FDC7C6F00DAFDAB /* Client.swift */; };
 		F36AED691FB7B6B00047123E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36AED681FB7B6B00047123E /* LaunchViewController.swift */; };
@@ -36,7 +39,10 @@
 
 /* Begin PBXFileReference section */
 		5E070EC61FB7D070003993CB /* String+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+helpers.swift"; sourceTree = "<group>"; };
+		5E1D552C202F825A0005F422 /* Int+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+helpers.swift"; sourceTree = "<group>"; };
+		5E1D552E202F86B20005F422 /* PropertyStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyStoring.swift; sourceTree = "<group>"; };
 		5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		5E82230E2029286500D7DC18 /* SolarSystemViewController+toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SolarSystemViewController+toast.swift"; sourceTree = "<group>"; };
 		5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector+operators.swift"; sourceTree = "<group>"; };
 		F31868A61FDC7C6F00DAFDAB /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		F36AED681FB7B6B00047123E /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +87,9 @@
 				F3E73FE81FB7B920001FD199 /* Gif.swift */,
 				5E070EC61FB7D070003993CB /* String+helpers.swift */,
 				5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */,
+				5E82230E2029286500D7DC18 /* SolarSystemViewController+toast.swift */,
+				5E1D552C202F825A0005F422 /* Int+helpers.swift */,
+				5E1D552E202F86B20005F422 /* PropertyStoring.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -241,12 +250,14 @@
 				F37201A41FDBB3CA00A61537 /* LoginViewController.swift in Sources */,
 				5EFE86C1201FE61A006D21FA /* SCNVector+operators.swift in Sources */,
 				5E070EC71FB7D070003993CB /* String+helpers.swift in Sources */,
+				5E82230F2029286500D7DC18 /* SolarSystemViewController+toast.swift in Sources */,
 				F3DBE2181FDA5799008B6AD0 /* ModuleCell.swift in Sources */,
 				F3F1E7871FDB0E6A00FE3226 /* ActivityCell.swift in Sources */,
 				F3F1E7891FDB0F1400FE3226 /* ActivitiesViewController.swift in Sources */,
 				F3BB4F0C1FE193D70079E4CC /* SettingsViewController.swift in Sources */,
 				F3A2AF981FB76D0300986795 /* SolarSystemViewController.swift in Sources */,
 				F3DBE2131FDA34AB008B6AD0 /* ModulesViewController.swift in Sources */,
+				5E1D552F202F86B20005F422 /* PropertyStoring.swift in Sources */,
 				F3F1E78B1FDB0F4C00FE3226 /* Activity.swift in Sources */,
 				F3BB4F0A1FE18D4C0079E4CC /* EditProfileViewController.swift in Sources */,
 				F3A2AF941FB76D0300986795 /* AppDelegate.swift in Sources */,
@@ -258,6 +269,7 @@
 				F37201A21FDBA97900A61537 /* ProfileViewController.swift in Sources */,
 				F36AED691FB7B6B00047123E /* LaunchViewController.swift in Sources */,
 				F3E73FE91FB7B920001FD199 /* Gif.swift in Sources */,
+				5E1D552D202F825A0005F422 /* Int+helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
