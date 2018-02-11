@@ -51,21 +51,21 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
         
         setupPlanetAnimations(node: sceneView.scene.rootNode)
 		
-		if fileName != "SolarSystem" {
-			if let planetNode = sceneView.scene.rootNode.childNode(withName: "sphere", recursively: true) {
-			let text = SCNText(string: dict[fileName]?[0], extrusionDepth: 1)
-			
-			let material = SCNMaterial()
-			material.diffuse.contents = UIColor.white
-			text.materials = [material]
-			let node = SCNNode()
-			node.name = "Label"
-				node.position = SCNVector3(x:(planetNode.geometry?.boundingBox.max.x)! - 0.3, y:(planetNode.position.y) - 0.3, z:(planetNode.position.z))
-				node.scale = SCNVector3(x: 0.02,y: 0.02,z: 0.02)
-			node.geometry = text
-			sceneView.scene.rootNode.addChildNode(node)
-			}
-		}
+//		if fileName != "SolarSystem" {
+//			if let planetNode = sceneView.scene.rootNode.childNode(withName: "sphere", recursively: true) {
+//			let text = SCNText(string: dict[fileName]?[0], extrusionDepth: 1)
+//
+//			let material = SCNMaterial()
+//			material.diffuse.contents = UIColor.white
+//			text.materials = [material]
+//			let node = SCNNode()
+//			node.name = "Label"
+//				node.position = SCNVector3(x:(planetNode.geometry?.boundingBox.max.x)! - 0.3, y:(planetNode.position.y) - 0.3, z:(planetNode.position.z))
+//				node.scale = SCNVector3(x: 0.02,y: 0.02,z: 0.02)
+//			node.geometry = text
+//			sceneView.scene.rootNode.addChildNode(node)
+//			}
+//		}
 	}
     
     func setupPlanetAnimations(node parentNode: SCNNode) {
@@ -145,7 +145,18 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
         }
         
     }
-    
+	
+	var temp = false
+	@IBAction func pinch(_ gesture: UIPinchGestureRecognizer) {
+		for node in sceneView.scene.rootNode.childNodes {
+			SCNTransaction.animationDuration = 1.0
+			let pinchScaleX = Float(gesture.scale) * node.scale.x
+			let pinchScaleY =  Float(gesture.scale) * node.scale.y
+			let pinchScaleZ =  Float(gesture.scale) * node.scale.z
+			node.scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
+			gesture.scale=1
+		}
+	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
@@ -175,17 +186,8 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 		super.didReceiveMemoryWarning()
 		// Release any cached data, images, etc that aren't in use.
 	}
+	
 	// MARK: - ARSCNViewDelegate
-	
-	/*
-	// Override to create and configure nodes for anchors added to the view's session.
-	func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-	let node = SCNNode()
-	
-	return node
-	}
-	*/
-	
 	func session(_ session: ARSession, didFailWithError error: Error) {
 		// Present an error message to the user
 		

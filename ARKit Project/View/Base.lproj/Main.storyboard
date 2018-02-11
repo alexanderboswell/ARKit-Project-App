@@ -214,6 +214,7 @@
                                     <outlet property="delegate" destination="KHZ-sw-sP1" id="oOg-ID-Xbq"/>
                                     <outletCollection property="gestureRecognizers" destination="mde-qQ-YVb" appends="YES" id="u2y-gm-23b"/>
                                     <outletCollection property="gestureRecognizers" destination="Gh1-7b-Daw" appends="YES" id="lzj-1O-ZYg"/>
+                                    <outletCollection property="gestureRecognizers" destination="OpT-ay-ZsV" appends="YES" id="lCD-3U-5vm"/>
                                 </connections>
                             </arscnView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhS-3x-mwa">
@@ -317,6 +318,11 @@
                         <action selector="pan:" destination="KHZ-sw-sP1" id="5KD-EP-1kM"/>
                     </connections>
                 </panGestureRecognizer>
+                <pinchGestureRecognizer id="OpT-ay-ZsV">
+                    <connections>
+                        <action selector="pinch:" destination="KHZ-sw-sP1" id="Q90-lb-sVk"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1302" y="893"/>
         </scene>
