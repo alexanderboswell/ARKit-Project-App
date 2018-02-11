@@ -33,7 +33,7 @@ class ActivitiesViewController: UICollectionViewController {
         //TODO: change filename based on which SCN scence to load
 		if segue.identifier == Storyboard.arscnSegueIdentifier {
 			if let vc = segue.destination as? SolarSystemViewController {
-				vc.fileName = "Earth"
+				vc.fileName = "SolarSystem"
 			}
 		}
 	}

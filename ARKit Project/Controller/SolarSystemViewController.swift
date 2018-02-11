@@ -16,8 +16,8 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var toast: UIVisualEffectView!
     @IBOutlet weak var label: UILabel!
     
-	var fileName: String!
-	
+	let planets = Planets()
+    var fileName: String!
 	var dict = ["Earth": ["""
 		Equatorial Diameter:      12,756 km
 		Polar Diameter: 12,714 km
@@ -27,39 +27,29 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 		Orbit Period:      365.24 days
 		Surface Temperature:    -88 to 58°C
 	""",""]]
+    
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+        guard let fileName = fileName else {
+            return
+        }
+        title = fileName
+        
 		// Set the view's delegate
 		sceneView.delegate = self
 		
-		title = fileName
-
 		// Show statistics such as fps and timing information
 		sceneView.showsStatistics = true
 		
-		guard let fileName = fileName else {
-			return
-		}
+		
 		
 		// Create a new scene
 		let scene = SCNScene(named: "art.scnassets/\(fileName).scn")!
 		// Set the scene to the view
 		sceneView.scene = scene
         
-        
-        
-        for node in sceneView.scene.rootNode.childNodes {
-            
-            node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: 30)))
-            for node in node.childNodes {
-                node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: 30)))
-                for node in node.childNodes {
-                    node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: 30)))
-                }
-            }
-
-        }
+        setupPlanetAnimations(node: sceneView.scene.rootNode)
 		
 		if fileName != "SolarSystem" {
 			if let planetNode = sceneView.scene.rootNode.childNode(withName: "sphere", recursively: true) {
@@ -77,6 +67,21 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 			}
 		}
 	}
+    
+    func setupPlanetAnimations(node parentNode: SCNNode) {
+        for node in parentNode.childNodes {
+            if let nodeName = node.name, nodeName.contains("Planet") {
+                let planet = planets[nodeName]
+                if let orbitNode = node.parent, let orbitNodeName = orbitNode.name, orbitNodeName.contains("Orbit") {
+                    orbitNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: planet.revolutionSpeed)))
+                    print("\(orbitNodeName) revolution was set")
+                }
+                node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: planet.rotationSpeed)))
+                print("\(nodeName) rotation was set")
+            }
+            setupPlanetAnimations(node: node)
+        }
+    }
     
     func show() {
         sceneView.scene.rootNode.isHidden = false
@@ -153,7 +158,7 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
         
-        sceneView.debugOptions = [.showCameras,.showWireframe, ARSCNDebugOptions.showFeaturePoints]
+//        sceneView.debugOptions = [.showCameras,.showWireframe, ARSCNDebugOptions.showFeaturePoints]
         
         // Run the view's session
         sceneView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])

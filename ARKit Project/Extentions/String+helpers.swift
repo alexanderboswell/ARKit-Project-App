@@ -25,5 +25,13 @@ extension String {
     func minus(_ string: String) -> String {
         return self.replacingOccurrences(of: string, with: "")
     }
+    
+    func capitalized() -> String {
+        return prefix(1).uppercased() + dropFirst()
+    }
+    
+    mutating func capitalized() {
+        self = self.capitalized()
+    }
 }
 

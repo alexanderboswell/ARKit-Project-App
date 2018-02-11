@@ -10,6 +10,9 @@
 		5E070EC71FB7D070003993CB /* String+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E070EC61FB7D070003993CB /* String+helpers.swift */; };
 		5E1D552D202F825A0005F422 /* Int+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D552C202F825A0005F422 /* Int+helpers.swift */; };
 		5E1D552F202F86B20005F422 /* PropertyStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D552E202F86B20005F422 /* PropertyStoring.swift */; };
+		5E1D5533202F911B0005F422 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D5532202F911B0005F422 /* Planet.swift */; };
+		5E1D5535202F94BC0005F422 /* Planets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D5534202F94BC0005F422 /* Planets.swift */; };
+		5E1D5537202FBFD00005F422 /* Double+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D5536202FBFD00005F422 /* Double+helpers.swift */; };
 		5E6512761FB7B47500C5B585 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */; };
 		5E82230F2029286500D7DC18 /* SolarSystemViewController+toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E82230E2029286500D7DC18 /* SolarSystemViewController+toast.swift */; };
 		5EFE86C1201FE61A006D21FA /* SCNVector+operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */; };
@@ -41,6 +44,9 @@
 		5E070EC61FB7D070003993CB /* String+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+helpers.swift"; sourceTree = "<group>"; };
 		5E1D552C202F825A0005F422 /* Int+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+helpers.swift"; sourceTree = "<group>"; };
 		5E1D552E202F86B20005F422 /* PropertyStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyStoring.swift; sourceTree = "<group>"; };
+		5E1D5532202F911B0005F422 /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
+		5E1D5534202F94BC0005F422 /* Planets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planets.swift; sourceTree = "<group>"; };
+		5E1D5536202FBFD00005F422 /* Double+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+helpers.swift"; sourceTree = "<group>"; };
 		5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		5E82230E2029286500D7DC18 /* SolarSystemViewController+toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SolarSystemViewController+toast.swift"; sourceTree = "<group>"; };
 		5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector+operators.swift"; sourceTree = "<group>"; };
@@ -90,6 +96,7 @@
 				5E82230E2029286500D7DC18 /* SolarSystemViewController+toast.swift */,
 				5E1D552C202F825A0005F422 /* Int+helpers.swift */,
 				5E1D552E202F86B20005F422 /* PropertyStoring.swift */,
+				5E1D5536202FBFD00005F422 /* Double+helpers.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -169,6 +176,8 @@
 				F3DBE2151FDA55F0008B6AD0 /* Module.swift */,
 				F3F1E78A1FDB0F4C00FE3226 /* Activity.swift */,
 				F31868A61FDC7C6F00DAFDAB /* Client.swift */,
+				5E1D5532202F911B0005F422 /* Planet.swift */,
+				5E1D5534202F94BC0005F422 /* Planets.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -250,13 +259,16 @@
 				F37201A41FDBB3CA00A61537 /* LoginViewController.swift in Sources */,
 				5EFE86C1201FE61A006D21FA /* SCNVector+operators.swift in Sources */,
 				5E070EC71FB7D070003993CB /* String+helpers.swift in Sources */,
+				5E1D5533202F911B0005F422 /* Planet.swift in Sources */,
 				5E82230F2029286500D7DC18 /* SolarSystemViewController+toast.swift in Sources */,
 				F3DBE2181FDA5799008B6AD0 /* ModuleCell.swift in Sources */,
+				5E1D5537202FBFD00005F422 /* Double+helpers.swift in Sources */,
 				F3F1E7871FDB0E6A00FE3226 /* ActivityCell.swift in Sources */,
 				F3F1E7891FDB0F1400FE3226 /* ActivitiesViewController.swift in Sources */,
 				F3BB4F0C1FE193D70079E4CC /* SettingsViewController.swift in Sources */,
 				F3A2AF981FB76D0300986795 /* SolarSystemViewController.swift in Sources */,
 				F3DBE2131FDA34AB008B6AD0 /* ModulesViewController.swift in Sources */,
+				5E1D5535202F94BC0005F422 /* Planets.swift in Sources */,
 				5E1D552F202F86B20005F422 /* PropertyStoring.swift in Sources */,
 				F3F1E78B1FDB0F4C00FE3226 /* Activity.swift in Sources */,
 				F3BB4F0A1FE18D4C0079E4CC /* EditProfileViewController.swift in Sources */,
