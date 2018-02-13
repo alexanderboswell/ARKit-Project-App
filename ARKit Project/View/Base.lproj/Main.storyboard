@@ -215,6 +215,7 @@
                                     <outletCollection property="gestureRecognizers" destination="mde-qQ-YVb" appends="YES" id="u2y-gm-23b"/>
                                     <outletCollection property="gestureRecognizers" destination="Gh1-7b-Daw" appends="YES" id="lzj-1O-ZYg"/>
                                     <outletCollection property="gestureRecognizers" destination="OpT-ay-ZsV" appends="YES" id="lCD-3U-5vm"/>
+                                    <outletCollection property="gestureRecognizers" destination="nvI-0Z-pwH" appends="YES" id="hsa-jM-ZlV"/>
                                 </connections>
                             </arscnView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhS-3x-mwa">
@@ -230,81 +231,21 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZdZ-Nl-yJn">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem title="Zoom In" id="Rgd-lN-nx8">
-                                        <connections>
-                                            <action selector="zoomIn:" destination="KHZ-sw-sP1" id="Ena-3f-BGu"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Zoom Out" id="36X-Jj-f2c">
-                                        <connections>
-                                            <action selector="zoomOut:" destination="KHZ-sw-sP1" id="RPU-sZ-QJa"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Rotate" id="CT1-U5-RM5">
-                                        <connections>
-                                            <action selector="button1:" destination="KHZ-sw-sP1" id="Q4Y-a4-zby"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Translate" id="keS-Ao-6Qa">
-                                        <connections>
-                                            <action selector="button2:" destination="KHZ-sw-sP1" id="Oli-jD-Aaq"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LZk-Mu-HCe">
-                                <rect key="frame" x="37" y="573" width="300" height="30"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9ng-Vt-w3B">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="30"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zJV-S3-VWH">
-                                            <rect key="frame" x="10" y="0.0" width="280" height="30"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="zJV-S3-VWH" firstAttribute="centerX" secondItem="9ng-Vt-w3B" secondAttribute="centerX" id="0Qf-fO-Mpq"/>
-                                        <constraint firstAttribute="bottom" secondItem="zJV-S3-VWH" secondAttribute="bottom" id="1OX-A5-xqr"/>
-                                        <constraint firstItem="zJV-S3-VWH" firstAttribute="leading" secondItem="9ng-Vt-w3B" secondAttribute="leading" constant="10" id="Atk-sS-J8X"/>
-                                        <constraint firstItem="zJV-S3-VWH" firstAttribute="centerY" secondItem="9ng-Vt-w3B" secondAttribute="centerY" id="Dys-rd-BG7"/>
-                                        <constraint firstItem="zJV-S3-VWH" firstAttribute="top" secondItem="9ng-Vt-w3B" secondAttribute="top" id="b5b-Sq-XMA"/>
-                                        <constraint firstAttribute="trailing" secondItem="zJV-S3-VWH" secondAttribute="trailing" constant="10" id="bAZ-7n-HiY"/>
-                                    </constraints>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="cVJ-Ya-Dbv"/>
-                                    <constraint firstAttribute="height" constant="30" id="dj8-8L-1u7"/>
-                                </constraints>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ZdZ-Nl-yJn" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="6yj-ed-qjf"/>
                             <constraint firstItem="FhS-3x-mwa" firstAttribute="top" secondItem="uLB-mH-jCz" secondAttribute="top" constant="20" id="Bfp-Ae-CO0"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="top" secondItem="uLB-mH-jCz" secondAttribute="top" id="JtW-um-ppm"/>
-                            <constraint firstItem="ZdZ-Nl-yJn" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="KLf-Oh-5hy"/>
-                            <constraint firstItem="ZdZ-Nl-yJn" firstAttribute="bottom" secondItem="lnv-3b-ZUa" secondAttribute="bottom" id="KNK-QM-Qg8"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="TT8-Qj-rnd"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="Weu-pQ-rf1"/>
                             <constraint firstItem="FhS-3x-mwa" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="bJt-dI-zX7"/>
-                            <constraint firstItem="ZdZ-Nl-yJn" firstAttribute="top" secondItem="LZk-Mu-HCe" secondAttribute="bottom" constant="20" id="gke-z7-Jq2"/>
-                            <constraint firstItem="LZk-Mu-HCe" firstAttribute="centerX" secondItem="uLB-mH-jCz" secondAttribute="centerX" id="hmc-SG-dhk"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="bottom" secondItem="lnv-3b-ZUa" secondAttribute="bottom" id="pfM-xr-Nw3"/>
                             <constraint firstItem="FhS-3x-mwa" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="vp3-RG-hQt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lnv-3b-ZUa"/>
                     </view>
                     <connections>
-                        <outlet property="label" destination="zJV-S3-VWH" id="dN0-Qc-N5a"/>
                         <outlet property="sceneView" destination="d7F-Ec-8qX" id="2Ym-NE-UuF"/>
-                        <outlet property="toast" destination="LZk-Mu-HCe" id="IVp-eQ-UUY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r59-Hd-5AU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -323,6 +264,11 @@
                         <action selector="pinch:" destination="KHZ-sw-sP1" id="Q90-lb-sVk"/>
                     </connections>
                 </pinchGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.14999999999999999" numberOfTapsRequired="1" id="nvI-0Z-pwH">
+                    <connections>
+                        <action selector="longPressTranslate:" destination="KHZ-sw-sP1" id="Ji7-YD-j0j"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1302" y="893"/>
         </scene>

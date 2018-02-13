@@ -91,12 +91,21 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.isHidden = true
     }
     
+    @IBAction func longPressTranslate(_ sender: UILongPressGestureRecognizer) {
+        
+        let location: CGPoint = sender.location(in: sender.view)
+        print("double Tap dragging.\(location)")
+        let rootLocation = sceneView.scene.rootNode.position
+        
+        
+    }
+    
 	@IBAction func tap(_ sender: UITapGestureRecognizer) {
         
 		if sender.state == UIGestureRecognizerState.recognized
 		{
 			let location: CGPoint = sender.location(in:sender.view) // for example from a tap gesture recognizer
-            print("location on Screen: \(location)")
+//            print("location on Screen: \(location)")
 			let hits = self.sceneView.hitTest(location, options: nil)
 			if let tappedNode = hits.first?.node {
 				print("\n\n\n\n")
