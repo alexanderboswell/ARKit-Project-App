@@ -18,6 +18,8 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
     
 	let planets = Planets()
     var fileName: String!
+    var longPressStartPosition: CGPoint!
+    var startingNodeStartPosition: SCNVector3!
 	var dict = ["Earth": ["""
 		Equatorial Diameter:      12,756 km
 		Polar Diameter: 12,714 km
@@ -91,12 +93,28 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene.rootNode.isHidden = true
     }
     
+    func saveLocations(tapLocation: CGPoint) {
+        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+            return
+        }
+        longPressStartPosition = tapLocation
+        startingNodeStartPosition = startingNode.position
+    }
+    
     @IBAction func longPressTranslate(_ sender: UILongPressGestureRecognizer) {
+        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+            return
+        }
         
         let location: CGPoint = sender.location(in: sender.view)
-        print("double Tap dragging.\(location)")
-        let rootLocation = sceneView.scene.rootNode.position
         
+        if let rootLocation = startingNodeStartPosition, longPressStartPosition != nil {
+            SCNTransaction.animationDuration = 1.0
+            let yDiff: Float = Float(location.y - longPressStartPosition.y) * 0.1
+            startingNode.position = SCNVector3.init(rootLocation.x,
+                                                    rootLocation.y - yDiff,
+                                                    rootLocation.z)
+        }
         
     }
     
@@ -105,10 +123,10 @@ class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
 		if sender.state == UIGestureRecognizerState.recognized
 		{
 			let location: CGPoint = sender.location(in:sender.view) // for example from a tap gesture recognizer
-//            print("location on Screen: \(location)")
+            saveLocations(tapLocation: location)
 			let hits = self.sceneView.hitTest(location, options: nil)
 			if let tappedNode = hits.first?.node {
-				print("\n\n\n\n")
+				print("\n\n")
                 print(tappedNode.name ?? "")
 				if tappedNode.name != "torus" {
                     if let name = tappedNode.name, !name.contains("Label") {
@@ -290,7 +308,7 @@ extension SolarSystemViewController: ARSessionObserver {
             message = "Move to find a horizontal surface"
         }
         
-        message != nil ? showToast(message!) : hideToast()
+//        message != nil ? showToast(message!) : hideToast()
     }
 }
 

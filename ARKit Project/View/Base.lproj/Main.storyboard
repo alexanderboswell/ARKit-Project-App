@@ -264,7 +264,7 @@
                         <action selector="pinch:" destination="KHZ-sw-sP1" id="Q90-lb-sVk"/>
                     </connections>
                 </pinchGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.14999999999999999" numberOfTapsRequired="1" id="nvI-0Z-pwH">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.25" numberOfTapsRequired="1" id="nvI-0Z-pwH">
                     <connections>
                         <action selector="longPressTranslate:" destination="KHZ-sw-sP1" id="Ji7-YD-j0j"/>
                     </connections>
