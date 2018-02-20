@@ -10,305 +10,239 @@ import UIKit
 import SceneKit
 import ARKit
 
-class SolarSystemViewController: UIViewController, ARSCNViewDelegate {
+class SolarSystemViewController: UIViewController {
 	
+	//MARK: Outlets
 	@IBOutlet var sceneView: ARSCNView!
-    @IBOutlet weak var toast: UIVisualEffectView!
-    @IBOutlet weak var label: UILabel!
-    
+	@IBOutlet weak var searchingLabel: UILabel!
+	
+	
 	let planets = Planets()
-    var fileName: String!
-    var longPressStartPosition: CGPoint!
-    var startingNodeStartPosition: SCNVector3!
-	var dict = ["Earth": ["""
-		Equatorial Diameter:      12,756 km
-		Polar Diameter: 12,714 km
-		Mass:    5.97 x 10^24 kg
-		Moons: 1 (The Moon)
-		Orbit Distance:  149,598,262 km (1 AU)
-		Orbit Period:      365.24 days
-		Surface Temperature:    -88 to 58°C
-	""",""]]
-    
+	var fileName: String!
+	var longPressStartPosition: CGPoint!
+	var startingNodeStartPosition: SCNVector3!
+	
+	let session = ARSession()
+	let sessionConfiguration: ARWorldTrackingConfiguration = {
+		let config = ARWorldTrackingConfiguration()
+		config.planeDetection = .horizontal
+		return config
+	}()
+	
+	var focalNode: FocalNode?
+	private var screenCenter: CGPoint!
+	private var modelNode: SCNNode!
+	private var selectedNode: SCNNode?
+	private var sceneAdded = false
+	
+	
+	//MARK: Viewcontroller lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-        guard let fileName = fileName else {
-            return
-        }
-        title = fileName
-        
+		guard let fileName = fileName else {
+			return
+		}
+		title = fileName
+		
+		// Store screen center here so it can be accessed off of the main thread
+		screenCenter = view.center
+		
 		// Set the view's delegate
 		sceneView.delegate = self
 		
 		// Show statistics such as fps and timing information
 		sceneView.showsStatistics = true
+		sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
 		
+		// Update at 60 frames per second (recommended by Apple)
+		sceneView.preferredFramesPerSecond = 60
 		
+		// Make sure that ARKit is supported
+		if ARWorldTrackingConfiguration.isSupported {
+			session.run(sessionConfiguration, options: [.removeExistingAnchors, .resetTracking])
+		} else {
+			print("Sorry, your device doesn't support ARKit")
+		}
+		
+		// Use the session that we created
+		sceneView.session = session
 		
 		// Create a new scene
-		let scene = SCNScene(named: "art.scnassets/\(fileName).scn")!
-		// Set the scene to the view
-		sceneView.scene = scene
-        
-        setupPlanetAnimations(node: sceneView.scene.rootNode)
-		
-//		if fileName != "SolarSystem" {
-//			if let planetNode = sceneView.scene.rootNode.childNode(withName: "sphere", recursively: true) {
-//			let text = SCNText(string: dict[fileName]?[0], extrusionDepth: 1)
-//
-//			let material = SCNMaterial()
-//			material.diffuse.contents = UIColor.white
-//			text.materials = [material]
-//			let node = SCNNode()
-//			node.name = "Label"
-//				node.position = SCNVector3(x:(planetNode.geometry?.boundingBox.max.x)! - 0.3, y:(planetNode.position.y) - 0.3, z:(planetNode.position.z))
-//				node.scale = SCNVector3(x: 0.02,y: 0.02,z: 0.02)
-//			node.geometry = text
-//			sceneView.scene.rootNode.addChildNode(node)
-//			}
-//		}
-	}
-    
-    func setupPlanetAnimations(node parentNode: SCNNode) {
-        for node in parentNode.childNodes {
-            if let nodeName = node.name, nodeName.contains("Planet") {
-                let planet = planets[nodeName]
-                if let orbitNode = node.parent, let orbitNodeName = orbitNode.name, orbitNodeName.contains("Orbit") {
-                    orbitNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: planet.revolutionSpeed)))
-                    print("\(orbitNodeName) revolution was set")
-                }
-                node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: planet.rotationSpeed)))
-                print("\(nodeName) rotation was set")
-            }
-            setupPlanetAnimations(node: node)
-        }
-    }
-    
-    func show() {
-        sceneView.scene.rootNode.isHidden = false
-    }
-    
-    func hide() {
-        sceneView.scene.rootNode.isHidden = true
-    }
-    
-    func saveLocations(tapLocation: CGPoint) {
-        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
-            return
-        }
-        longPressStartPosition = tapLocation
-        startingNodeStartPosition = startingNode.position
-    }
-    
-    @IBAction func longPressTranslate(_ sender: UILongPressGestureRecognizer) {
-        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
-            return
-        }
-        
-        let location: CGPoint = sender.location(in: sender.view)
-        
-        if let rootLocation = startingNodeStartPosition, longPressStartPosition != nil {
-            SCNTransaction.animationDuration = 1.0
-            let yDiff: Float = Float(location.y - longPressStartPosition.y) * 0.1
-            startingNode.position = SCNVector3.init(rootLocation.x,
-                                                    rootLocation.y - yDiff,
-                                                    rootLocation.z)
-        }
-        
-    }
-    
-	@IBAction func tap(_ sender: UITapGestureRecognizer) {
-        
-		if sender.state == UIGestureRecognizerState.recognized
-		{
-			let location: CGPoint = sender.location(in:sender.view) // for example from a tap gesture recognizer
-            saveLocations(tapLocation: location)
-			let hits = self.sceneView.hitTest(location, options: nil)
-			if let tappedNode = hits.first?.node {
-				print("\n\n")
-                print(tappedNode.name ?? "")
-				if tappedNode.name != "torus" {
-                    if let name = tappedNode.name, !name.contains("Label") {
-                        if let planetLabelNode = sceneView.scene.rootNode.childNode(withName: "\(name)Label", recursively: true) {
-                            planetLabelNode.removeFromParentNode()
-                        } else {
-                            let text = SCNText(string: "\(tappedNode.name ?? "")", extrusionDepth: 1)
-                            
-                            let material = SCNMaterial()
-                            material.diffuse.contents = UIColor.white
-                            material.lightingModel = .constant
-                            text.materials = [material]
-                            let node = SCNNode()
-                            node.name = "\(name)Label"
-                            node.position = SCNVector3(x:tappedNode.position.x - Float(text.containerFrame.width / 2), y:tappedNode.position.y + (tappedNode.geometry?.boundingBox.max.y)!, z:tappedNode.position.z)
-                            if tappedNode.name == "Sun" {
-                                node.scale = SCNVector3(x: 0.8,y: 0.2,z: 0.8)
-                            } else {
-                                node.scale = SCNVector3(x: 0.02,y: 0.02,z: 0.02)
-                            }
-                            node.geometry = text
-                            sceneView.scene.rootNode.addChildNode(node)
-                        }
-                    } else if let name = tappedNode.name {
-                        let planetVC = SolarSystemViewController.makeFromStoryboard()
-                        planetVC.fileName = name.minus("Label")
-                        navigationController?.pushViewController(planetVC, animated: true)
-                    }
-				}
-			}
+		guard let modelScene = SCNScene(named: "art.scnassets/\(fileName).scn") else {
+			return
 		}
-	}
-    
-    @IBAction func pan(_ sender: UIPanGestureRecognizer) {
-        
-        let location: CGPoint = sender.location(in: sceneView)
-        
-        let arHitTestResult = sceneView.hitTest(location, types: .existingPlane)
-        if !arHitTestResult.isEmpty {
-            let hit = arHitTestResult.first!
-            
-            sceneView.scene.rootNode.simdTransform = hit.worldTransform
-        }
-        
-    }
-	
-	var temp = false
-	@IBAction func pinch(_ gesture: UIPinchGestureRecognizer) {
-		for node in sceneView.scene.rootNode.childNodes {
-			SCNTransaction.animationDuration = 1.0
-			let pinchScaleX = Float(gesture.scale) * node.scale.x
-			let pinchScaleY =  Float(gesture.scale) * node.scale.y
-			let pinchScaleZ =  Float(gesture.scale) * node.scale.z
-			node.scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
-			gesture.scale=1
-		}
-	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
 		
-        startNewSession()
+		// Get the model from the root node of the scene
+		modelNode = modelScene.rootNode
 	}
-    
-    func startNewSession() {
-        // Create a session configuration with horizontal plane detection
-        let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = .horizontal
-        
-//        sceneView.debugOptions = [.showCameras,.showWireframe, ARSCNDebugOptions.showFeaturePoints]
-        
-        // Run the view's session
-        sceneView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
-    }
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
-		
 		// Pause the view's session
 		sceneView.session.pause()
 	}
 	
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Release any cached data, images, etc that aren't in use.
+	//MARK: Actions
+	@IBAction func tap(_ gesture: UITapGestureRecognizer) {
+		if !sceneAdded {
+			// Make sure we've found the floor
+			guard let focalNode = focalNode else { return }
+			
+			// See if we tapped on a plane where a model can be placed
+			let results = sceneView.hitTest(screenCenter, types: .existingPlane)
+			guard let transform = results.first?.worldTransform else { return }
+			
+			// Find the position to place the model
+			let position = float3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+			
+			// Create a copy of the model set its position/rotation
+			let newNode = modelNode.flattenedClone()
+			newNode.simdPosition = position
+			
+			// Add the model to the scene
+			sceneView.scene.rootNode.addChildNode(newNode)
+			for node in focalNode.childNodes {
+				node.removeFromParentNode()
+			}
+			sceneAdded = true
+		}
 	}
 	
-	// MARK: - ARSCNViewDelegate
-	func session(_ session: ARSession, didFailWithError error: Error) {
-		// Present an error message to the user
+	@IBAction func pan(_ gesture: UIPanGestureRecognizer) {
+		// Find the location in the view
+		let location = gesture.location(in: sceneView)
+		
+		switch gesture.state {
+		case .began:
+			// Choose the node to move
+			selectedNode = node(at: location)
+		case .changed:
+			// Move the node based on the real world translation
+			guard let result = sceneView.hitTest(location, types: .existingPlane).first else { return }
+			
+			let transform = result.worldTransform
+			let newPosition = float3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+			selectedNode?.simdPosition = newPosition
+		default:
+			// Remove the reference to the node
+			selectedNode = nil
+		}
+	}
+	
+	@IBAction func pinch(_ gesture: UIPinchGestureRecognizer) {
+		for node in sceneView.scene.rootNode.childNodes {
+			SCNTransaction.animationDuration = 0.1
+			let pinchScaleX = Float(gesture.scale) * node.scale.x
+			let pinchScaleY =  Float(gesture.scale) * node.scale.y
+			let pinchScaleZ =  Float(gesture.scale) * node.scale.z
+			
+			let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
+			if scale.x > 0.01 && scale.x < 0.15 {
+				node.scale = scale
+			}
+			gesture.scale=1
+		}
+	}
+	
+	@IBAction func longPressTranslate(_ sender: UILongPressGestureRecognizer) {
+		guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+			return
+		}
+		
+		let location: CGPoint = sender.location(in: sender.view)
+		
+		if let rootLocation = startingNodeStartPosition, longPressStartPosition != nil {
+			SCNTransaction.animationDuration = 1.0
+			let yDiff: Float = Float(location.y - longPressStartPosition.y) * 0.1
+			startingNode.position = SCNVector3.init(rootLocation.x,
+													rootLocation.y - yDiff,
+													rootLocation.z)
+		}
 		
 	}
 	
-	func sessionWasInterrupted(_ session: ARSession) {
-		// Inform the user that the session has been interrupted, for example, by presenting an overlay
-		
+	//MARK: Custom Methods
+	private func node(at position: CGPoint) -> SCNNode? {
+		return sceneView.hitTest(position, options: nil)
+			.first(where: { $0.node !== focalNode && $0.node !== modelNode })?
+			.node
 	}
 	
-	func sessionInterruptionEnded(_ session: ARSession) {
-		// Reset tracking and/or remove existing anchors if consistent tracking is required
-		
-	}
-    
-    static func makeFromStoryboard() -> SolarSystemViewController {
-        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SolarSystemViewController") as! SolarSystemViewController
-    }
-	@IBAction func zoomIn(_ sender: UIBarButtonItem) {
-        for node in sceneView.scene.rootNode.childNodes {
-            SCNTransaction.animationDuration = 1.0
-            let zoomScale: Float = 1.1
-            let currentScale = node.scale
-            node.scale = SCNVector3(currentScale.x*zoomScale, currentScale.y*zoomScale, currentScale.z*zoomScale)
-        }
-	}
-	@IBAction func zoomOut(_ sender: UIBarButtonItem) {
-        for node in sceneView.scene.rootNode.childNodes {
-            SCNTransaction.animationDuration = 1.0
-            let zoomScale: Float = 0.9
-            let currentScale = node.scale
-            node.scale = SCNVector3(currentScale.x*zoomScale, currentScale.y*zoomScale, currentScale.z*zoomScale)
-        }
-	}
-	@IBAction func button1(_ sender: UIBarButtonItem) {
-        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
-            return
-        }
-        SCNTransaction.animationDuration = 1.0
-        let rotationAmt: Float = Float(Double.pi)/8.0
-        let rotation = startingNode.rotation
-        let oldPosition = startingNode.position
-        
-        startingNode.position = -startingNode.position
-        startingNode.rotation = SCNVector4Make(0, 1, 0, rotation.w+rotationAmt)
-        startingNode.position = oldPosition
-        
-//        for node in startingNode.childNodes {
-//
-//        }
-	}
-	@IBAction func button2(_ sender: UIBarButtonItem) {
-        
-//        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
-//            return
-//        }
-        
+	private func setupPlanetAnimations(node parentNode: SCNNode) {
+		for node in parentNode.childNodes {
+			if let nodeName = node.name, nodeName.contains("Planet") {
+				let planet = planets[nodeName]
+				if let orbitNode = node.parent, let orbitNodeName = orbitNode.name, orbitNodeName.contains("Orbit") {
+					orbitNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: planet.revolutionSpeed)))
+					print("\(orbitNodeName) revolution was set")
+				}
+				node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: planet.rotationSpeed)))
+				print("\(nodeName) rotation was set")
+			}
+			setupPlanetAnimations(node: node)
+		}
 	}
 	
+	private func show() {
+		sceneView.scene.rootNode.isHidden = false
+	}
 	
+	private func hide() {
+		sceneView.scene.rootNode.isHidden = true
+	}
+	
+	private func saveLocations(tapLocation: CGPoint) {
+		guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+			return
+		}
+		longPressStartPosition = tapLocation
+		startingNodeStartPosition = startingNode.position
+	}
+	
+	static func makeFromStoryboard() -> SolarSystemViewController {
+		return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SolarSystemViewController") as! SolarSystemViewController
+	}
 }
 
-extension SolarSystemViewController: ARSessionObserver {
-    
-//    func sessionWasInterrupted(_ session: ARSession) {
-//        showToast("Session was interrupted")
-//    }
-//
-//    func sessionInterruptionEnded(_ session: ARSession) {
-//        startNewSession()
-//    }
-//
-//    func session(_ session: ARSession, didFailWithError error: Error) {
-//        showToast("Session failed: \(error.localizedDescription)")
-//        startNewSession()
-//    }
-//
-    func session(_ session: ARSession, cameraDidChangeTrackingState camera: ARCamera) {
-        var message: String? = nil
-        
-        switch camera.trackingState {
-        case .notAvailable:
-            message = "Tracking not available"
-        case .limited(.initializing):
-            message = "Initializing AR session"
-        case .limited(.excessiveMotion):
-            message = "Too much motion"
-        case .limited(.insufficientFeatures):
-            message = "Not enough surface details"
-        case .normal:
-            message = "Move to find a horizontal surface"
-        }
-        
-//        message != nil ? showToast(message!) : hideToast()
-    }
+extension SolarSystemViewController: ARSCNViewDelegate {
+	func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+		// If we have already created the focal node we should not do it again
+		guard focalNode == nil else { return }
+		
+		// Create a new focal node
+		let node = FocalNode()
+		node.addChildNode(modelNode)
+		
+		// Add it to the root of our current scene
+		sceneView.scene.rootNode.addChildNode(node)
+		
+		// Store the focal node
+		self.focalNode = node
+		
+		// Hide the label (making sure we're on the main thread)
+		DispatchQueue.main.async {
+			UIView.animate(withDuration: 0.5, animations: {
+				self.searchingLabel.alpha = 0.0
+				self.sceneView.debugOptions = []
+			}, completion: { _ in
+				self.searchingLabel.isHidden = true
+			})
+		}
+	}
+	
+	func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+		// If we haven't established a focal node yet do not update
+		guard let focalNode = focalNode else { return }
+		
+		// Determine if we hit a plane in the scene
+		let hit = sceneView.hitTest(screenCenter, types: .existingPlane)
+		
+		// Find the position of the first plane we hit
+		guard let positionColumn = hit.first?.worldTransform.columns.3 else { return }
+		
+		// Update the position of the node
+		focalNode.position = SCNVector3(x: positionColumn.x, y: positionColumn.y, z: positionColumn.z)
+	}
 }
 

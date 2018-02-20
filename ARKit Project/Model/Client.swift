@@ -14,14 +14,14 @@ class Client {
 	
 	static func getActivities(callback: @escaping ([Activity]?, Error?) -> Void) {
 		callback ([Activity(title: "Solar System", imageName: "EarthActivity"),
-				   Activity(title: "Mercury", imageName: "EarthActivity"),
-				   Activity(title: "Venus", imageName: "EarthActivity"),
-				   Activity(title: "Earth", imageName: "EarthActivity"),
-				   Activity(title: "Mars", imageName: "EarthActivity"),
-				   Activity(title: "Jupiter", imageName: "EarthActivity"),
-				   Activity(title: "Saturn", imageName: "EarthActivity"),
-				   Activity(title: "Uranus", imageName: "EarthActivity"),
-				   Activity(title: "Neptune", imageName: "EarthActivity"),
-				   Activity(title: "Pluto", imageName: "EarthActivity")], nil)
+				   Activity(title: "Mercury", imageName: "Mercury"),
+				   Activity(title: "Venus", imageName: "Venus"),
+				   Activity(title: "Earth", imageName: "Earth"),
+				   Activity(title: "Mars", imageName: "Mars"),
+				   Activity(title: "Jupiter", imageName: "Jupiter"),
+				   Activity(title: "Saturn", imageName: "Saturn"),
+				   Activity(title: "Uranus", imageName: "Uranus"),
+				   Activity(title: "Neptune", imageName: "Neptune"),
+				   Activity(title: "Pluto", imageName: "Pluto")], nil)
 	}
 }

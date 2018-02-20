@@ -212,10 +212,10 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="KHZ-sw-sP1" id="oOg-ID-Xbq"/>
-                                    <outletCollection property="gestureRecognizers" destination="mde-qQ-YVb" appends="YES" id="u2y-gm-23b"/>
-                                    <outletCollection property="gestureRecognizers" destination="Gh1-7b-Daw" appends="YES" id="lzj-1O-ZYg"/>
                                     <outletCollection property="gestureRecognizers" destination="OpT-ay-ZsV" appends="YES" id="lCD-3U-5vm"/>
                                     <outletCollection property="gestureRecognizers" destination="nvI-0Z-pwH" appends="YES" id="hsa-jM-ZlV"/>
+                                    <outletCollection property="gestureRecognizers" destination="Vtl-uU-FJS" appends="YES" id="xMb-W8-yf0"/>
+                                    <outletCollection property="gestureRecognizers" destination="toQ-At-3QQ" appends="YES" id="b67-He-ZzC"/>
                                 </connections>
                             </arscnView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FhS-3x-mwa">
@@ -231,6 +231,12 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for a surface..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asS-3x-ap0">
+                                <rect key="frame" x="64" y="321" width="246.5" height="25.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -239,26 +245,19 @@
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="TT8-Qj-rnd"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="Weu-pQ-rf1"/>
                             <constraint firstItem="FhS-3x-mwa" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="bJt-dI-zX7"/>
+                            <constraint firstItem="asS-3x-ap0" firstAttribute="centerY" secondItem="uLB-mH-jCz" secondAttribute="centerY" id="keU-tx-cxP"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="bottom" secondItem="lnv-3b-ZUa" secondAttribute="bottom" id="pfM-xr-Nw3"/>
+                            <constraint firstItem="asS-3x-ap0" firstAttribute="centerX" secondItem="uLB-mH-jCz" secondAttribute="centerX" id="uS4-OA-DuI"/>
                             <constraint firstItem="FhS-3x-mwa" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="vp3-RG-hQt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lnv-3b-ZUa"/>
                     </view>
                     <connections>
                         <outlet property="sceneView" destination="d7F-Ec-8qX" id="2Ym-NE-UuF"/>
+                        <outlet property="searchingLabel" destination="asS-3x-ap0" id="lb2-qY-xtr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r59-Hd-5AU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="mde-qQ-YVb">
-                    <connections>
-                        <action selector="tap:" destination="KHZ-sw-sP1" id="DOG-Fq-eUa"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="Gh1-7b-Daw">
-                    <connections>
-                        <action selector="pan:" destination="KHZ-sw-sP1" id="5KD-EP-1kM"/>
-                    </connections>
-                </panGestureRecognizer>
                 <pinchGestureRecognizer id="OpT-ay-ZsV">
                     <connections>
                         <action selector="pinch:" destination="KHZ-sw-sP1" id="Q90-lb-sVk"/>
@@ -269,6 +268,16 @@
                         <action selector="longPressTranslate:" destination="KHZ-sw-sP1" id="Ji7-YD-j0j"/>
                     </connections>
                 </pongPressGestureRecognizer>
+                <tapGestureRecognizer id="Vtl-uU-FJS">
+                    <connections>
+                        <action selector="tap:" destination="KHZ-sw-sP1" id="aFH-uh-Gfj"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="toQ-At-3QQ">
+                    <connections>
+                        <action selector="pan:" destination="KHZ-sw-sP1" id="wWy-59-ZRu"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1302" y="893"/>
         </scene>

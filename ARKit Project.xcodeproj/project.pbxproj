@@ -14,7 +14,6 @@
 		5E1D5535202F94BC0005F422 /* Planets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D5534202F94BC0005F422 /* Planets.swift */; };
 		5E1D5537202FBFD00005F422 /* Double+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D5536202FBFD00005F422 /* Double+helpers.swift */; };
 		5E6512761FB7B47500C5B585 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */; };
-		5E82230F2029286500D7DC18 /* SolarSystemViewController+toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E82230E2029286500D7DC18 /* SolarSystemViewController+toast.swift */; };
 		5EFE86C1201FE61A006D21FA /* SCNVector+operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */; };
 		F31868A71FDC7C6F00DAFDAB /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31868A61FDC7C6F00DAFDAB /* Client.swift */; };
 		F36AED691FB7B6B00047123E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36AED681FB7B6B00047123E /* LaunchViewController.swift */; };
@@ -35,6 +34,7 @@
 		F3DBE2181FDA5799008B6AD0 /* ModuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBE2171FDA5799008B6AD0 /* ModuleCell.swift */; };
 		F3E73FE91FB7B920001FD199 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E73FE81FB7B920001FD199 /* Gif.swift */; };
 		F3E73FEB1FB7B942001FD199 /* Rocket.gif in Resources */ = {isa = PBXBuildFile; fileRef = F3E73FEA1FB7B942001FD199 /* Rocket.gif */; };
+		F3E90F4C203BCDD80070D618 /* FocalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E90F4B203BCDD80070D618 /* FocalNode.swift */; };
 		F3F1E7871FDB0E6A00FE3226 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F1E7861FDB0E6A00FE3226 /* ActivityCell.swift */; };
 		F3F1E7891FDB0F1400FE3226 /* ActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F1E7881FDB0F1400FE3226 /* ActivitiesViewController.swift */; };
 		F3F1E78B1FDB0F4C00FE3226 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F1E78A1FDB0F4C00FE3226 /* Activity.swift */; };
@@ -48,7 +48,6 @@
 		5E1D5534202F94BC0005F422 /* Planets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planets.swift; sourceTree = "<group>"; };
 		5E1D5536202FBFD00005F422 /* Double+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+helpers.swift"; sourceTree = "<group>"; };
 		5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
-		5E82230E2029286500D7DC18 /* SolarSystemViewController+toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SolarSystemViewController+toast.swift"; sourceTree = "<group>"; };
 		5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector+operators.swift"; sourceTree = "<group>"; };
 		F31868A61FDC7C6F00DAFDAB /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		F36AED681FB7B6B00047123E /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +70,7 @@
 		F3DBE2171FDA5799008B6AD0 /* ModuleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleCell.swift; sourceTree = "<group>"; };
 		F3E73FE81FB7B920001FD199 /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		F3E73FEA1FB7B942001FD199 /* Rocket.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rocket.gif; sourceTree = "<group>"; };
+		F3E90F4B203BCDD80070D618 /* FocalNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocalNode.swift; sourceTree = "<group>"; };
 		F3F1E7861FDB0E6A00FE3226 /* ActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		F3F1E7881FDB0F1400FE3226 /* ActivitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesViewController.swift; sourceTree = "<group>"; };
 		F3F1E78A1FDB0F4C00FE3226 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
@@ -93,7 +93,6 @@
 				F3E73FE81FB7B920001FD199 /* Gif.swift */,
 				5E070EC61FB7D070003993CB /* String+helpers.swift */,
 				5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */,
-				5E82230E2029286500D7DC18 /* SolarSystemViewController+toast.swift */,
 				5E1D552C202F825A0005F422 /* Int+helpers.swift */,
 				5E1D552E202F86B20005F422 /* PropertyStoring.swift */,
 				5E1D5536202FBFD00005F422 /* Double+helpers.swift */,
@@ -178,6 +177,7 @@
 				F31868A61FDC7C6F00DAFDAB /* Client.swift */,
 				5E1D5532202F911B0005F422 /* Planet.swift */,
 				5E1D5534202F94BC0005F422 /* Planets.swift */,
+				F3E90F4B203BCDD80070D618 /* FocalNode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -257,10 +257,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F37201A41FDBB3CA00A61537 /* LoginViewController.swift in Sources */,
+				F3E90F4C203BCDD80070D618 /* FocalNode.swift in Sources */,
 				5EFE86C1201FE61A006D21FA /* SCNVector+operators.swift in Sources */,
 				5E070EC71FB7D070003993CB /* String+helpers.swift in Sources */,
 				5E1D5533202F911B0005F422 /* Planet.swift in Sources */,
-				5E82230F2029286500D7DC18 /* SolarSystemViewController+toast.swift in Sources */,
 				F3DBE2181FDA5799008B6AD0 /* ModuleCell.swift in Sources */,
 				5E1D5537202FBFD00005F422 /* Double+helpers.swift in Sources */,
 				F3F1E7871FDB0E6A00FE3226 /* ActivityCell.swift in Sources */,
@@ -419,7 +419,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G5P88J4SPW;
+				DEVELOPMENT_TEAM = A6N8P4N2HZ;
 				INFOPLIST_FILE = "ARKit Project/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bozzy.ARKit-Project";
@@ -434,7 +434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G5P88J4SPW;
+				DEVELOPMENT_TEAM = A6N8P4N2HZ;
 				INFOPLIST_FILE = "ARKit Project/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bozzy.ARKit-Project";
