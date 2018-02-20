@@ -106,6 +106,7 @@ class SolarSystemViewController: UIViewController {
 				node.removeFromParentNode()
 			}
 			sceneAdded = true
+			setupPlanetAnimations(node: sceneView.scene.rootNode)
 		}
 	}
 	
@@ -141,7 +142,7 @@ class SolarSystemViewController: UIViewController {
 			if scale.x > 0.01 && scale.x < 0.15 {
 				node.scale = scale
 			}
-			gesture.scale=1
+			gesture.scale = 1
 		}
 	}
 	
