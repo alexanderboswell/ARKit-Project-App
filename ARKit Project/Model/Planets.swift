@@ -19,10 +19,19 @@ class Planets {
     
     required init() {
         planets = [String:Planet]()
-        for name in planetNames.allValues {
-            let planet = Planet(name: name.rawValue.capitalized, rotationSpeed: Double.random(max: 5, min: 20), revolutionSpeed: Double.random(max: 10, min: 50))
-            planets[planet.nodeName] = planet
-        }
+        
+        planets["SunPlanet"] = Planet(name: "Sun", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["MercuryPlanet"] = Planet(name: "Mercury", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["VenusPlanet"] = Planet(name: "Venus", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["EarthPlanet"] = Planet(name: "Earth", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["MarsPlanet"] = Planet(name: "Mars", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["JupiterPlanet"] = Planet(name: "Jupiter", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["SaturnPlanet"] = Planet(name: "Saturn", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["UranusPlanet"] = Planet(name: "Uranus", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["NeptunePlanet"] = Planet(name: "Neptune", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["PlutoPlanet"] = Planet(name: "Pluto", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["MoonPlanet"] = Planet(name: "Moon", rotationSpeed: 10, revolutionSpeed: 100)
+        
     }
     
     func isValidKey(name: String) -> Bool {

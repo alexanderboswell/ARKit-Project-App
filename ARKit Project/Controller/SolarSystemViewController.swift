@@ -32,8 +32,19 @@ class SolarSystemViewController: UIViewController {
 	private var focalNode: SCNNode?
 	private var screenCenter: CGPoint!
 	private var modelNode: SCNNode!
-	private var selectedNode: SCNNode?
 	private var sceneAdded = false
+	private var startingPanPosition: SCNVector3!
+	private var startingWorldPosition: SCNVector3!
+    private struct ScaleLimits {
+        static let torusMaxPipeRadius: CGFloat = 10.0
+        static let torusMinPipeRadius: CGFloat = 0.002
+        static let torusScalingFactor: CGFloat = 1.0
+        static let totalMaxScale: Float = 10000.0
+        static let totalMinScale: Float = 0.0001
+        static let planetMaxScale: Float = 3200.0
+        static let planetMinScale: Float = 1.0
+        static let planetScalingFactor: Float = 1.0
+    }
 	
 	//MARK: Viewcontroller lifecycle
 	override func viewDidLoad() {
@@ -71,6 +82,7 @@ class SolarSystemViewController: UIViewController {
 		
 		// Get the model from the root node of the scene
 		modelNode = modelScene.rootNode
+
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -97,7 +109,7 @@ class SolarSystemViewController: UIViewController {
 			let position = float3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
 			
 			// Create a copy of the model set its position/rotation
-			let newNode = modelNode.flattenedClone()
+			let newNode = modelNode.childNodes[0]
 			newNode.simdPosition = position
 			
 			// Add the model to the scene
@@ -107,61 +119,121 @@ class SolarSystemViewController: UIViewController {
 			}
 			sceneAdded = true
 			setupPlanetAnimations(node: sceneView.scene.rootNode)
-		}
+        } else if gesture.state == UIGestureRecognizerState.recognized {
+            
+            let location: CGPoint = gesture.location(in:gesture.view)
+            saveLocations(tapLocation: location)
+            
+        }
 	}
 	
 	@IBAction func pan(_ gesture: UIPanGestureRecognizer) {
+        guard let node = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+            return
+        }
 		// Find the location in the view
 		let location = gesture.location(in: sceneView)
+        guard let result = sceneView.hitTest(location, types: .existingPlane).first else { return }
+        let transform = result.worldTransform
 		
 		switch gesture.state {
-		case .began:
-			// Choose the node to move
-			selectedNode = node(at: location)
+        case .began:
+            startingPanPosition = SCNVector3.init(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+            startingWorldPosition = node.worldPosition
 		case .changed:
 			// Move the node based on the real world translation
-			guard let result = sceneView.hitTest(location, types: .existingPlane).first else { return }
 			
-			let transform = result.worldTransform
-			let newPosition = float3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
-			selectedNode?.simdPosition = newPosition
+			let diffPanPosition = SCNVector3.init(transform.columns.3.x - startingPanPosition.x,
+                                                 transform.columns.3.y - startingPanPosition.y,
+                                                 transform.columns.3.z - startingPanPosition.z)
+            
+            node.worldPosition = startingWorldPosition! + diffPanPosition
+//            node.simdPosition = newPanPosition
 		default:
-			// Remove the reference to the node
-			selectedNode = nil
+			// Do nothing
+            print("done moving")
 		}
 	}
 	
 	@IBAction func pinch(_ gesture: UIPinchGestureRecognizer) {
-		for node in sceneView.scene.rootNode.childNodes {
-			SCNTransaction.animationDuration = 0.1
-			let pinchScaleX = Float(gesture.scale) * node.scale.x
-			let pinchScaleY =  Float(gesture.scale) * node.scale.y
-			let pinchScaleZ =  Float(gesture.scale) * node.scale.z
-			
-			let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
-			if scale.x > 0.01 && scale.x < 0.15 {
-				node.scale = scale
-			}
-			gesture.scale = 1
-		}
+        guard let node = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+            return
+        }
+        
+//
+//  I need to change the scale to 1 for the planets and make them their real size and then make the max and min of the scales.
+//  I might have a small struct that keeps track of the min and max scales. For the planets the min will be 1 and the max would be about 3,200
+//  I also need to change the torus pipe radius by the same gesture.scale as I am the starting point.
+//
+//  Zooming to the center of the screen not the starting point.
+//
+        
+        SCNTransaction.animationDuration = 0.5
+        
+        let pinchScaleX = Float(gesture.scale) * node.scale.x
+        let pinchScaleY =  Float(gesture.scale) * node.scale.y
+        let pinchScaleZ =  Float(gesture.scale) * node.scale.z
+        
+        let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
+        if scale.x < ScaleLimits.totalMaxScale && scale.x > ScaleLimits.totalMinScale {
+            node.scale = scale
+        }
+        
+        for torus in sceneView.scene.rootNode.childNodes(passingTest: isTorus) {
+            if let torusGeo = torus.geometry as? SCNTorus {
+                let pipeRadius = 1.0 / gesture.scale * torusGeo.pipeRadius * ScaleLimits.torusScalingFactor
+                
+                if pipeRadius < ScaleLimits.torusMaxPipeRadius && pipeRadius > ScaleLimits.torusMinPipeRadius {
+                    torusGeo.pipeRadius = pipeRadius
+                }
+            }
+        }
+        
+        for planet in sceneView.scene.rootNode.childNodes(passingTest: isPlanet) {
+            let pinchScaleX = Float(1 / gesture.scale) * planet.scale.x * ScaleLimits.planetScalingFactor
+            let pinchScaleY =  Float(1 / gesture.scale) * planet.scale.y * ScaleLimits.planetScalingFactor
+            let pinchScaleZ =  Float(1 / gesture.scale) * planet.scale.z * ScaleLimits.planetScalingFactor
+            let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
+            if scale.x < ScaleLimits.planetMaxScale && scale.x > ScaleLimits.planetMinScale {
+                planet.scale = scale
+            }
+        }
+        
+        gesture.scale=1
 	}
 	
 	@IBAction func longPressTranslate(_ sender: UILongPressGestureRecognizer) {
-		guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
-			return
-		}
-		
-		let location: CGPoint = sender.location(in: sender.view)
-		
-		if let rootLocation = startingNodeStartPosition, longPressStartPosition != nil {
-			SCNTransaction.animationDuration = 1.0
-			let yDiff: Float = Float(location.y - longPressStartPosition.y) * 0.1
-			startingNode.position = SCNVector3.init(rootLocation.x,
-													rootLocation.y - yDiff,
-													rootLocation.z)
-		}
+        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+            return
+        }
+        
+        let location: CGPoint = sender.location(in: sender.view)
+        
+        if let rootLocation = startingNodeStartPosition, longPressStartPosition != nil {
+            SCNTransaction.animationDuration = 1.0
+            let yDiff: Float = Float(location.y - longPressStartPosition.y) * 0.1
+            startingNode.position = SCNVector3.init(rootLocation.x,
+                                                    rootLocation.y - yDiff,
+                                                    rootLocation.z)
+        }
 		
 	}
+    
+    func isPlanet(childNode: SCNNode, stop: UnsafeMutablePointer<ObjCBool>) -> Bool {
+        
+        if let nodeName = childNode.name, nodeName.contains("Planet"), nodeName != "SunPlanet" {
+            return true
+        }
+        return false
+    }
+    
+    func isTorus(childNode: SCNNode, stop: UnsafeMutablePointer<ObjCBool>) -> Bool {
+        
+        if let nodeName = childNode.name, nodeName.contains("Torus") {
+            return true
+        }
+        return false
+    }
 	
 	//MARK: Custom Methods
 	private func node(at position: CGPoint) -> SCNNode? {
