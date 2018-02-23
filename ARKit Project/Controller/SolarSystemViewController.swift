@@ -82,7 +82,6 @@ class SolarSystemViewController: UIViewController {
 		
 		// Get the model from the root node of the scene
 		modelNode = modelScene.rootNode
-
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -98,6 +97,12 @@ class SolarSystemViewController: UIViewController {
 	
 	@IBAction func tap(_ gesture: UITapGestureRecognizer) {
 		if !sceneAdded {
+			
+			// Hide the label
+			UIView.animate(withDuration: 1, animations: {
+				self.searchingLabel.isHidden = true
+			}, completion: nil)
+			
 			// Make sure we've found the floor
 			guard let focalNode = focalNode else { return }
 			
@@ -293,14 +298,12 @@ extension SolarSystemViewController: ARSCNViewDelegate {
 		// Store the focal node
 		self.focalNode = node
 		
-		// Hide the label (making sure we're on the main thread)
+		self.sceneView.debugOptions = []
+		// Change the label (making sure we're on the main thread)
 		DispatchQueue.main.async {
-			UIView.animate(withDuration: 0.5, animations: {
-				self.searchingLabel.alpha = 0.0
-				self.sceneView.debugOptions = []
-			}, completion: { _ in
-				self.searchingLabel.isHidden = true
-			})
+			UIView.animate(withDuration: 1, animations: {
+				self.searchingLabel.text = "Tap to place model"
+			}, completion: nil)
 		}
 	}
 	
