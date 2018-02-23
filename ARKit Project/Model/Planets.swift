@@ -23,7 +23,7 @@ class Planets {
         planets["SunPlanet"] = Planet(name: "Sun", rotationSpeed: 10, revolutionSpeed: 100)
         planets["MercuryPlanet"] = Planet(name: "Mercury", rotationSpeed: 10, revolutionSpeed: 100)
         planets["VenusPlanet"] = Planet(name: "Venus", rotationSpeed: 10, revolutionSpeed: 100)
-        planets["EarthPlanet"] = Planet(name: "Earth", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["EarthPlanet"] = Planet(name: "Earth", rotationSpeed: 10, revolutionSpeed: 10000000)
         planets["MarsPlanet"] = Planet(name: "Mars", rotationSpeed: 10, revolutionSpeed: 100)
         planets["JupiterPlanet"] = Planet(name: "Jupiter", rotationSpeed: 10, revolutionSpeed: 100)
         planets["SaturnPlanet"] = Planet(name: "Saturn", rotationSpeed: 10, revolutionSpeed: 100)

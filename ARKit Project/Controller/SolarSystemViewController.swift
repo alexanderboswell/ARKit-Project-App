@@ -37,15 +37,14 @@ class SolarSystemViewController: UIViewController {
 	private var paused = false
 	private var startingPanPosition: SCNVector3!
 	private var startingWorldPosition: SCNVector3!
-    private struct ScaleLimits {
-        static let torusMaxPipeRadius: CGFloat = 10.0
+    private struct Constants {
+        static let torusMaxPipeRadius: CGFloat = 13.0
         static let torusMinPipeRadius: CGFloat = 0.002
-        static let torusScalingFactor: CGFloat = 1.0
         static let totalMaxScale: Float = 10000.0
-        static let totalMinScale: Float = 0.0001
-        static let planetMaxScale: Float = 3200.0
+        static let totalMinScale: Float = 0.00007
+        static let planetMaxScale: Float = 3300.0
         static let planetMinScale: Float = 1.0
-        static let planetScalingFactor: Float = 1.0
+        static let middlePoint = CGPoint.init(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
     }
 	
 	//MARK: Viewcontroller lifecycle
@@ -161,12 +160,13 @@ class SolarSystemViewController: UIViewController {
             startingWorldPosition = node.worldPosition
 		case .changed:
 			// Move the node based on the real world translation
-			
-			let diffPanPosition = SCNVector3.init(transform.columns.3.x - startingPanPosition.x,
-                                                 transform.columns.3.y - startingPanPosition.y,
-                                                 transform.columns.3.z - startingPanPosition.z)
-            
-            node.worldPosition = startingWorldPosition! + diffPanPosition
+            if let startingPanPosition = startingPanPosition, let startingWorldPosition = startingWorldPosition {
+                let diffPanPosition = SCNVector3.init(transform.columns.3.x - startingPanPosition.x,
+                                                      transform.columns.3.y - startingPanPosition.y,
+                                                      transform.columns.3.z - startingPanPosition.z)
+                
+                node.worldPosition = startingWorldPosition + diffPanPosition
+            }
 //            node.simdPosition = newPanPosition
 		default:
 			// Do nothing
@@ -175,17 +175,19 @@ class SolarSystemViewController: UIViewController {
 	}
 	
 	@IBAction func pinch(_ gesture: UIPinchGestureRecognizer) {
-        guard let node = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+        guard let node = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true),
+              let zoomAnchor = sceneView.scene.rootNode.childNode(withName: "zoomAnchor", recursively: true) else {
             return
         }
-        
-//
-//  I need to change the scale to 1 for the planets and make them their real size and then make the max and min of the scales.
-//  I might have a small struct that keeps track of the min and max scales. For the planets the min will be 1 and the max would be about 3,200
-//  I also need to change the torus pipe radius by the same gesture.scale as I am the starting point.
-//
-//  Zooming to the center of the screen not the starting point.
-//
+        guard let startingMiddleResult = sceneView.hitTest(Constants.middlePoint, types: .existingPlane).first else {
+            return
+        }
+        let startingTransform = startingMiddleResult.worldTransform
+        let startingZoomAnchorPosition = SCNVector3.init(startingTransform.columns.3.x, startingTransform.columns.3.y, startingTransform.columns.3.z)
+        zoomAnchor.worldPosition = startingZoomAnchorPosition
+        print("\n\n\nstarting zoomAnchor position is: \(zoomAnchor.worldPosition.getText())")
+        let startingNodeWorldPosition = node.worldPosition
+        print("startingNodeWorldPosition is: \(startingNodeWorldPosition.getText())")
         
         SCNTransaction.animationDuration = 0.5
         
@@ -194,31 +196,46 @@ class SolarSystemViewController: UIViewController {
         let pinchScaleZ =  Float(gesture.scale) * node.scale.z
         
         let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
-        if scale.x < ScaleLimits.totalMaxScale && scale.x > ScaleLimits.totalMinScale {
+        if scale.x < Constants.totalMaxScale && scale.x > Constants.totalMinScale {
             node.scale = scale
         }
         
+        let endingZoomAnchorPosition = zoomAnchor.worldPosition
+        
+        print("endingZoomAnchorPosition is: \(endingZoomAnchorPosition.getText())")
+        let diffMiddlePosition = SCNVector3.init(startingZoomAnchorPosition.x - endingZoomAnchorPosition.x,
+                                                 startingZoomAnchorPosition.y - endingZoomAnchorPosition.y,
+                                                 startingZoomAnchorPosition.z - endingZoomAnchorPosition.z)
+        print("diffMiddlePosition is: \(diffMiddlePosition.getText())")
+        
+        print("final node.worldPosition was: \(node.worldPosition.getText())")
+        node.worldPosition = startingNodeWorldPosition + diffMiddlePosition
+        print("final node.worldPosition is: \(node.worldPosition.getText())")
+        
         for torus in sceneView.scene.rootNode.childNodes(passingTest: isTorus) {
             if let torusGeo = torus.geometry as? SCNTorus {
-                let pipeRadius = 1.0 / gesture.scale * torusGeo.pipeRadius * ScaleLimits.torusScalingFactor
+                let pipeRadius = 1.0 / gesture.scale * torusGeo.pipeRadius
                 
-                if pipeRadius < ScaleLimits.torusMaxPipeRadius && pipeRadius > ScaleLimits.torusMinPipeRadius {
+                if pipeRadius < Constants.torusMaxPipeRadius && pipeRadius > Constants.torusMinPipeRadius {
                     torusGeo.pipeRadius = pipeRadius
                 }
             }
         }
         
         for planet in sceneView.scene.rootNode.childNodes(passingTest: isPlanet) {
-            let pinchScaleX = Float(1 / gesture.scale) * planet.scale.x * ScaleLimits.planetScalingFactor
-            let pinchScaleY =  Float(1 / gesture.scale) * planet.scale.y * ScaleLimits.planetScalingFactor
-            let pinchScaleZ =  Float(1 / gesture.scale) * planet.scale.z * ScaleLimits.planetScalingFactor
+            let pinchScaleX = Float(1 / gesture.scale) * planet.scale.x
+            let pinchScaleY =  Float(1 / gesture.scale) * planet.scale.y
+            let pinchScaleZ =  Float(1 / gesture.scale) * planet.scale.z
             let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
-            if scale.x < ScaleLimits.planetMaxScale && scale.x > ScaleLimits.planetMinScale {
+            if scale.x < Constants.planetMaxScale && scale.x > Constants.planetMinScale {
                 planet.scale = scale
             }
         }
         
         gesture.scale=1
+        
+        
+        
 	}
 	
 	@IBAction func longPressTranslate(_ sender: UILongPressGestureRecognizer) {
@@ -230,7 +247,7 @@ class SolarSystemViewController: UIViewController {
         
         if let rootLocation = startingNodeStartPosition, longPressStartPosition != nil {
             SCNTransaction.animationDuration = 1.0
-            let yDiff: Float = Float(location.y - longPressStartPosition.y) * 0.1
+            let yDiff: Float = Float(location.y - longPressStartPosition.y) * 0.01
             startingNode.position = SCNVector3.init(rootLocation.x,
                                                     rootLocation.y - yDiff,
                                                     rootLocation.z)

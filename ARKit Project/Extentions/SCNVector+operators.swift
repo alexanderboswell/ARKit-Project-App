@@ -18,5 +18,9 @@ extension SCNVector3 {
         return SCNVector3Make(left.x + right.x, left.y + right.y, left.z + right.z)
     }
     
+    func getText() -> String {
+        return "x:\(self.x), y:\(self.y), z:\(self.z)"
+    }
+    
 }
 
