@@ -19,6 +19,8 @@ class Client {
 				   Activity(title: "Venus", imageName: "Venus"),
 				   Activity(title: "Earth", imageName: "Earth"),
 				   Activity(title: "Mars", imageName: "Mars"),
+				   Activity(title: "Moon", imageName: "Moon"),
+				   Activity(title: "Sun", imageName: "Sun"),
 				   Activity(title: "Jupiter", imageName: "Jupiter"),
 				   Activity(title: "Saturn", imageName: "Saturn"),
 				   Activity(title: "Uranus", imageName: "Uranus"),

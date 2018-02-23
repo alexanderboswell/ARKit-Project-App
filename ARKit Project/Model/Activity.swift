@@ -11,10 +11,12 @@ import UIKit
 class Activity {
     
     var title: String
+	var scnFile: String
     var image: UIImage?
     
-    init(title: String, imageName: String) {
+	init(title: String, imageName: String) {
         self.title = title
+		self.scnFile = imageName
         if let image = UIImage(named: imageName) {
             self.image = image
         }

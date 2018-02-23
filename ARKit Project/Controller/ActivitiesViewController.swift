@@ -30,11 +30,10 @@ class ActivitiesViewController: UICollectionViewController {
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //TODO: change filename based on which SCN scence to load
-		if segue.identifier == Storyboard.arscnSegueIdentifier {
-			if let vc = segue.destination as? SolarSystemViewController {
-				vc.fileName = "SolarSystem"
-			}
+		if segue.identifier == Storyboard.arscnSegueIdentifier,
+			let vc = segue.destination as? SolarSystemViewController,
+			let activity = sender as? Activity {
+				vc.fileName = activity.scnFile
 		}
 	}
 	
@@ -72,7 +71,7 @@ class ActivitiesViewController: UICollectionViewController {
         return cell
     }
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		performSegue(withIdentifier: Storyboard.arscnSegueIdentifier, sender: nil)
+		performSegue(withIdentifier: Storyboard.arscnSegueIdentifier, sender: activities[indexPath.row])
 	}
 }
 
