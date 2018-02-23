@@ -15,7 +15,8 @@ class SolarSystemViewController: UIViewController {
 	//MARK: Outlets
 	@IBOutlet var sceneView: ARSCNView!
 	@IBOutlet weak var searchingLabel: UILabel!
-
+	@IBOutlet weak var playPauseButton: UIButton!
+	
 	//MARK: Public variables
 	var fileName: String!
 	
@@ -33,6 +34,7 @@ class SolarSystemViewController: UIViewController {
 	private var screenCenter: CGPoint!
 	private var modelNode: SCNNode!
 	private var sceneAdded = false
+	private var paused = false
 	private var startingPanPosition: SCNVector3!
 	private var startingWorldPosition: SCNVector3!
     private struct ScaleLimits {
@@ -91,6 +93,17 @@ class SolarSystemViewController: UIViewController {
 	}
 	
 	//MARK: Actions
+	
+	@IBAction func playPause(_ button: UIButton) {
+		button.setImage(UIImage(named: paused ? "PauseIcon" : "PlayIcon"), for: .normal) 
+		if !paused {
+			//TODO: stop rotations
+		} else {
+			//TODO enable rotations
+		}
+		paused = !paused
+	}
+	
 	@IBAction func close(_ sender: UIButton) {
 		self.dismiss(animated: true, completion: nil)
 	}
@@ -99,8 +112,9 @@ class SolarSystemViewController: UIViewController {
 		if !sceneAdded {
 			
 			// Hide the label
-			UIView.animate(withDuration: 1, animations: {
-				self.searchingLabel.isHidden = true
+			UIView.animate(withDuration: 0.5, animations: {
+				self.searchingLabel.alpha = 0.0
+				self.playPauseButton.alpha = 1.0
 			}, completion: nil)
 			
 			// Make sure we've found the floor
