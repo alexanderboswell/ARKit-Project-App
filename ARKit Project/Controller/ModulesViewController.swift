@@ -8,13 +8,16 @@
 
 import UIKit
 
+private let APP_URL = "https://itunes.apple.com/us/app/arocket/id1352097337?ls=1&mt=8"
+
 class ModulesViewController: UICollectionViewController {
 	
     //MARK: Outlets
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    //MARK: Private variables
+	@IBOutlet weak var shareButton: UIBarButtonItem!
+	
+	//MARK: Private variables
     
 	private var modules: [Module] = []
 	private struct Storyboard {
@@ -28,6 +31,21 @@ class ModulesViewController: UICollectionViewController {
 	
 	override func viewDidLoad() {
 		loadModules()
+	}
+	
+	//MARK: Actions
+	
+	@IBAction func share(_ sender: Any) {
+		//Set the default sharing message.
+		let message = "Check out this new augmented reality app!"
+		//Set the link to share.
+		if let link = NSURL(string: APP_URL)
+		{
+			let objectsToShare = [message,link] as [Any]
+			let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+			activityVC.excludedActivityTypes = [.addToReadingList, .assignToContact, .markupAsPDF, .openInIBooks, .saveToCameraRoll]
+			self.present(activityVC, animated: true, completion: nil)
+		}
 	}
 	
 	//MARK: Custom methods
@@ -61,10 +79,14 @@ class ModulesViewController: UICollectionViewController {
 		cell.backgroundColor = module.backgroundColor
 		cell.image.image = module.image
     	cell.layer.cornerRadius = 10
+		cell.arrowImage.isHidden = !module.isActive
+		
         return cell
     }
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: Storyboard.activitiesSegueIdentifier, sender: nil)
+		if modules[indexPath.row].isActive {
+        	performSegue(withIdentifier: Storyboard.activitiesSegueIdentifier, sender: nil)
+		}
     }
 }
 

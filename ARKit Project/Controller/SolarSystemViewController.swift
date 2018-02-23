@@ -15,26 +15,25 @@ class SolarSystemViewController: UIViewController {
 	//MARK: Outlets
 	@IBOutlet var sceneView: ARSCNView!
 	@IBOutlet weak var searchingLabel: UILabel!
-	
-	
-	let planets = Planets()
+
+	//MARK: Public variables
 	var fileName: String!
-	var longPressStartPosition: CGPoint!
-	var startingNodeStartPosition: SCNVector3!
 	
-	let session = ARSession()
-	let sessionConfiguration: ARWorldTrackingConfiguration = {
+	//MARK: Private variables
+	private let planets = Planets()
+	private var longPressStartPosition: CGPoint!
+	private var startingNodeStartPosition: SCNVector3!
+	private let session = ARSession()
+	private let sessionConfiguration: ARWorldTrackingConfiguration = {
 		let config = ARWorldTrackingConfiguration()
 		config.planeDetection = .horizontal
 		return config
 	}()
-	
-	var focalNode: FocalNode?
+	private var focalNode: SCNNode?
 	private var screenCenter: CGPoint!
 	private var modelNode: SCNNode!
 	private var selectedNode: SCNNode?
 	private var sceneAdded = false
-	
 	
 	//MARK: Viewcontroller lifecycle
 	override func viewDidLoad() {
@@ -43,7 +42,6 @@ class SolarSystemViewController: UIViewController {
 		guard let fileName = fileName else {
 			return
 		}
-		title = fileName
 		
 		// Store screen center here so it can be accessed off of the main thread
 		screenCenter = view.center
@@ -51,8 +49,6 @@ class SolarSystemViewController: UIViewController {
 		// Set the view's delegate
 		sceneView.delegate = self
 		
-		// Show statistics such as fps and timing information
-		sceneView.showsStatistics = true
 		sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
 		
 		// Update at 60 frames per second (recommended by Apple)
@@ -84,6 +80,10 @@ class SolarSystemViewController: UIViewController {
 	}
 	
 	//MARK: Actions
+	@IBAction func close(_ sender: UIButton) {
+		self.dismiss(animated: true, completion: nil)
+	}
+	
 	@IBAction func tap(_ gesture: UITapGestureRecognizer) {
 		if !sceneAdded {
 			// Make sure we've found the floor
@@ -212,7 +212,7 @@ extension SolarSystemViewController: ARSCNViewDelegate {
 		guard focalNode == nil else { return }
 		
 		// Create a new focal node
-		let node = FocalNode()
+		let node = SCNNode()
 		node.addChildNode(modelNode)
 		
 		// Add it to the root of our current scene

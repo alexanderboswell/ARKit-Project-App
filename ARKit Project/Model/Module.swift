@@ -14,11 +14,13 @@ class Module {
 	var description: String
 	var backgroundColor: UIColor
 	var image: UIImage?
+	var isActive: Bool
 	
-	init(title: String, description: String, backgroundColor: UIColor, imageName: String) {
+	init(title: String, description: String, backgroundColor: UIColor, imageName: String, isActive: Bool) {
 		self.title = title
 		self.description = description
 		self.backgroundColor = backgroundColor
+		self.isActive = isActive
         
         //TODO: Load images with a background task
 		if let image = UIImage(named: imageName) {

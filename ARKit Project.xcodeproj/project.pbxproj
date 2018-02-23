@@ -16,7 +16,7 @@
 		5E6512761FB7B47500C5B585 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */; };
 		5EFE86C1201FE61A006D21FA /* SCNVector+operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */; };
 		F31868A71FDC7C6F00DAFDAB /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31868A61FDC7C6F00DAFDAB /* Client.swift */; };
-		F36AED691FB7B6B00047123E /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36AED681FB7B6B00047123E /* LaunchViewController.swift */; };
+		F32BB8E0203F80DD00566267 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F32BB8DF203F80DD00566267 /* Launch Screen.storyboard */; };
 		F37201A21FDBA97900A61537 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37201A11FDBA97900A61537 /* ProfileViewController.swift */; };
 		F37201A41FDBB3CA00A61537 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37201A31FDBB3CA00A61537 /* LoginViewController.swift */; };
 		F37201A61FDC68F900A61537 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37201A51FDC68F900A61537 /* SignUpViewController.swift */; };
@@ -26,15 +26,11 @@
 		F3A2AF981FB76D0300986795 /* SolarSystemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A2AF971FB76D0300986795 /* SolarSystemViewController.swift */; };
 		F3A2AF9B1FB76D0300986795 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF991FB76D0300986795 /* Main.storyboard */; };
 		F3A2AF9D1FB76D0300986795 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF9C1FB76D0300986795 /* Assets.xcassets */; };
-		F3A2AFA01FB76D0300986795 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3A2AF9E1FB76D0300986795 /* LaunchScreen.storyboard */; };
 		F3BB4F0A1FE18D4C0079E4CC /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BB4F091FE18D4C0079E4CC /* EditProfileViewController.swift */; };
 		F3BB4F0C1FE193D70079E4CC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BB4F0B1FE193D70079E4CC /* SettingsViewController.swift */; };
 		F3DBE2131FDA34AB008B6AD0 /* ModulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBE2121FDA34AB008B6AD0 /* ModulesViewController.swift */; };
 		F3DBE2161FDA55F0008B6AD0 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBE2151FDA55F0008B6AD0 /* Module.swift */; };
 		F3DBE2181FDA5799008B6AD0 /* ModuleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DBE2171FDA5799008B6AD0 /* ModuleCell.swift */; };
-		F3E73FE91FB7B920001FD199 /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E73FE81FB7B920001FD199 /* Gif.swift */; };
-		F3E73FEB1FB7B942001FD199 /* Rocket.gif in Resources */ = {isa = PBXBuildFile; fileRef = F3E73FEA1FB7B942001FD199 /* Rocket.gif */; };
-		F3E90F4C203BCDD80070D618 /* FocalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E90F4B203BCDD80070D618 /* FocalNode.swift */; };
 		F3F1E7871FDB0E6A00FE3226 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F1E7861FDB0E6A00FE3226 /* ActivityCell.swift */; };
 		F3F1E7891FDB0F1400FE3226 /* ActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F1E7881FDB0F1400FE3226 /* ActivitiesViewController.swift */; };
 		F3F1E78B1FDB0F4C00FE3226 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F1E78A1FDB0F4C00FE3226 /* Activity.swift */; };
@@ -50,7 +46,7 @@
 		5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector+operators.swift"; sourceTree = "<group>"; };
 		F31868A61FDC7C6F00DAFDAB /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
-		F36AED681FB7B6B00047123E /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		F32BB8DF203F80DD00566267 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		F37201A11FDBA97900A61537 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F37201A31FDBB3CA00A61537 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F37201A51FDC68F900A61537 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -61,16 +57,12 @@
 		F3A2AF971FB76D0300986795 /* SolarSystemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSystemViewController.swift; sourceTree = "<group>"; };
 		F3A2AF9A1FB76D0300986795 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F3A2AF9C1FB76D0300986795 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F3A2AF9F1FB76D0300986795 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3A2AFA11FB76D0300986795 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3BB4F091FE18D4C0079E4CC /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		F3BB4F0B1FE193D70079E4CC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F3DBE2121FDA34AB008B6AD0 /* ModulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesViewController.swift; sourceTree = "<group>"; };
 		F3DBE2151FDA55F0008B6AD0 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		F3DBE2171FDA5799008B6AD0 /* ModuleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleCell.swift; sourceTree = "<group>"; };
-		F3E73FE81FB7B920001FD199 /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
-		F3E73FEA1FB7B942001FD199 /* Rocket.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Rocket.gif; sourceTree = "<group>"; };
-		F3E90F4B203BCDD80070D618 /* FocalNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocalNode.swift; sourceTree = "<group>"; };
 		F3F1E7861FDB0E6A00FE3226 /* ActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		F3F1E7881FDB0F1400FE3226 /* ActivitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitiesViewController.swift; sourceTree = "<group>"; };
 		F3F1E78A1FDB0F4C00FE3226 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
@@ -90,7 +82,6 @@
 		5E070EC51FB7D052003993CB /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
-				F3E73FE81FB7B920001FD199 /* Gif.swift */,
 				5E070EC61FB7D070003993CB /* String+helpers.swift */,
 				5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */,
 				5E1D552C202F825A0005F422 /* Int+helpers.swift */,
@@ -105,7 +96,6 @@
 			children = (
 				5E070EC51FB7D052003993CB /* Extentions */,
 				F3A2AFA11FB76D0300986795 /* Info.plist */,
-				F3A2AF9E1FB76D0300986795 /* LaunchScreen.storyboard */,
 				F3A2AF931FB76D0300986795 /* AppDelegate.swift */,
 				F3A2AF9C1FB76D0300986795 /* Assets.xcassets */,
 				F3A2AF951FB76D0300986795 /* art.scnassets */,
@@ -118,7 +108,6 @@
 			children = (
 				F3A2AF971FB76D0300986795 /* SolarSystemViewController.swift */,
 				5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */,
-				F36AED681FB7B6B00047123E /* LaunchViewController.swift */,
 				F3DBE2121FDA34AB008B6AD0 /* ModulesViewController.swift */,
 				F3F1E7881FDB0F1400FE3226 /* ActivitiesViewController.swift */,
 				F37201A11FDBA97900A61537 /* ProfileViewController.swift */,
@@ -137,6 +126,7 @@
 				F3A2AF991FB76D0300986795 /* Main.storyboard */,
 				F3DBE2171FDA5799008B6AD0 /* ModuleCell.swift */,
 				F3F1E7861FDB0E6A00FE3226 /* ActivityCell.swift */,
+				F32BB8DF203F80DD00566267 /* Launch Screen.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -160,7 +150,6 @@
 		F3A2AF921FB76D0300986795 /* ARKit Project */ = {
 			isa = PBXGroup;
 			children = (
-				F3E73FEA1FB7B942001FD199 /* Rocket.gif */,
 				5E32F16C1FB7A2CB000CCDFA /* Shared */,
 				F3DBE2141FDA350A008B6AD0 /* Model */,
 				5E32F16E1FB7A2E0000CCDFA /* View */,
@@ -177,7 +166,6 @@
 				F31868A61FDC7C6F00DAFDAB /* Client.swift */,
 				5E1D5532202F911B0005F422 /* Planet.swift */,
 				5E1D5534202F94BC0005F422 /* Planets.swift */,
-				F3E90F4B203BCDD80070D618 /* FocalNode.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -241,9 +229,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3E73FEB1FB7B942001FD199 /* Rocket.gif in Resources */,
+				F32BB8E0203F80DD00566267 /* Launch Screen.storyboard in Resources */,
 				F3A2AF961FB76D0300986795 /* art.scnassets in Resources */,
-				F3A2AFA01FB76D0300986795 /* LaunchScreen.storyboard in Resources */,
 				F3A2AF9D1FB76D0300986795 /* Assets.xcassets in Resources */,
 				F3A2AF9B1FB76D0300986795 /* Main.storyboard in Resources */,
 			);
@@ -257,7 +244,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F37201A41FDBB3CA00A61537 /* LoginViewController.swift in Sources */,
-				F3E90F4C203BCDD80070D618 /* FocalNode.swift in Sources */,
 				5EFE86C1201FE61A006D21FA /* SCNVector+operators.swift in Sources */,
 				5E070EC71FB7D070003993CB /* String+helpers.swift in Sources */,
 				5E1D5533202F911B0005F422 /* Planet.swift in Sources */,
@@ -279,8 +265,6 @@
 				F3DBE2161FDA55F0008B6AD0 /* Module.swift in Sources */,
 				F37201A81FDC691700A61537 /* SignInViewController.swift in Sources */,
 				F37201A21FDBA97900A61537 /* ProfileViewController.swift in Sources */,
-				F36AED691FB7B6B00047123E /* LaunchViewController.swift in Sources */,
-				F3E73FE91FB7B920001FD199 /* Gif.swift in Sources */,
 				5E1D552D202F825A0005F422 /* Int+helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,14 +278,6 @@
 				F3A2AF9A1FB76D0300986795 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F3A2AF9E1FB76D0300986795 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F3A2AF9F1FB76D0300986795 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -15,4 +15,5 @@ class ModuleCell: UICollectionViewCell {
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var descriptionLabel: UILabel!
 	@IBOutlet weak var image: UIImageView!
+	@IBOutlet weak var arrowImage: UIImageView!
 }
