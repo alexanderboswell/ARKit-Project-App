@@ -16,7 +16,8 @@ class SolarSystemViewController: UIViewController {
 	@IBOutlet var sceneView: ARSCNView!
 	@IBOutlet weak var searchingLabel: UILabel!
 	@IBOutlet weak var playPauseButton: UIButton!
-	
+    @IBOutlet weak var helpButton: UIButton!
+    
 	//MARK: Public variables
 	var fileName: String!
 	
@@ -30,11 +31,16 @@ class SolarSystemViewController: UIViewController {
 		config.planeDetection = .horizontal
 		return config
 	}()
+    private var fileLocation: String {
+        return "art.scnassets/\(fileName!).scn"
+    }
 	private var focalNode: SCNNode?
 	private var screenCenter: CGPoint!
 	private var modelNode: SCNNode!
 	private var sceneAdded = false
 	private var paused = false
+    private var inHelpMode = false
+    private var helpPromptIndex = 0
 	private var startingPanPosition: SCNVector3!
 	private var startingWorldPosition: SCNVector3!
     private struct Constants {
@@ -45,13 +51,30 @@ class SolarSystemViewController: UIViewController {
         static let planetMaxScale: Float = 3300.0
         static let planetMinScale: Float = 1.0
         static let middlePoint = CGPoint.init(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+        static let planetNodeName = "Planet"
+        static let orbitNodeName = "Orbit"
+        static let sunPlanetName = "SunPlanet"
+        static let pauseIconName = "PauseIcon"
+        static let playIconName = "PlayIcon"
+        static let solarSystemFileName = "SolarSystem"
+        static let startingPointNodeName = "starting point"
+        static let zoomAnchorNodeName = "zoomAnchor"
+        static let placeNodeMessage = "Aim away from you &\nTap to place model"
+        static let missingARMessage = "Sorry, your device doesn't support ARKit"
+        static let helpPrompts = ["Welcome to ARocket!",
+                                  "Here are some tips \nto help you navigate.",
+                                  "To move the planets, \npress anywhere on the screen \nand drag where you \nwant them to go.",
+                                  "To zoom in or out, \nposition the center \nof the screen where \nyou want to zoom and \npinch with your fingers.",
+                                  "To move the planets \nup or down, \ndouble tap, hold \nand then drag up or down \non your screen.",
+                                  "To change the \nmovement of the planets, \npress the pause or play button.",
+                                  "Thank you for using ARocket!",]
     }
 	
 	//MARK: Viewcontroller lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		guard let fileName = fileName else {
+		guard let _ = fileName else {
 			return
 		}
 		
@@ -70,14 +93,14 @@ class SolarSystemViewController: UIViewController {
 		if ARWorldTrackingConfiguration.isSupported {
 			session.run(sessionConfiguration, options: [.removeExistingAnchors, .resetTracking])
 		} else {
-			print("Sorry, your device doesn't support ARKit")
+			print(Constants.missingARMessage)
 		}
 		
 		// Use the session that we created
 		sceneView.session = session
 		
 		// Create a new scene
-		guard let modelScene = SCNScene(named: "art.scnassets/\(fileName).scn") else {
+		guard let modelScene = SCNScene(named: fileLocation) else {
 			return
 		}
 		
@@ -92,13 +115,33 @@ class SolarSystemViewController: UIViewController {
 	}
 	
 	//MARK: Actions
+    
+    @IBAction func helpPressed(_ sender: Any) {
+        inHelpMode = !inHelpMode
+        helpPromptIndex = 0
+        if inHelpMode {
+            self.playPauseButton.isEnabled = false
+            self.searchingLabel.text = Constants.helpPrompts[helpPromptIndex]
+            UIView.animate(withDuration: 0.5, animations: {
+                self.searchingLabel.alpha = 1.0
+            }, completion: nil)
+            removeAllAnimations(node: sceneView.scene.rootNode)
+        } else {
+            self.playPauseButton.isEnabled = true
+            UIView.animate(withDuration: 0.5, animations: {
+                self.searchingLabel.alpha = 0.0
+            }, completion: nil)
+            setupPlanetAnimations(node: sceneView.scene.rootNode)
+        }
+    }
+    
 	
 	@IBAction func playPause(_ button: UIButton) {
-		button.setImage(UIImage(named: paused ? "PauseIcon" : "PlayIcon"), for: .normal) 
+		button.setImage(UIImage(named: paused ? Constants.pauseIconName : Constants.playIconName), for: .normal)
 		if !paused {
-			//TODO: stop rotations
+            removeAllAnimations(node: sceneView.scene.rootNode)
 		} else {
-			//TODO enable rotations
+			setupPlanetAnimations(node: sceneView.scene.rootNode)
 		}
 		paused = !paused
 	}
@@ -114,6 +157,7 @@ class SolarSystemViewController: UIViewController {
 			UIView.animate(withDuration: 0.5, animations: {
 				self.searchingLabel.alpha = 0.0
 				self.playPauseButton.alpha = 1.0
+                self.helpButton.alpha = 1.0
 			}, completion: nil)
 			
 			// Make sure we've found the floor
@@ -137,16 +181,25 @@ class SolarSystemViewController: UIViewController {
 			}
 			sceneAdded = true
 			setupPlanetAnimations(node: sceneView.scene.rootNode)
-        } else if gesture.state == UIGestureRecognizerState.recognized {
+        } else if !inHelpMode {
             
             let location: CGPoint = gesture.location(in:gesture.view)
             saveLocations(tapLocation: location)
             
+        } else {
+            helpPromptIndex += 1
+            if helpPromptIndex < Constants.helpPrompts.count {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.searchingLabel.text = Constants.helpPrompts[self.helpPromptIndex]
+                }, completion: nil)
+            } else {
+                helpPressed(helpButton)
+            }
         }
 	}
 	
 	@IBAction func pan(_ gesture: UIPanGestureRecognizer) {
-        guard let node = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+        guard let node = sceneView.scene.rootNode.childNode(withName: Constants.startingPointNodeName, recursively: true) else {
             return
         }
 		// Find the location in the view
@@ -167,7 +220,6 @@ class SolarSystemViewController: UIViewController {
                 
                 node.worldPosition = startingWorldPosition + diffPanPosition
             }
-//            node.simdPosition = newPanPosition
 		default:
 			// Do nothing
             print("done moving")
@@ -175,8 +227,8 @@ class SolarSystemViewController: UIViewController {
 	}
 	
 	@IBAction func pinch(_ gesture: UIPinchGestureRecognizer) {
-        guard let node = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true),
-              let zoomAnchor = sceneView.scene.rootNode.childNode(withName: "zoomAnchor", recursively: true) else {
+        guard let node = sceneView.scene.rootNode.childNode(withName: Constants.startingPointNodeName, recursively: true),
+              let zoomAnchor = sceneView.scene.rootNode.childNode(withName: Constants.zoomAnchorNodeName, recursively: true) else {
             return
         }
         guard let startingMiddleResult = sceneView.hitTest(Constants.middlePoint, types: .existingPlane).first else {
@@ -185,9 +237,7 @@ class SolarSystemViewController: UIViewController {
         let startingTransform = startingMiddleResult.worldTransform
         let startingZoomAnchorPosition = SCNVector3.init(startingTransform.columns.3.x, startingTransform.columns.3.y, startingTransform.columns.3.z)
         zoomAnchor.worldPosition = startingZoomAnchorPosition
-        print("\n\n\nstarting zoomAnchor position is: \(zoomAnchor.worldPosition.getText())")
         let startingNodeWorldPosition = node.worldPosition
-        print("startingNodeWorldPosition is: \(startingNodeWorldPosition.getText())")
         
         SCNTransaction.animationDuration = 0.5
         
@@ -201,45 +251,39 @@ class SolarSystemViewController: UIViewController {
         }
         
         let endingZoomAnchorPosition = zoomAnchor.worldPosition
-        
-        print("endingZoomAnchorPosition is: \(endingZoomAnchorPosition.getText())")
         let diffMiddlePosition = SCNVector3.init(startingZoomAnchorPosition.x - endingZoomAnchorPosition.x,
                                                  startingZoomAnchorPosition.y - endingZoomAnchorPosition.y,
                                                  startingZoomAnchorPosition.z - endingZoomAnchorPosition.z)
-        print("diffMiddlePosition is: \(diffMiddlePosition.getText())")
-        
-        print("final node.worldPosition was: \(node.worldPosition.getText())")
         node.worldPosition = startingNodeWorldPosition + diffMiddlePosition
-        print("final node.worldPosition is: \(node.worldPosition.getText())")
         
-        for torus in sceneView.scene.rootNode.childNodes(passingTest: isTorus) {
-            if let torusGeo = torus.geometry as? SCNTorus {
-                let pipeRadius = 1.0 / gesture.scale * torusGeo.pipeRadius
-                
-                if pipeRadius < Constants.torusMaxPipeRadius && pipeRadius > Constants.torusMinPipeRadius {
-                    torusGeo.pipeRadius = pipeRadius
+        if self.fileName == Constants.solarSystemFileName {
+            for torus in sceneView.scene.rootNode.childNodes(passingTest: isTorus) {
+                if let torusGeo = torus.geometry as? SCNTorus {
+                    let pipeRadius = 1.0 / gesture.scale * torusGeo.pipeRadius
+                    
+                    if pipeRadius < Constants.torusMaxPipeRadius && pipeRadius > Constants.torusMinPipeRadius {
+                        torusGeo.pipeRadius = pipeRadius
+                    }
                 }
             }
-        }
-        
-        for planet in sceneView.scene.rootNode.childNodes(passingTest: isPlanet) {
-            let pinchScaleX = Float(1 / gesture.scale) * planet.scale.x
-            let pinchScaleY =  Float(1 / gesture.scale) * planet.scale.y
-            let pinchScaleZ =  Float(1 / gesture.scale) * planet.scale.z
-            let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
-            if scale.x < Constants.planetMaxScale && scale.x > Constants.planetMinScale {
-                planet.scale = scale
+            
+            for planet in sceneView.scene.rootNode.childNodes(passingTest: isPlanet) {
+                let pinchScaleX = Float(1 / gesture.scale) * planet.scale.x
+                let pinchScaleY =  Float(1 / gesture.scale) * planet.scale.y
+                let pinchScaleZ =  Float(1 / gesture.scale) * planet.scale.z
+                let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
+                if scale.x < Constants.planetMaxScale && scale.x > Constants.planetMinScale {
+                    planet.scale = scale
+                }
             }
         }
         
         gesture.scale=1
         
-        
-        
 	}
 	
 	@IBAction func longPressTranslate(_ sender: UILongPressGestureRecognizer) {
-        guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+        guard let startingNode = sceneView.scene.rootNode.childNode(withName: Constants.startingPointNodeName, recursively: true) else {
             return
         }
         
@@ -257,7 +301,7 @@ class SolarSystemViewController: UIViewController {
     
     func isPlanet(childNode: SCNNode, stop: UnsafeMutablePointer<ObjCBool>) -> Bool {
         
-        if let nodeName = childNode.name, nodeName.contains("Planet"), nodeName != "SunPlanet" {
+        if let nodeName = childNode.name, nodeName.contains(Constants.planetNodeName), nodeName != Constants.sunPlanetName {
             return true
         }
         return false
@@ -265,7 +309,7 @@ class SolarSystemViewController: UIViewController {
     
     func isTorus(childNode: SCNNode, stop: UnsafeMutablePointer<ObjCBool>) -> Bool {
         
-        if let nodeName = childNode.name, nodeName.contains("Torus") {
+        if let nodeName = childNode.name, nodeName.contains(Constants.orbitNodeName) {
             return true
         }
         return false
@@ -277,17 +321,27 @@ class SolarSystemViewController: UIViewController {
 			.first(where: { $0.node !== focalNode && $0.node !== modelNode })?
 			.node
 	}
+    
+    private func removeAllAnimations(node parentNode: SCNNode) {
+        for node in parentNode.childNodes {
+            if let nodeName = node.name, nodeName.contains(Constants.planetNodeName) {
+                if let orbitNode = node.parent, let orbitNodeName = orbitNode.name, orbitNodeName.contains(Constants.orbitNodeName) {
+                    orbitNode.removeAllActions()
+                }
+                node.removeAllActions()
+            }
+            removeAllAnimations(node: node)
+        }
+    }
 	
 	private func setupPlanetAnimations(node parentNode: SCNNode) {
 		for node in parentNode.childNodes {
-			if let nodeName = node.name, nodeName.contains("Planet") {
+			if let nodeName = node.name, nodeName.contains(Constants.planetNodeName) {
 				let planet = planets[nodeName]
-				if let orbitNode = node.parent, let orbitNodeName = orbitNode.name, orbitNodeName.contains("Orbit") {
+				if let orbitNode = node.parent, let orbitNodeName = orbitNode.name, orbitNodeName.contains(Constants.orbitNodeName) {
 					orbitNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: planet.revolutionSpeed)))
-					print("\(orbitNodeName) revolution was set")
 				}
 				node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: planet.rotationSpeed)))
-				print("\(nodeName) rotation was set")
 			}
 			setupPlanetAnimations(node: node)
 		}
@@ -302,7 +356,7 @@ class SolarSystemViewController: UIViewController {
 	}
 	
 	private func saveLocations(tapLocation: CGPoint) {
-		guard let startingNode = sceneView.scene.rootNode.childNode(withName: "starting point", recursively: true) else {
+		guard let startingNode = sceneView.scene.rootNode.childNode(withName: Constants.startingPointNodeName, recursively: true) else {
 			return
 		}
 		longPressStartPosition = tapLocation
@@ -333,7 +387,7 @@ extension SolarSystemViewController: ARSCNViewDelegate {
 		// Change the label (making sure we're on the main thread)
 		DispatchQueue.main.async {
 			UIView.animate(withDuration: 1, animations: {
-				self.searchingLabel.text = "Tap to place model"
+				self.searchingLabel.text = Constants.placeNodeMessage
 			}, completion: nil)
 		}
 	}

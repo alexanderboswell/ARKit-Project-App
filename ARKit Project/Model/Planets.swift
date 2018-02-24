@@ -20,17 +20,17 @@ class Planets {
     required init() {
         planets = [String:Planet]()
         
-        planets["SunPlanet"] = Planet(name: "Sun", rotationSpeed: 10, revolutionSpeed: 100)
-        planets["MercuryPlanet"] = Planet(name: "Mercury", rotationSpeed: 10, revolutionSpeed: 100)
-        planets["VenusPlanet"] = Planet(name: "Venus", rotationSpeed: 10, revolutionSpeed: 100)
-        planets["EarthPlanet"] = Planet(name: "Earth", rotationSpeed: 10, revolutionSpeed: 10000000)
-        planets["MarsPlanet"] = Planet(name: "Mars", rotationSpeed: 10, revolutionSpeed: 100)
-        planets["JupiterPlanet"] = Planet(name: "Jupiter", rotationSpeed: 10, revolutionSpeed: 100)
-        planets["SaturnPlanet"] = Planet(name: "Saturn", rotationSpeed: 10, revolutionSpeed: 100)
-        planets["UranusPlanet"] = Planet(name: "Uranus", rotationSpeed: 10, revolutionSpeed: 100)
-        planets["NeptunePlanet"] = Planet(name: "Neptune", rotationSpeed: 10, revolutionSpeed: 100)
-        planets["PlutoPlanet"] = Planet(name: "Pluto", rotationSpeed: 10, revolutionSpeed: 100)
-        planets["MoonPlanet"] = Planet(name: "Moon", rotationSpeed: 10, revolutionSpeed: 100)
+        planets["SunPlanet"] = Planet(name: "Sun", rotationSpeed: 24.47, revolutionSpeed: 0.0)
+        planets["MercuryPlanet"] = Planet(name: "Mercury", rotationSpeed: 58.65, revolutionSpeed: 0.24)
+        planets["VenusPlanet"] = Planet(name: "Venus", rotationSpeed: 116.75, revolutionSpeed: 0.62)
+        planets["EarthPlanet"] = Planet(name: "Earth", rotationSpeed: 1.0, revolutionSpeed: 365.0)
+        planets["MarsPlanet"] = Planet(name: "Mars", rotationSpeed: 1.03, revolutionSpeed: 343.1)
+        planets["JupiterPlanet"] = Planet(name: "Jupiter", rotationSpeed: 0.42, revolutionSpeed: 4328.9)
+        planets["SaturnPlanet"] = Planet(name: "Saturn", rotationSpeed: 0.44, revolutionSpeed: 10752.9)
+        planets["UranusPlanet"] = Planet(name: "Uranus", rotationSpeed: 0.72, revolutionSpeed: 11200025.0)
+        planets["NeptunePlanet"] = Planet(name: "Neptune", rotationSpeed: 0.67, revolutionSpeed: 21969350.0)
+        planets["PlutoPlanet"] = Planet(name: "Pluto", rotationSpeed: 6.39, revolutionSpeed: 90490.8)
+        planets["MoonPlanet"] = Planet(name: "Moon", rotationSpeed: 27.0, revolutionSpeed: 27.32)
         
     }
     

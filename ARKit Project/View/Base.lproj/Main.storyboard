@@ -221,8 +221,8 @@
                                     <outletCollection property="gestureRecognizers" destination="toQ-At-3QQ" appends="YES" id="b67-He-ZzC"/>
                                 </connections>
                             </arscnView>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for a surface..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asS-3x-ap0">
-                                <rect key="frame" x="64" y="321" width="246.5" height="25.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Searching for a surface..." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asS-3x-ap0">
+                                <rect key="frame" x="64" y="321" width="246.5" height="60"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -267,23 +267,46 @@
                                     <action selector="playPause:" destination="KHZ-sw-sP1" eventType="touchUpInside" id="98L-P0-UTW"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Jx-xe-Nmf" userLabel="help">
+                                <rect key="frame" x="314" y="606" width="41" height="41"/>
+                                <color key="backgroundColor" red="0.5" green="0.5" blue="0.5" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="41" id="78X-pD-v1B"/>
+                                    <constraint firstAttribute="width" secondItem="8Jx-xe-Nmf" secondAttribute="height" multiplier="1:1" id="Asf-rQ-anT"/>
+                                </constraints>
+                                <state key="normal" image="HelpIcon">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="helpPressed:" destination="KHZ-sw-sP1" eventType="touchUpInside" id="ZlC-eF-hUB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="x9E-5k-l0X" firstAttribute="top" secondItem="lnv-3b-ZUa" secondAttribute="top" id="2wG-GR-94i"/>
+                            <constraint firstItem="lnv-3b-ZUa" firstAttribute="bottom" secondItem="8Jx-xe-Nmf" secondAttribute="bottom" constant="20" id="8Rw-ON-zde"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" id="8bV-9U-UU6"/>
+                            <constraint firstItem="lnv-3b-ZUa" firstAttribute="trailing" secondItem="8Jx-xe-Nmf" secondAttribute="trailing" constant="20" id="GhH-4E-ouH"/>
+                            <constraint firstItem="8Jx-xe-Nmf" firstAttribute="width" secondItem="8Jx-xe-Nmf" secondAttribute="height" multiplier="1:1" id="KjU-MY-aKm"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="top" secondItem="uLB-mH-jCz" secondAttribute="top" id="Orl-lW-C7j"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="PRz-8x-7YO"/>
                             <constraint firstItem="pfO-qJ-RYr" firstAttribute="leading" relation="lessThanOrEqual" secondItem="x9E-5k-l0X" secondAttribute="trailing" priority="250" constant="251" id="U7L-D1-MT3"/>
                             <constraint firstItem="pfO-qJ-RYr" firstAttribute="top" secondItem="lnv-3b-ZUa" secondAttribute="top" id="Zt4-2y-3fU"/>
                             <constraint firstItem="asS-3x-ap0" firstAttribute="centerX" secondItem="uLB-mH-jCz" secondAttribute="centerX" id="d8i-eF-fLX"/>
                             <constraint firstItem="x9E-5k-l0X" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" constant="16" id="jxF-Tj-JSq"/>
-                            <constraint firstItem="asS-3x-ap0" firstAttribute="centerY" secondItem="uLB-mH-jCz" secondAttribute="centerY" id="qbC-SI-IZG"/>
+                            <constraint firstItem="asS-3x-ap0" firstAttribute="centerY" secondItem="uLB-mH-jCz" secondAttribute="centerY" constant="17.5" id="qbC-SI-IZG"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="bottom" secondItem="lnv-3b-ZUa" secondAttribute="bottom" id="r8z-Sp-UAF"/>
                             <constraint firstItem="lnv-3b-ZUa" firstAttribute="trailing" secondItem="pfO-qJ-RYr" secondAttribute="trailing" constant="16" id="rUc-dP-8UK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lnv-3b-ZUa"/>
                     </view>
                     <connections>
+                        <outlet property="helpButton" destination="8Jx-xe-Nmf" id="IVl-SI-XgD"/>
                         <outlet property="playPauseButton" destination="pfO-qJ-RYr" id="OP9-JA-lEn"/>
                         <outlet property="sceneView" destination="d7F-Ec-8qX" id="2Ym-NE-UuF"/>
                         <outlet property="searchingLabel" destination="asS-3x-ap0" id="lb2-qY-xtr"/>
@@ -1079,6 +1102,7 @@
         <image name="Earth" width="218" height="218"/>
         <image name="ForwardArrowBlack" width="96" height="96"/>
         <image name="ForwardArrowWhite" width="50" height="50"/>
+        <image name="HelpIcon" width="24" height="24"/>
         <image name="PauseIcon" width="50" height="50"/>
         <image name="RocketIcon" width="114" height="81"/>
         <image name="SettingsIcon" width="24" height="24"/>
