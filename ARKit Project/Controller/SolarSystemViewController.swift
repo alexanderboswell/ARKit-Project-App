@@ -106,6 +106,11 @@ class SolarSystemViewController: UIViewController {
 		
 		// Get the model from the root node of the scene
 		modelNode = modelScene.rootNode
+		let boxTransform = modelNode.transform;
+		// Let's make a new matrix for translation -5 along Z axis
+		let xTranslation = SCNMatrix4MakeTranslation(0, 0, -5);
+		let newTransform = SCNMatrix4Mult(xTranslation, boxTransform);
+		modelNode.transform = newTransform;
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
@@ -167,18 +172,21 @@ class SolarSystemViewController: UIViewController {
 			let results = sceneView.hitTest(screenCenter, types: .existingPlane)
 			guard let transform = results.first?.worldTransform else { return }
 			
-			// Find the position to place the model
-			let position = float3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
+			// Find the position to place the model, minus 5 to place model in front of you
+			let position = float3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z - 5)
 			
 			// Create a copy of the model set its position/rotation
 			let newNode = modelNode.childNodes[0]
+
 			newNode.simdPosition = position
 			
 			// Add the model to the scene
 			sceneView.scene.rootNode.addChildNode(newNode)
 			for node in focalNode.childNodes {
 				node.removeFromParentNode()
+			
 			}
+			
 			sceneAdded = true
 			setupPlanetAnimations(node: sceneView.scene.rootNode)
         } else if !inHelpMode {
