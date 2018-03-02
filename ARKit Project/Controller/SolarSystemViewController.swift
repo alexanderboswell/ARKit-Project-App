@@ -235,53 +235,52 @@ class SolarSystemViewController: UIViewController {
 	}
 	
 	@IBAction func pinch(_ gesture: UIPinchGestureRecognizer) {
-        guard let node = sceneView.scene.rootNode.childNode(withName: Constants.startingPointNodeName, recursively: true),
-              let zoomAnchor = sceneView.scene.rootNode.childNode(withName: Constants.zoomAnchorNodeName, recursively: true) else {
+        guard let startingNode = sceneView.scene.rootNode.childNode(withName: Constants.startingPointNodeName, recursively: true) else {
             return
         }
         guard let startingMiddleResult = sceneView.hitTest(Constants.middlePoint, types: .existingPlane).first else {
             return
         }
+        var childNodePositions = [SCNVector3]()
+        for childNode in startingNode.childNodes {
+            childNodePositions.append(childNode.worldPosition)
+        }
         let startingTransform = startingMiddleResult.worldTransform
-        let startingZoomAnchorPosition = SCNVector3.init(startingTransform.columns.3.x, startingTransform.columns.3.y, startingTransform.columns.3.z)
-        zoomAnchor.worldPosition = startingZoomAnchorPosition
-        let startingNodeWorldPosition = node.worldPosition
+        let middlePosition = SCNVector3.init(startingTransform.columns.3.x, startingTransform.columns.3.y, startingTransform.columns.3.z)
+        startingNode.worldPosition = middlePosition
         
-        SCNTransaction.animationDuration = 0.5
+        for (i,childNode) in startingNode.childNodes.enumerated() {
+            childNode.worldPosition = childNodePositions[i]
+        }
         
-        let pinchScaleX = Float(gesture.scale) * node.scale.x
-        let pinchScaleY =  Float(gesture.scale) * node.scale.y
-        let pinchScaleZ =  Float(gesture.scale) * node.scale.z
+        let pinchScaleX = Float(gesture.scale) * startingNode.scale.x
+        let pinchScaleY =  Float(gesture.scale) * startingNode.scale.y
+        let pinchScaleZ =  Float(gesture.scale) * startingNode.scale.z
         
         let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
         if scale.x < Constants.totalMaxScale && scale.x > Constants.totalMinScale {
-            node.scale = scale
-        }
-        
-        let endingZoomAnchorPosition = zoomAnchor.worldPosition
-        let diffMiddlePosition = SCNVector3.init(startingZoomAnchorPosition.x - endingZoomAnchorPosition.x,
-                                                 startingZoomAnchorPosition.y - endingZoomAnchorPosition.y,
-                                                 startingZoomAnchorPosition.z - endingZoomAnchorPosition.z)
-        node.worldPosition = startingNodeWorldPosition + diffMiddlePosition
-        
-        if self.fileName == Constants.solarSystemFileName {
-            for torus in sceneView.scene.rootNode.childNodes(passingTest: isTorus) {
-                if let torusGeo = torus.geometry as? SCNTorus {
-                    let pipeRadius = 1.0 / gesture.scale * torusGeo.pipeRadius
-                    
-                    if pipeRadius < Constants.torusMaxPipeRadius && pipeRadius > Constants.torusMinPipeRadius {
-                        torusGeo.pipeRadius = pipeRadius
+            SCNTransaction.animationDuration = 0.5
+            startingNode.scale = scale
+            
+            if self.fileName == Constants.solarSystemFileName {
+                for torus in sceneView.scene.rootNode.childNodes(passingTest: isTorus) {
+                    if let torusGeo = torus.geometry as? SCNTorus {
+                        let pipeRadius = 1.0 / gesture.scale * torusGeo.pipeRadius
+                        
+                        if pipeRadius < Constants.torusMaxPipeRadius && pipeRadius > Constants.torusMinPipeRadius {
+                            torusGeo.pipeRadius = pipeRadius
+                        }
                     }
                 }
-            }
-            
-            for planet in sceneView.scene.rootNode.childNodes(passingTest: isPlanet) {
-                let pinchScaleX = Float(1 / gesture.scale) * planet.scale.x
-                let pinchScaleY =  Float(1 / gesture.scale) * planet.scale.y
-                let pinchScaleZ =  Float(1 / gesture.scale) * planet.scale.z
-                let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
-                if scale.x < Constants.planetMaxScale && scale.x > Constants.planetMinScale {
-                    planet.scale = scale
+                
+                for planet in sceneView.scene.rootNode.childNodes(passingTest: isPlanet) {
+                    let pinchScaleX = Float(1 / gesture.scale) * planet.scale.x
+                    let pinchScaleY =  Float(1 / gesture.scale) * planet.scale.y
+                    let pinchScaleZ =  Float(1 / gesture.scale) * planet.scale.z
+                    let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
+                    if scale.x < Constants.planetMaxScale && scale.x > Constants.planetMinScale {
+                        planet.scale = scale
+                    }
                 }
             }
         }
