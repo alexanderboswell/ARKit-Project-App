@@ -267,7 +267,7 @@
                                     <action selector="playPause:" destination="KHZ-sw-sP1" eventType="touchUpInside" id="98L-P0-UTW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Jx-xe-Nmf" userLabel="help">
+                            <button opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.0" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Jx-xe-Nmf" userLabel="help">
                                 <rect key="frame" x="314" y="606" width="41" height="41"/>
                                 <color key="backgroundColor" red="0.5" green="0.5" blue="0.5" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>

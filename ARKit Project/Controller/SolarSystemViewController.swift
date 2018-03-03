@@ -10,6 +10,8 @@ import UIKit
 import SceneKit
 import ARKit
 
+private let TUTORIAL_KEY = "tutorialKey"
+
 class SolarSystemViewController: UIViewController {
 	
 	//MARK: Outlets
@@ -35,6 +37,7 @@ class SolarSystemViewController: UIViewController {
         return "art.scnassets/\(fileName!).scn"
     }
 	private var focalNode: SCNNode?
+	private var timer: Timer?
 	private var screenCenter: CGPoint!
 	private var modelNode: SCNNode!
 	private var sceneAdded = false
@@ -50,6 +53,7 @@ class SolarSystemViewController: UIViewController {
         static let totalMinScale: Float = 0.00007
         static let planetMaxScale: Float = 3300.0
         static let planetMinScale: Float = 1.0
+		static let maxTranslationX: Float = 10.0
         static let middlePoint = CGPoint.init(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
         static let planetNodeName = "Planet"
         static let orbitNodeName = "Orbit"
@@ -113,6 +117,15 @@ class SolarSystemViewController: UIViewController {
 		modelNode.transform = newTransform;
 	}
 	
+	@objc func animateHelpButton() {
+		UIView.animate(withDuration: 1) {
+			self.helpButton.alpha = 0.0
+		}
+		UIView.animate(withDuration: 1) {
+			self.helpButton.alpha = 1.0
+		}
+	}
+	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		// Pause the view's session
@@ -122,6 +135,9 @@ class SolarSystemViewController: UIViewController {
 	//MARK: Actions
     
     @IBAction func helpPressed(_ sender: Any) {
+		UserDefaults.standard.set(true, forKey: TUTORIAL_KEY)
+		timer?.invalidate()
+		
         inHelpMode = !inHelpMode
         helpPromptIndex = 0
         if inHelpMode {
@@ -162,8 +178,14 @@ class SolarSystemViewController: UIViewController {
 			UIView.animate(withDuration: 0.5, animations: {
 				self.searchingLabel.alpha = 0.0
 				self.playPauseButton.alpha = 1.0
+				self.helpButton.isEnabled = true
                 self.helpButton.alpha = 1.0
 			}, completion: nil)
+			
+			//set up indicator to click tutorial
+			if UserDefaults.standard.object(forKey: TUTORIAL_KEY) == nil {
+				timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.animateHelpButton), userInfo: nil, repeats: true)
+			}
 			
 			// Make sure we've found the floor
 			guard let focalNode = focalNode else { return }
@@ -225,8 +247,11 @@ class SolarSystemViewController: UIViewController {
                 let diffPanPosition = SCNVector3.init(transform.columns.3.x - startingPanPosition.x,
                                                       transform.columns.3.y - startingPanPosition.y,
                                                       transform.columns.3.z - startingPanPosition.z)
-                
-                node.worldPosition = startingWorldPosition + diffPanPosition
+				
+				let worldPosition = startingWorldPosition + diffPanPosition
+				if worldPosition.x < Constants.maxTranslationX && worldPosition.x > -Constants.maxTranslationX {
+					node.worldPosition = worldPosition
+				}
             }
 		default:
 			// Do nothing
@@ -297,7 +322,7 @@ class SolarSystemViewController: UIViewController {
         let location: CGPoint = sender.location(in: sender.view)
         
         if let rootLocation = startingNodeStartPosition, longPressStartPosition != nil {
-            SCNTransaction.animationDuration = 1.0
+            SCNTransaction.animationDuration = 0.1
             let yDiff: Float = Float(location.y - longPressStartPosition.y) * 0.01
             startingNode.position = SCNVector3.init(rootLocation.x,
                                                     rootLocation.y - yDiff,
