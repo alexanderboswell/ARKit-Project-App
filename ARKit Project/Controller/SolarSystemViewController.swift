@@ -61,7 +61,7 @@ class SolarSystemViewController: UIViewController {
         static let zoomAnchorNodeName = "zoomAnchor"
         static let placeNodeMessage = "Aim away from you &\nTap to place model"
         static let missingARMessage = "Sorry, your device doesn't support ARKit"
-        static let helpPrompts = ["Welcome to ARocket!",
+        static let helpPrompts = ["Welcome to ARocket! \nTap to continue...",
                                   "Here are some tips \nto help you navigate.",
                                   "To move the planets, \npress anywhere on the screen \nand drag where you \nwant them to go.",
                                   "To zoom in or out, \nposition the center \nof the screen where \nyou want to zoom and \npinch with your fingers.",
