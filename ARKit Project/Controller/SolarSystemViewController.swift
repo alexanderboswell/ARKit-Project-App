@@ -63,7 +63,7 @@ class SolarSystemViewController: UIViewController {
         static let solarSystemFileName = "SolarSystem"
         static let startingPointNodeName = "starting point"
         static let zoomAnchorNodeName = "zoomAnchor"
-        static let placeNodeMessage = "Aim away from you &\nTap to place model"
+        static let placeNodeMessage = "Tap to place model"
         static let missingARMessage = "Sorry, your device doesn't support ARKit"
         static let helpPrompts = ["Welcome to ARocket! \nTap to continue...",
                                   "Here are some tips \nto help you navigate.",
