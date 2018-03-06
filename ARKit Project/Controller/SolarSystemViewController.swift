@@ -46,15 +46,30 @@ class SolarSystemViewController: UIViewController {
     private var helpPromptIndex = 0
 	private var startingPanPosition: SCNVector3!
 	private var startingWorldPosition: SCNVector3!
+    
+    // MARK: Constants
     private struct Constants {
-        static let torusMaxPipeRadius: CGFloat = 13.0
-        static let torusMinPipeRadius: CGFloat = 0.002
-        static let totalMaxScale: Float = 10000.0
+        static let torusMaxPipeRadius: Float = 13.0
+        static let torusMinPipeRadius: Float = 0.002
+        static let torusMinScalingLimit: Float = 0.0006
+        static let totalMaxScale: Float = 20.0
         static let totalMinScale: Float = 0.00007
         static let planetMaxScale: Float = 3300.0
         static let planetMinScale: Float = 1.0
+        static let planetMinScalingLimit: Float = 0.0003
 		static let maxTranslationX: Float = 10.0
+        static let labelMaxScale: Float = 10.0
+        static let labelMinScale: Float = 0.3
+        static let labelMinScalingLimit: Float = 0.0003
+        
+        static let torusOffsetModifier: Float = calcOffsetModifier(withFromMax: totalMaxScale, fromMin: torusMinScalingLimit, toMax: torusMaxPipeRadius, toMin: torusMinPipeRadius)
+        static let torusSlopeModifier: Float = calcSlopeModifier(withOffset: torusOffsetModifier, fromMax: totalMaxScale, toMin: torusMinPipeRadius)
+        
+        static let planetOffsetModifier: Float = calcOffsetModifier(withFromMax: totalMaxScale, fromMin: planetMinScalingLimit, toMax: planetMaxScale, toMin: planetMinScale)
+        static let planetSlopeModifier: Float = calcSlopeModifier(withOffset: planetOffsetModifier, fromMax: totalMaxScale, toMin: planetMinScale)
+        
         static let middlePoint = CGPoint.init(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+        static let labelNodeName = "NameLabel"
         static let planetNodeName = "Planet"
         static let orbitNodeName = "Orbit"
         static let sunPlanetName = "SunPlanet"
@@ -71,7 +86,14 @@ class SolarSystemViewController: UIViewController {
                                   "To zoom in or out, \nposition the center \nof the screen where \nyou want to zoom and \npinch with your fingers.",
                                   "To move the planets \nup or down, \ndouble tap, hold \nand then drag up or down \non your screen.",
                                   "To change the \nmovement of the planets, \npress the pause or play button.",
-                                  "Thank you for using ARocket!",]
+                                  "Thank you for using ARocket!"]
+        static func calcOffsetModifier(withFromMax fromMax: Float, fromMin: Float, toMax: Float,  toMin: Float) -> Float {
+            return (toMax - ((fromMax*toMin)/fromMin)) * (fromMin / (fromMin - fromMax))
+        }
+        static func calcSlopeModifier(withOffset offset: Float, fromMax: Float, toMin: Float) -> Float {
+            return (fromMax * toMin) - (fromMax * offset)
+        }
+        
     }
 	
 	//MARK: Viewcontroller lifecycle
@@ -132,8 +154,7 @@ class SolarSystemViewController: UIViewController {
 		sceneView.session.pause()
 	}
 	
-	//MARK: Actions
-    
+	// MARK: IBActions
     @IBAction func helpPressed(_ sender: Any) {
 		UserDefaults.standard.set(true, forKey: TUTORIAL_KEY)
 		timer?.invalidate()
@@ -173,44 +194,7 @@ class SolarSystemViewController: UIViewController {
 	
 	@IBAction func tap(_ gesture: UITapGestureRecognizer) {
 		if !sceneAdded {
-			
-			// Hide the label
-			UIView.animate(withDuration: 0.5, animations: {
-				self.searchingLabel.alpha = 0.0
-				self.playPauseButton.alpha = 1.0
-				self.helpButton.isEnabled = true
-                self.helpButton.alpha = 1.0
-			}, completion: nil)
-			
-			//set up indicator to click tutorial
-			if UserDefaults.standard.object(forKey: TUTORIAL_KEY) == nil {
-				timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.animateHelpButton), userInfo: nil, repeats: true)
-			}
-			
-			// Make sure we've found the floor
-			guard let focalNode = focalNode else { return }
-			
-			// See if we tapped on a plane where a model can be placed
-			let results = sceneView.hitTest(screenCenter, types: .existingPlane)
-			guard let transform = results.first?.worldTransform else { return }
-			
-			// Find the position to place the model, minus 5 to place model in front of you
-			let position = float3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z - 5)
-			
-			// Create a copy of the model set its position/rotation
-			let newNode = modelNode.childNodes[0]
-
-			newNode.simdPosition = position
-			
-			// Add the model to the scene
-			sceneView.scene.rootNode.addChildNode(newNode)
-			for node in focalNode.childNodes {
-				node.removeFromParentNode()
-			
-			}
-			
-			sceneAdded = true
-			setupPlanetAnimations(node: sceneView.scene.rootNode)
+			placeStartingNode()
         } else if !inHelpMode {
             
             let location: CGPoint = gesture.location(in:gesture.view)
@@ -263,52 +247,10 @@ class SolarSystemViewController: UIViewController {
         guard let startingNode = sceneView.scene.rootNode.childNode(withName: Constants.startingPointNodeName, recursively: true) else {
             return
         }
-        guard let startingMiddleResult = sceneView.hitTest(Constants.middlePoint, types: .existingPlane).first else {
-            return
-        }
-        var childNodePositions = [SCNVector3]()
-        for childNode in startingNode.childNodes {
-            childNodePositions.append(childNode.worldPosition)
-        }
-        let startingTransform = startingMiddleResult.worldTransform
-        let middlePosition = SCNVector3.init(startingTransform.columns.3.x, startingTransform.columns.3.y, startingTransform.columns.3.z)
-        startingNode.worldPosition = middlePosition
         
-        for (i,childNode) in startingNode.childNodes.enumerated() {
-            childNode.worldPosition = childNodePositions[i]
-        }
+        let pinchScale = Float(gesture.scale) * startingNode.scale.x
         
-        let pinchScaleX = Float(gesture.scale) * startingNode.scale.x
-        let pinchScaleY =  Float(gesture.scale) * startingNode.scale.y
-        let pinchScaleZ =  Float(gesture.scale) * startingNode.scale.z
-        
-        let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
-        if scale.x < Constants.totalMaxScale && scale.x > Constants.totalMinScale {
-            SCNTransaction.animationDuration = 0.5
-            startingNode.scale = scale
-            
-            if self.fileName == Constants.solarSystemFileName {
-                for torus in sceneView.scene.rootNode.childNodes(passingTest: isTorus) {
-                    if let torusGeo = torus.geometry as? SCNTorus {
-                        let pipeRadius = 1.0 / gesture.scale * torusGeo.pipeRadius
-                        
-                        if pipeRadius < Constants.torusMaxPipeRadius && pipeRadius > Constants.torusMinPipeRadius {
-                            torusGeo.pipeRadius = pipeRadius
-                        }
-                    }
-                }
-                
-                for planet in sceneView.scene.rootNode.childNodes(passingTest: isPlanet) {
-                    let pinchScaleX = Float(1 / gesture.scale) * planet.scale.x
-                    let pinchScaleY =  Float(1 / gesture.scale) * planet.scale.y
-                    let pinchScaleZ =  Float(1 / gesture.scale) * planet.scale.z
-                    let scale = SCNVector3(pinchScaleX, pinchScaleY, pinchScaleZ)
-                    if scale.x < Constants.planetMaxScale && scale.x > Constants.planetMinScale {
-                        planet.scale = scale
-                    }
-                }
-            }
-        }
+        scaleScene(by: pinchScale)
         
         gesture.scale=1
         
@@ -331,9 +273,18 @@ class SolarSystemViewController: UIViewController {
 		
 	}
     
+    // MARK: Filter Functions
+    func isLabel(childNode: SCNNode, stop: UnsafeMutablePointer<ObjCBool>) -> Bool {
+        
+        if let nodeName = childNode.name, nodeName.contains(Constants.labelNodeName) {
+            return true
+        }
+        return false
+    }
+    
     func isPlanet(childNode: SCNNode, stop: UnsafeMutablePointer<ObjCBool>) -> Bool {
         
-        if let nodeName = childNode.name, nodeName.contains(Constants.planetNodeName), nodeName != Constants.sunPlanetName {
+        if let nodeName = childNode.name, nodeName.contains(Constants.planetNodeName) {
             return true
         }
         return false
@@ -346,8 +297,162 @@ class SolarSystemViewController: UIViewController {
         }
         return false
     }
+    
+    // MARK: Scaling Functions
+    private func scaleScene(by pinchScale: Float) {
+        guard let startingNode = sceneView.scene.rootNode.childNode(withName: Constants.startingPointNodeName, recursively: true) else {
+            return
+        }
+        
+        let scale = SCNVector3(pinchScale, pinchScale, pinchScale)
+        if scale.x < Constants.totalMaxScale && scale.x > Constants.totalMinScale {
+            // Move the scaling node to the center of the screen
+            centerScalingOrigin()
+            SCNTransaction.animationDuration = 0.5
+            startingNode.scale = scale
+            
+            if self.fileName == Constants.solarSystemFileName {
+                // Inversely scale the tarus, planets and labels
+                scaleTarus(by: scale.x)
+                scalePlanets(by: scale.x)
+            }
+        }
+        
+    }
+    
+    private func centerScalingOrigin() {
+        guard let startingNode = sceneView.scene.rootNode.childNode(withName: Constants.startingPointNodeName, recursively: true) else {
+            return
+        }
+        guard let startingMiddleResult = sceneView.hitTest(Constants.middlePoint, types: .existingPlane).first else {
+            return
+        }
+        
+        // Save the world position of all of the children nodes
+        var childNodePositions = [SCNVector3]()
+        for childNode in startingNode.childNodes {
+            childNodePositions.append(childNode.worldPosition)
+        }
+        // Get the world position of the middle of the screen
+        let startingTransform = startingMiddleResult.worldTransform
+        let middlePosition = SCNVector3.init(startingTransform.columns.3.x, startingTransform.columns.3.y, startingTransform.columns.3.z)
+        // Move the starting node to the middle of the screen
+        startingNode.worldPosition = middlePosition
+        
+        // Move the child nodes back to their original world positions
+        for (i,childNode) in startingNode.childNodes.enumerated() {
+            childNode.worldPosition = childNodePositions[i]
+        }
+        
+    }
+    
+    func scaleTarus(by zoomScale: Float) {
+        for torus in sceneView.scene.rootNode.childNodes(passingTest: isTorus) {
+            if let torusGeo = torus.geometry as? SCNTorus {
+                scale(torusGeo, by: CGFloat(mapPipeRadius(zoomScale)), maxScale: CGFloat(Constants.torusMaxPipeRadius), minScale: CGFloat(Constants.torusMinPipeRadius))
+            }
+        }
+    }
+    
+    func scalePlanets(by zoomScale: Float) {
+        for planetNode in sceneView.scene.rootNode.childNodes(passingTest: isPlanet) {
+            guard let nodeName = planetNode.name else {
+                return
+            }
+            
+            if nodeName != Constants.sunPlanetName {
+                scale(planetNode, by: mapPlanetScale(zoomScale), maxScale: Constants.planetMaxScale, minScale: Constants.planetMinScale)
+            }
+            
+            if let orbitNode = planetNode.parent {
+                let planet = planets[nodeName]
+                if let labelNode = orbitNode.childNode(withName: planet.labelName, recursively: false) {
+                    scale(labelNode, by: mapNameLabelScale(zoomScale, forPlanet: planet), maxScale: planet.maxLabelScale, minScale: Constants.labelMinScale)
+                }
+            }
+            
+        }
+    }
+    
+    func scale(_ node: SCNNode, by inverseScale: Float, maxScale: Float, minScale: Float) {
+        // Ensure that the output of the scale function is within desired boundaries.
+        var inverseScale = inverseScale > maxScale ? maxScale : inverseScale
+        inverseScale = inverseScale < minScale ? minScale : inverseScale
+        let inverseScaleVector = SCNVector3(inverseScale, inverseScale, inverseScale)
+        node.scale = inverseScaleVector
+    }
+    
+    func scale(_ torus: SCNTorus, by inverseScale: CGFloat, maxScale: CGFloat, minScale: CGFloat) {
+        // Ensure that the output of the scale function is within desired boundaries.
+        var inverseScale = inverseScale > maxScale ? maxScale : inverseScale
+        inverseScale = inverseScale < minScale ? minScale : inverseScale
+        torus.pipeRadius = inverseScale
+    }
 	
-	//MARK: Custom Methods
+    // MARK: Scale Mapping Functions
+    // These mapping functions reprent a 1/x function with offset and slope modifiers
+    // that make it so that the minimum of zooming out intersects with the maximums
+    // of zooming in for various properties. These modifiers were are calculated in the
+    // Contants struct and allow us to hit those intersects exactly on target.
+    private func mapPipeRadius(_ scale: Float) -> Float {
+        return (Constants.torusSlopeModifier / scale) + Constants.torusOffsetModifier
+    }
+    
+    private func mapPlanetScale(_ scale: Float) -> Float {
+        return (Constants.planetSlopeModifier / scale) + Constants.planetOffsetModifier
+    }
+    
+    private func mapNameLabelScale(_ scale: Float, forPlanet planet: Planet) -> Float {
+        
+        
+        let labelOffsetModifier: Float = Constants.calcOffsetModifier(withFromMax: Constants.totalMaxScale, fromMin: Constants.labelMinScalingLimit, toMax: planet.maxLabelScale, toMin: Constants.labelMinScale)
+        let labelSlopeModifier: Float = Constants.calcSlopeModifier(withOffset: labelOffsetModifier, fromMax: Constants.totalMaxScale, toMin: Constants.labelMinScale)
+        
+        
+        return (labelSlopeModifier / scale) + labelOffsetModifier
+    }
+    
+    // MARK: Helper Methods
+    private func placeStartingNode() {
+        // Hide the label
+        UIView.animate(withDuration: 0.5, animations: {
+            self.searchingLabel.alpha = 0.0
+            self.playPauseButton.alpha = 1.0
+            self.helpButton.isEnabled = true
+            self.helpButton.alpha = 1.0
+        }, completion: nil)
+        
+        //set up indicator to click tutorial
+        if UserDefaults.standard.object(forKey: TUTORIAL_KEY) == nil {
+            timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.animateHelpButton), userInfo: nil, repeats: true)
+        }
+        
+        // Make sure we've found the floor
+        guard let focalNode = focalNode else { return }
+        
+        // See if we tapped on a plane where a model can be placed
+        let results = sceneView.hitTest(screenCenter, types: .existingPlane)
+        guard let transform = results.first?.worldTransform else { return }
+        
+        // Find the position to place the model, minus 5 to place model in front of you
+        let position = float3(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z - 5)
+        
+        // Create a copy of the model set its position/rotation
+        let newNode = modelNode.childNodes[0]
+        
+        newNode.simdPosition = position
+        
+        // Add the model to the scene
+        sceneView.scene.rootNode.addChildNode(newNode)
+        for node in focalNode.childNodes {
+            node.removeFromParentNode()
+            
+        }
+        
+        sceneAdded = true
+        setupPlanetAnimations(node: sceneView.scene.rootNode)
+    }
+    
 	private func node(at position: CGPoint) -> SCNNode? {
 		return sceneView.hitTest(position, options: nil)
 			.first(where: { $0.node !== focalNode && $0.node !== modelNode })?
@@ -357,8 +462,12 @@ class SolarSystemViewController: UIViewController {
     private func removeAllAnimations(node parentNode: SCNNode) {
         for node in parentNode.childNodes {
             if let nodeName = node.name, nodeName.contains(Constants.planetNodeName) {
+                let planet = planets[nodeName]
                 if let orbitNode = node.parent, let orbitNodeName = orbitNode.name, orbitNodeName.contains(Constants.orbitNodeName) {
                     orbitNode.removeAllActions()
+                    if let labelNode = orbitNode.childNode(withName: planet.labelName, recursively: false) {
+                        labelNode.removeAllActions()
+                    }
                 }
                 node.removeAllActions()
             }
@@ -372,6 +481,9 @@ class SolarSystemViewController: UIViewController {
 				let planet = planets[nodeName]
 				if let orbitNode = node.parent, let orbitNodeName = orbitNode.name, orbitNodeName.contains(Constants.orbitNodeName) {
 					orbitNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: planet.revolutionSpeed)))
+                    if let labelNode = orbitNode.childNode(withName: planet.labelName, recursively: false) {
+                        labelNode.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(-360.degreesToRadians), z: 0, duration: planet.revolutionSpeed)))
+                    }
 				}
 				node.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: planet.rotationSpeed)))
 			}

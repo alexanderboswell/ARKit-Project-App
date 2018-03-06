@@ -21,13 +21,20 @@ class Planet {
             return "\(name)Orbit"
         }
     }
+    var labelName: String {
+        get {
+            return "\(name)NameLabel"
+        }
+    }
     let rotationSpeed: TimeInterval!
     let revolutionSpeed: TimeInterval!
+    let maxLabelScale: Float!
     
-    required init(name: String, rotationSpeed: Double, revolutionSpeed: Double) {
+    required init(name: String, rotationSpeed: Double, revolutionSpeed: Double, maxLabelScale: Float) {
         self.name = name
         self.rotationSpeed = rotationSpeed
         self.revolutionSpeed = revolutionSpeed
+        self.maxLabelScale = maxLabelScale
     }
     
 }

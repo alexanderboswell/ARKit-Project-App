@@ -14,6 +14,7 @@
 		5E1D5535202F94BC0005F422 /* Planets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D5534202F94BC0005F422 /* Planets.swift */; };
 		5E1D5537202FBFD00005F422 /* Double+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D5536202FBFD00005F422 /* Double+helpers.swift */; };
 		5E6512761FB7B47500C5B585 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */; };
+		5EF6709F204B771E0039E216 /* Normalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF6709E204B771E0039E216 /* Normalizer.swift */; };
 		5EFE86C1201FE61A006D21FA /* SCNVector+operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */; };
 		F31868A71FDC7C6F00DAFDAB /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31868A61FDC7C6F00DAFDAB /* Client.swift */; };
 		F32BB8E0203F80DD00566267 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F32BB8DF203F80DD00566267 /* Launch Screen.storyboard */; };
@@ -44,6 +45,7 @@
 		5E1D5534202F94BC0005F422 /* Planets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planets.swift; sourceTree = "<group>"; };
 		5E1D5536202FBFD00005F422 /* Double+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+helpers.swift"; sourceTree = "<group>"; };
 		5E6512751FB7B47500C5B585 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		5EF6709E204B771E0039E216 /* Normalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Normalizer.swift; sourceTree = "<group>"; };
 		5EFE86C0201FE61A006D21FA /* SCNVector+operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNVector+operators.swift"; sourceTree = "<group>"; };
 		F31868A61FDC7C6F00DAFDAB /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
 		F32BB8DF203F80DD00566267 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				F31868A61FDC7C6F00DAFDAB /* Client.swift */,
 				5E1D5532202F911B0005F422 /* Planet.swift */,
 				5E1D5534202F94BC0005F422 /* Planets.swift */,
+				5EF6709E204B771E0039E216 /* Normalizer.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				F3DBE2161FDA55F0008B6AD0 /* Module.swift in Sources */,
 				F37201A81FDC691700A61537 /* SignInViewController.swift in Sources */,
 				F37201A21FDBA97900A61537 /* ProfileViewController.swift in Sources */,
+				5EF6709F204B771E0039E216 /* Normalizer.swift in Sources */,
 				5E1D552D202F825A0005F422 /* Int+helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

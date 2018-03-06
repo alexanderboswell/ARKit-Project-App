@@ -222,10 +222,7 @@
                                 </connections>
                             </arscnView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.75" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching for a horizontal surface..." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="asS-3x-ap0">
-                                <rect key="frame" x="12.5" y="308.5" width="350" height="85"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="asS-3x-ap0" secondAttribute="height" multiplier="41:10" id="laS-Ve-ALk"/>
-                                </constraints>
+                                <rect key="frame" x="12.5" y="338.5" width="350" height="25.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -297,8 +294,10 @@
                             <constraint firstItem="lnv-3b-ZUa" firstAttribute="trailing" secondItem="8Jx-xe-Nmf" secondAttribute="trailing" constant="20" id="GhH-4E-ouH"/>
                             <constraint firstItem="8Jx-xe-Nmf" firstAttribute="width" secondItem="8Jx-xe-Nmf" secondAttribute="height" multiplier="1:1" id="KjU-MY-aKm"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="top" secondItem="uLB-mH-jCz" secondAttribute="top" id="Orl-lW-C7j"/>
+                            <constraint firstItem="asS-3x-ap0" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" constant="12.5" id="PNd-xJ-QXU"/>
                             <constraint firstItem="d7F-Ec-8qX" firstAttribute="trailing" secondItem="lnv-3b-ZUa" secondAttribute="trailing" id="PRz-8x-7YO"/>
                             <constraint firstItem="pfO-qJ-RYr" firstAttribute="leading" relation="lessThanOrEqual" secondItem="x9E-5k-l0X" secondAttribute="trailing" priority="250" constant="251" id="U7L-D1-MT3"/>
+                            <constraint firstItem="lnv-3b-ZUa" firstAttribute="trailing" secondItem="asS-3x-ap0" secondAttribute="trailing" constant="12.5" id="YoV-co-qeg"/>
                             <constraint firstItem="pfO-qJ-RYr" firstAttribute="top" secondItem="lnv-3b-ZUa" secondAttribute="top" id="Zt4-2y-3fU"/>
                             <constraint firstItem="asS-3x-ap0" firstAttribute="centerX" secondItem="uLB-mH-jCz" secondAttribute="centerX" id="d8i-eF-fLX"/>
                             <constraint firstItem="x9E-5k-l0X" firstAttribute="leading" secondItem="lnv-3b-ZUa" secondAttribute="leading" constant="16" id="jxF-Tj-JSq"/>
